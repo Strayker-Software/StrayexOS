@@ -1,3 +1,11 @@
+/*
+ Strayex Kernel C Library "klib"
+ v1.0
+ Kernel String file, functions in file "kstring.c"
+ Copyright 2019 Daniel Strayker Nowak
+ All rights reserved
+*/
+
 #ifndef _KSTRING_
 #define _KSTRING_
 

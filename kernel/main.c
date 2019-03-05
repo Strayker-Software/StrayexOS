@@ -1,6 +1,9 @@
 /*
-	Copyright 2019 Daniel Strayker Nowak
-	All rights reserved
+ Strayex Kernel
+ v1.0
+ Kernel's main file, with kinit and kmain functions
+ Copyright 2019 Daniel Strayker Nowak
+ All rights reserved
 */
 
 #include <stdint.h>

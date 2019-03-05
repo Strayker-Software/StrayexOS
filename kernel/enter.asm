@@ -4,10 +4,10 @@
 ; Copyright 2019 Daniel Strayker Nowak
 ; All rights reserved
 
-[BITS 32]			; Kernel loaded by GNU GRUB with Multiboot, working in 32 bit protected mode,
+[BITS 32]			; Kernel loaded by Multiboot boot loader, working in 32 bit protected mode,
 
-GLOBAL _start			; Here will jump GRUB after loading,
-	jmp short _start	; so we jump to code, kernel don't have to read Multiboot header,
+GLOBAL _start			; Here will jump boot loader after loading,
+	jmp short _start	; so we jump to code, kernel don't have to execute Multiboot header,
 
 ; This is Multiboot header, this part must be 4 byte length (for Multiboot 1 specs) or 8 byte length (for Multiboot 2 specs),
 ALIGN 4

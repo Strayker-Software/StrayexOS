@@ -1,3 +1,11 @@
+/*
+ Strayex Kernel C Library "klib"
+ v1.0
+ Kernel Input / Output file, functions in file kernel's drivers
+ Copyright 2019 Daniel Strayker Nowak
+ All rights reserved
+*/
+
 #ifndef _KIO_
 #define _KIO_
 

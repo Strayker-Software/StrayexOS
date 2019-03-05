@@ -14,4 +14,4 @@ read file CONTRIBUTING.md, to know how to do it!
 
 ## Licensing
 
-Strayex Docs is published under the GNU Free Documentation License
+All repository is licensed on modified MIT/X11 license.

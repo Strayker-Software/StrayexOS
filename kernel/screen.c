@@ -1,6 +1,9 @@
 /*
-	Copyright 2019 Daniel Strayker Nowak
-	All rights reserved
+ Strayex Kernel
+ v1.0
+ Screen VGA driver
+ Copyright 2019 Daniel Strayker Nowak
+ All rights reserved
 */
 
 #include "klib/kio.h"
