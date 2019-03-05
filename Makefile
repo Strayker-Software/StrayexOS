@@ -1,8 +1,6 @@
 # Strayex Makefile
 # for version v1.0
 
-# TODO: Dodać nagłówek GPL!
-
 # Let's start!
 
 # Variables:
