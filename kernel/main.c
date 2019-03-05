@@ -1,3 +1,8 @@
+/*
+	Copyright 2019 Daniel Strayker Nowak
+	All rights reserved
+*/
+
 #include <stdint.h>
 #include <stdbool.h>
 #include "klib/multiboot.h"
