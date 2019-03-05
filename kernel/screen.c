@@ -1,3 +1,8 @@
+/*
+	Copyright 2019 Daniel Strayker Nowak
+	All rights reserved
+*/
+
 #include "klib/kio.h"
 #include "klib/kstring.h"
 
