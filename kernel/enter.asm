@@ -1,6 +1,8 @@
 ; Strayex Kernel
 ; v1.0
 ; Kernel's entery point in NASM Assembly
+; Copyright 2019 Daniel Strayker Nowak
+; All rights reserved
 
 [BITS 32]			; Kernel loaded by GNU GRUB with Multiboot, working in 32 bit protected mode,
 
