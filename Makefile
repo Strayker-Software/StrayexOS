@@ -1,5 +1,7 @@
 # Strayex Makefile
 # for version v1.0
+# Copyright 2019 Daniel Strayker Nowak
+# All rights reserved
 
 # Let's start!
 
