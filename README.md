@@ -17,7 +17,7 @@ Strayex is designed to be simple (for me and you :) ) to understand and to devel
 I make releases every major changes, small changes are minor. The biggest changes are uploaded as new distributions.
 In GitHub repository I use "experimental" branch to upload code, that may cause unexpected behavior. If you want to use Strayex without working on it's code, don't download this branch and it's ISO file!
 On [official Strayex side](http://www.strayex.cba.pl) I uploaded all source files of distributions listed below, for mirror.
-This software is released under [GNU General Public License](https://github.com/StraykerPL/StrayexOS/blob/master/LICENSE)!
+This software is released under [MIT/X11 license](https://github.com/StraykerPL/StrayexOS/blob/master/LICENSE)!
 
 Distribution list:
 - Pretorian Alpha 1.0.0.0 (actually in repository),
