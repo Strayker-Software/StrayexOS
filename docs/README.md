@@ -10,7 +10,7 @@ Just enter the language's folder you want and start reading from README.md file!
 ## Contribution to documentation
 
 If you want to translate documentation to another language, or you want to upgrade existing one,
-read file [CONTRIBUTING.md](), to know how to do it!
+read file [CONTRIBUTING.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/pl/CONTRIBUTING.md), to know how to do it!
 
 ## Licensing
 
