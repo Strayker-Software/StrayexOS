@@ -34,6 +34,6 @@ By dokonywać jakiś działań w systemie, konieczna jest modyfikacja kodu jądr
 ## Co dalej?
 
 System Strayex jest w wczesnej fazie pisania, dlatego praktycznie nie posiada funkcji.
-By dowiedzieć się, co jest w planach prowadzenia projektu, przejdź do [TODO.md]().
+By dowiedzieć się, co jest w planach prowadzenia projektu, przejdź do [TODO.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/TODO.md).
 
-Teraz posiadasz podstawowe informacje o Strayex! Przejdź do kolejnego pliku [BASIC.md]() aby kontynuować.
+Teraz posiadasz podstawowe informacje o Strayex! Przejdź do kolejnego pliku [BASIC.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/pl/BASIC.md) aby kontynuować.
