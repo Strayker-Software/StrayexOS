@@ -11,5 +11,6 @@
 
 extern void kprintch(unsigned char x);
 extern void kprintf(char *x);
+extern void kmove_cursor();
 
 #endif

@@ -12,11 +12,14 @@
 #include "klib/kio.h"
 #include "klib/kstring.h"
 
+// Holds information, if kernel have to show loading info on screen, default is true,
 bool if_info_on_screen = true;
 
-// Main kernel's function, loading and running Strayex Shell:
+// Main kernel's function, loading and running Strayex Shell (not yet):
 void kmain()
 {
+	// Here before for loop you can add your own code to make Strayex Kernel do something extra for you!
+
 	for(;;);
 }
 
@@ -37,7 +40,7 @@ void kinit()
 	asm("movl %%EAX, %0;" : "=r" (magic));
 
 	// For Multiboot Informations Structure address:
-	multiboot_info_t *mbi;
+	multiboot_info_t *mbi = 0;
 	
 	// Perform check operation:
 	if(magic == MULTIBOOT_BOOTLOADER_MAGIC)
@@ -51,13 +54,26 @@ void kinit()
 	else
 	{
 		// No, Strayex Kernel booted with no-Multiboot!
+		kprintf("Fatal error - Strayex booted by no-Multiboot bootloader!\n");
+		kprintf("Terminating...");
+		return;
 	}
+
+	kprintf("StrayexOS\n"); // My name :) for information, that Strayex is loading now,
 
 	// Checks, if kernel have to write initailisation info on screen:
 	if(if_info_on_screen)
 	{
-		kprintf("StrayexOS "); // My name :)
-		kprintf((char *)mbi->boot_loader_name); // Bootloader
+		// Writting the info:
+		kprintf("Bootloader: ");
+		kprintf((char *)mbi->boot_loader_name);
+		kprintch('\n');
+		//kprintf("Lower memory: ");
+		//kprintint(mbi->mem_lower);
+		//kprintf(" MB\n");
+		//kprintf("Upper memory: ");
+		//kprintint(mbi->mem_upper);
+		//kprintf(" MB\n");
 	}
 
 	// Initialisation complete! Start main kernel function:

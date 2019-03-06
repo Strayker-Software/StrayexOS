@@ -8,22 +8,62 @@
 
 #include "klib/kio.h"
 #include "klib/kstring.h"
+#include "klib/kstdlib.h"
 
 unsigned short *videomem = (unsigned short *)0xB8000;
 int attrib = 0x0F;
 int px = 0, py = 0;
 
+void kmove_cursor()
+{
+    unsigned temp;
+    temp = py * 80 + px;
+
+    koutportb(0x3D4, 14);
+    koutportb(0x3D5, temp >> 8);
+    koutportb(0x3D4, 15);
+    koutportb(0x3D5, temp);
+}
+
 void kprintch(unsigned char x)
 {
-	unsigned att = attrib << 8;
-	unsigned short *where = videomem + (py * 80 + px);
-	*where = x | att;
-	px++;
+	// Backspace
+	if(x == 0x08)
+	{
+		if(px != 0) px--;
+	}
+	// TAB
+	else if(x == 0x09)
+	{
+		px = (px + 8) & ~(8 - 1);
+	}
+	// Carriage return
+	else if(x == '\r')
+	{
+		px = 0;
+	}
+	// New line
+	else if(x == '\n')
+	{
+		px = 0;
+		py++;
+	}
+	// Printable character
+	else if(x >= ' ')
+	{
+		unsigned att = attrib << 8;
+		unsigned short *where = videomem + (py * 80 + px);
+		*where = x | att;
+		px++;
+	}
+
 	if(px >= 80)
 	{
 		px = 0;
 		py++;
 	}
+
+	kmove_cursor();
 }
 
 void kprintf(char *x)
