@@ -1,0 +1,1 @@
+# Zaawansowane informacje o Strayex
