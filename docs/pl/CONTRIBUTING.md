@@ -1,0 +1,1 @@
+# Strayex Contributing help file
