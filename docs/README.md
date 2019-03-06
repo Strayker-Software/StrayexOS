@@ -14,4 +14,4 @@ read file CONTRIBUTING.md, to know how to do it!
 
 ## Licensing
 
-All repository is licensed on modified MIT/X11 license.
+All repository is licensed on MIT/X11 license.
