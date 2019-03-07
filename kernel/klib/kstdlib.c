@@ -10,6 +10,7 @@
  https://stackoverflow.com/questions/3835922/simple-swap-function-why-doesnt-this-one-swap
 */
 
+#include <stdbool.h>
 #include "kstdlib.h"
 
 // Reading from I/O ports:
@@ -27,7 +28,7 @@ void koutportb (unsigned short _port, unsigned char _data)
 }
 
 // Swapping integers in memory:
-void swap(int* a, int* b)
+void kswap(int* a, int* b)
 {
  int temp = *a;
  *a = *b;
@@ -35,20 +36,20 @@ void swap(int* a, int* b)
 }
 
 // Reversing strings:
-void reverse(char str[], int length) 
+void kreverse(char str[], int length)
 {
-    int start = 0; 
-    int end = length -1; 
-    while (start < end) 
-    { 
-        swap(*(str+start), *(str+end)); 
-        start++; 
-        end--; 
-    } 
+    int start = 0;
+    int end = length -1;
+    while (start < end)
+    {
+        kswap((int *)(str+start), (int *)(str+end));
+        start++;
+        end--;
+    }
 }
 
 // Converting integer to char table:
-char *itoa(int num, char* str, int base) 
+char *kitoa(int num, char* str, int base)
 { 
     int i = 0; 
     bool isNegative = false; 
@@ -84,7 +85,7 @@ char *itoa(int num, char* str, int base)
     str[i] = '\0'; // Append string terminator 
   
     // Reverse the string 
-    reverse(str, i); 
+    kreverse(str, i); 
   
     return str; 
 }

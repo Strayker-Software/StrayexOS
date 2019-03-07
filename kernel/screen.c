@@ -25,12 +25,20 @@ void kmove_cursor()
     koutportb(0x3D5, temp);
 }
 
+void ksetattrib(char font, char bg)
+{
+	attrib = (bg << 4) | (font & 0x0F);
+}
+
 void kprintch(unsigned char x)
 {
 	// Backspace
 	if(x == 0x08)
 	{
 		if(px != 0) px--;
+		unsigned att = attrib << 8;
+		unsigned short *where = videomem + (py * 80 + px);
+		*where = ' ' | att;
 	}
 	// TAB
 	else if(x == 0x09)
@@ -62,6 +70,19 @@ void kprintch(unsigned char x)
 		px = 0;
 		py++;
 	}
+
+	kmove_cursor();
+}
+
+void kcls()
+{
+	for(int i = 0; i < 25; i++)
+	{
+		for(int j = 0; j < 80; i++) kprintch(' ');
+	}
+
+	px = 0;
+	py = 0;
 
 	kmove_cursor();
 }

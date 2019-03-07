@@ -11,6 +11,7 @@
 #include "klib/multiboot.h"
 #include "klib/kio.h"
 #include "klib/kstring.h"
+#include "klib/kstdlib.h"
 
 // Holds information, if kernel have to show loading info on screen, default is true,
 bool if_info_on_screen = true;
@@ -69,12 +70,20 @@ void kinit()
 		kprintf((char *)mbi->boot_loader_name);
 		kprintch('\n');
 		kprintf("Lower memory: ");
-		kprintint(itoa(mbi->mem_lower));
-		kprintf(" MB\n");
+		char hel[] = { };
+		kitoa(mbi->mem_lower, hel, 10);
+		kprintf(hel);
+		kprintf(" KB\n");
 		kprintf("Upper memory: ");
-		kprintint(itoa(mbi->mem_upper));
-		kprintf(" MB\n");
+		kitoa(mbi->mem_upper, hel, 10);
+		kprintf(hel);
+		kprintf(" KB\n");
+		kprintf("Arguments for Strayex: ");
+		kprintf((char *)mbi->cmdline);
+		kprintch('\n');
 	}
+
+	
 
 	// Initialisation complete! Start main kernel function:
 	kmain();

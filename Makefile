@@ -3,6 +3,8 @@
 # Copyright 2019 Daniel Strayker Nowak
 # All rights reserved
 
+# WARNING! To use this Makefile you have to install GNU make, i386-elf GCC Cross-Compiler, NASM and GNU GRUB!
+
 # Let's start!
 
 # Variables:
