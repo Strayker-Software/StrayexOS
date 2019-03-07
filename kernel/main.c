@@ -68,12 +68,12 @@ void kinit()
 		kprintf("Bootloader: ");
 		kprintf((char *)mbi->boot_loader_name);
 		kprintch('\n');
-		//kprintf("Lower memory: ");
-		//kprintint(mbi->mem_lower);
-		//kprintf(" MB\n");
-		//kprintf("Upper memory: ");
-		//kprintint(mbi->mem_upper);
-		//kprintf(" MB\n");
+		kprintf("Lower memory: ");
+		kprintint(itoa(mbi->mem_lower));
+		kprintf(" MB\n");
+		kprintf("Upper memory: ");
+		kprintint(itoa(mbi->mem_upper));
+		kprintf(" MB\n");
 	}
 
 	// Initialisation complete! Start main kernel function:
