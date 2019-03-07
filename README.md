@@ -20,6 +20,7 @@ On [official Strayex side](http://www.strayex.cba.pl) I uploaded all source file
 This software is released under [MIT/X11 license](https://github.com/StraykerPL/StrayexOS/blob/master/LICENSE)!
 
 Distribution list:
+- Strayex Legacy,
 - Pretorian Alpha 1.0.0.0 (actually in repository),
 
 # TODO
