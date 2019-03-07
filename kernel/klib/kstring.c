@@ -6,7 +6,21 @@
  All rights reserved
 */
 
+#include <stdbool.h>
 #include "kstring.h"
+
+// Checks, that given string is valid ASCII string type:
+bool StringChecker(char *ret, int length)
+{
+	for(int i = 0; i < length - 1; i++)
+	{
+		if(!(ret[i] >= ' ' && ret[i] <= '~')) return false;
+	}
+
+	if(ret[length] != '\0') return false;
+
+	return true;
+}
 
 // Counts letters in given string:
 int kstrlen(unsigned char *x)
