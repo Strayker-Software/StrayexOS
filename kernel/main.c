@@ -12,6 +12,7 @@
 #include "klib/kio.h"
 #include "klib/kstring.h"
 #include "klib/kstdlib.h"
+#include "klib/kdt.h"
 
 // Holds information, if kernel have to show loading info on screen, default is true,
 bool if_info_on_screen = true;
@@ -55,7 +56,7 @@ void kinit()
 	else
 	{
 		// No, Strayex Kernel booted with no-Multiboot!
-		kprintf("Fatal error - Strayex booted by no-Multiboot bootloader!\n");
+		kprintf("Fatal Error - Strayex booted by no-Multiboot bootloader!\n");
 		kprintf("Terminating...");
 		return;
 	}
@@ -83,7 +84,7 @@ void kinit()
 		kprintch('\n');
 	}
 
-	
+	gdt_init(); // Mapping General Descriptor Table,
 
 	// Initialisation complete! Start main kernel function:
 	kmain();
