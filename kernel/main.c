@@ -12,10 +12,7 @@
 #include "klib/kio.h"
 #include "klib/kstring.h"
 #include "klib/kstdlib.h"
-<<<<<<< HEAD
 #include "klib/kdt.h"
-=======
->>>>>>> c0fbfe237ddff15e7a98157daa49a7161fa8f4aa
 
 // Holds information, if kernel have to show loading info on screen, default is true,
 bool if_info_on_screen = true;
@@ -87,11 +84,7 @@ void kinit()
 		kprintch('\n');
 	}
 
-<<<<<<< HEAD
 	gdt_init(); // Mapping General Descriptor Table,
-=======
-	
->>>>>>> c0fbfe237ddff15e7a98157daa49a7161fa8f4aa
 
 	// Initialisation complete! Start main kernel function:
 	kmain();
