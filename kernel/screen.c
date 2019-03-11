@@ -37,7 +37,7 @@ void kprintch(unsigned char x)
 	{
 		if(px >= 0)
 		{
-			ps--;
+			px--;
 			unsigned att = attrib << 8;
 			unsigned short *where = videomem + (py * 80 + px);
 			*where = ' ' | att;

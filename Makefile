@@ -32,12 +32,12 @@ all: info kernel iso-create clear iso-run
 # make kernel - only Strayex Kernel compilation to ELF binary file:
 kernel: $(KERNEL_FILES_ASM) $(KERNEL_FILES_C)
 	@echo Linking kernel...
-	@$$TARGET-gcc -T link.ld -o $(KERNEL_DIR)/skern-$(VER).bin -ffreestanding -O0 -nostdlib $(OBJ_FILES_ASM) $(OBJ_FILES_C) -lgcc
+	@$$TARGET-gcc -T link.ld -o $(KERNEL_DIR)/skern-$(VER).bin -ffreestanding -nostdlib $(OBJ_FILES_ASM) $(OBJ_FILES_C) -lgcc
 	@echo Done!
 
 $(KERNEL_FILES_C): %.o %.c
 	@echo Compiling kernel C file $@ ...
-	@$$TARGET-gcc -c $@ -o $*.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -I$$PREFIX/include
+	@$$TARGET-gcc -c $@ -o $*.o -std=gnu99 -ffreestanding -Wall -Wextra -I$$PREFIX/include
 
 $(KERNEL_FILES_ASM): %.o %.asm
 	@echo Compiling kernel Assembly file $@...

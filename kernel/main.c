@@ -86,6 +86,16 @@ void kinit()
 
 	gdt_init(); // Mapping General Descriptor Table,
 	idt_init(); // Mapping Interrupt Descriptor Table,
+	isrs_init(); // Mapping Interrupt Service Routains,
+	irq_init(); // Remapping IDT and ISR for working properly,
+
+	/*
+	Special variable for checking, if IDT and ISR are working, if you want to check that,
+	uncomment next two lines!
+	*/
+	//int a = 10;
+	//int b = a / 0;
+	// After startup of the virtual machine, and after writting "Arguments for Strayex", shoud be "Division By Zero Exception. System Halted!"
 
 	// Initialisation complete! Start main kernel function:
 	kmain();
