@@ -63,24 +63,29 @@ void kinit()
 
 	kprintf("StrayexOS\n"); // My name :) for information, that Strayex is loading now,
 
+	// Multiboot informations:
+	char *bootloader = (char *)mbi->boot_loader_name;
+	char memlow[] = { };
+	char memup[] = { };
+	char *args = (char *)mbi->cmdline;
+
 	// Checks, if kernel have to write initailisation info on screen:
 	if(if_info_on_screen)
 	{
 		// Writting the info:
 		kprintf("Bootloader: ");
-		kprintf((char *)mbi->boot_loader_name);
+		kprintf(bootloader);
 		kprintch('\n');
 		kprintf("Lower memory: ");
-		char hel[] = { };
-		kitoa(mbi->mem_lower, hel, 10);
-		kprintf(hel);
+		kitoa(mbi->mem_lower, memlow, 10);
+		kprintf(memlow);
 		kprintf(" KB\n");
 		kprintf("Upper memory: ");
-		kitoa(mbi->mem_upper, hel, 10);
-		kprintf(hel);
+		kitoa(mbi->mem_upper, memup, 10);
+		kprintf(memup);
 		kprintf(" KB\n");
 		kprintf("Arguments for Strayex: ");
-		kprintf((char *)mbi->cmdline);
+		kprintf(args);
 		kprintch('\n');
 	}
 
@@ -88,14 +93,18 @@ void kinit()
 	idt_init(); // Mapping Interrupt Descriptor Table,
 	isrs_init(); // Mapping Interrupt Service Routains,
 	irq_init(); // Remapping IDT and ISR for working properly,
+	pit_init(); // Mapping IRQ0 for Programmable Interval Timer,
+	//asm("sti");
 
 	/*
-	Special variable for checking, if IDT and ISR are working, if you want to check that,
-	uncomment next two lines!
+	Special variable for checking, if descriptor tables are working, if you want to check that,
+	uncomment next two lines. This checking controls GDT, IDT, ISRs and IRQs.
 	*/
+
 	//int a = 10;
 	//int b = a / 0;
-	// After startup of the virtual machine, and after writting "Arguments for Strayex", shoud be "Division By Zero Exception. System Halted!"
+
+	// After startup of the virtual machine, screen shoud contain "Division By Zero Exception. System Halted!"
 
 	// Initialisation complete! Start main kernel function:
 	kmain();

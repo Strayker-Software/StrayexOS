@@ -14,5 +14,6 @@ extern void koutportb (unsigned short _port, unsigned char _data);
 extern void kswap(int* a, int* b);
 extern void kreverse(char str[], int length);
 extern char *kitoa(int num, char* str, int base);
+extern void pit_init();
 
 #endif
