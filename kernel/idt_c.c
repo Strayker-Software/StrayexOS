@@ -12,7 +12,7 @@
 */
 
 #include "klib/kdt.h"
-#include "klib/kstdlib.h"
+#include "klib/kstring.h"
 
 /* Defines an IDT entry */
 struct idt_entry
@@ -71,7 +71,7 @@ void idt_init()
     idtp.base = (unsigned int)&idt;
 
     /* Clear out the entire IDT, initializing it to zeros */
-    kmemset(&idt, 0, sizeof(struct idt_entry) * 256);
+    memset((unsigned char *)&idt, 0, sizeof(struct idt_entry) * 256);
 
     /* Add any new ISRs to the IDT here using idt_set_gate */
 

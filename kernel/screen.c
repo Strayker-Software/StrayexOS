@@ -35,10 +35,18 @@ void kprintch(unsigned char x)
 	// Backspace
 	if(x == 0x08)
 	{
-		if(px != 0) px--;
-		unsigned att = attrib << 8;
-		unsigned short *where = videomem + (py * 80 + px);
-		*where = ' ' | att;
+		if(px >= 0)
+		{
+			ps--;
+			unsigned att = attrib << 8;
+			unsigned short *where = videomem + (py * 80 + px);
+			*where = ' ' | att;
+		}
+		else if(px < 0)
+		{
+			px = 0;
+			py--;
+		}
 	}
 	// TAB
 	else if(x == 0x09)
@@ -70,6 +78,9 @@ void kprintch(unsigned char x)
 		px = 0;
 		py++;
 	}
+
+	if(px < 0) px = 0;
+	if(py < 0) py = 0;
 
 	kmove_cursor();
 }
