@@ -61,11 +61,11 @@ info:
 # make iso-create - copies kernel's binary file to grub-mkrescue's directoryand creates GRUB ISO with it:
 iso-create:
 	@cp $(KERNEL_DIR)/skern-$(VER).bin ~/iso/boot/skern-$(VER).bin
-	@grub-mkrescue -o ~/strayex-$(ARCH)-$(VER).iso ~/iso
+	@grub-mkrescue -o docs/strayex-$(ARCH)-$(VER).iso ~/iso
 
 # make iso-run - start QEMU with Strayex ISO file:
 iso-run:
-	@qemu-system-x86_64 -cdrom ~/strayex-$(ARCH)-$(VER).iso
+	@qemu-system-x86_64 -cdrom docs/strayex-$(ARCH)-$(VER).iso
 
 # make clear - clears object files from working directories:
 clear:
