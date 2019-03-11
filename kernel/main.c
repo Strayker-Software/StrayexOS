@@ -85,6 +85,7 @@ void kinit()
 	}
 
 	gdt_init(); // Mapping General Descriptor Table,
+	idt_init(); // Mapping Interrupt Descriptor Table,
 
 	// Initialisation complete! Start main kernel function:
 	kmain();
