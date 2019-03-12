@@ -12,6 +12,7 @@
 
 #include <stdbool.h>
 #include "kstdlib.h"
+#include "kstring.h"
 
 // Reading from I/O ports:
 unsigned char kinportb (unsigned short _port)
@@ -36,9 +37,10 @@ void kswap(int* a, int* b)
 }
 
 // Reversing strings:
-void kreverse(char str[], int length)
+void kreverse(char str[])
 {
     int start = 0;
+	int length = kstrlen((unsigned char *)str);
     int end = length -1;
     while (start < end)
     {
@@ -51,7 +53,7 @@ void kreverse(char str[], int length)
 // Converting integer to char table:
 char *kitoa(int num, char* str, int base)
 { 
-    int i = 0; 
+	int i = 0; 
     bool isNegative = false; 
   
     /* Handle 0 explicitely, otherwise empty string is printed for 0 */
@@ -85,7 +87,7 @@ char *kitoa(int num, char* str, int base)
     str[i] = '\0'; // Append string terminator 
   
     // Reverse the string 
-    kreverse(str, i); 
+    kreverse(str); 
   
     return str; 
 }
