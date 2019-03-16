@@ -14,5 +14,6 @@ extern void kprintf(char *x);
 extern void kmove_cursor();
 extern void ksetattrib(char font, char bg);
 extern void kcls();
+extern void kb_init();
 
 #endif

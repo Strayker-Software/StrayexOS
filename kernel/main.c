@@ -94,7 +94,8 @@ void kinit()
 	isrs_init(); // Mapping Interrupt Service Routains,
 	irq_init(); // Remapping IDT and ISR for working properly,
 	pit_init(); // Mapping IRQ0 for Programmable Interval Timer,
-	//asm("sti");
+	kb_init(); // Mapping PS/2 keyboard driver,
+	asm("sti");
 
 	/*
 	Special variable for checking, if descriptor tables are working, if you want to check that,
