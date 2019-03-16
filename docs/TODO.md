@@ -14,8 +14,8 @@ Feel free to join me in! :D
 ### Strayex Kernel
 
 - [ ] Managing Multiboot information,
-- [ ] Mapping General Descriptor Table,
-- [ ] Mapping Interrput Descriptor Table, Interrupt Request and Interrupt Service Routain,
+- [x] Mapping General Descriptor Table,
+- [x] Mapping Interrput Descriptor Table, Interrupt Request and Interrupt Service Routain,
 - [ ] Strayex System Call interrupt in IDT,
 - [ ] VGA terminal driver,
 - [ ] US QWERTY PS/2 keyboard driver,
@@ -38,5 +38,6 @@ Feel free to join me in! :D
 
 ### Strayex Docs
 
-- [ ] Polish translation,
+- [x] Polish translation,
 - [ ] English translation,
+- [ ] German translation,

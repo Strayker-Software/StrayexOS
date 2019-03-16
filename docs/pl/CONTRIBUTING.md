@@ -12,22 +12,39 @@ Gdy odrzucę PR, zawsze podam przyczynę.
 
 ### Jak przygotować Pull Request
 
-Aby PR był przezemnie przyjęty, musi zostać spełniona ta lista:
+Aby PR był przeze mnie przyjęty, musi zostać spełniona ta lista:
 
 - kod powinien być Twój, jeśli nie jest, to musi być na licencji otwartego oprogramowania, najlepiej X11,
 - jeśli kod nie jest Twój, podaj źródło i nagłówek praw autorskich,
-- kod powinien być czytelny, sformatowany (TAB, odstępy linii), mile widziane komentarze,
-- PR musi zawierać plik z informacjami, najlepiej w formacie .TXT,
+- kod powinien być czytelny, sformatowany (TABy, odstępy linii), mile widziane komentarze,
+
+Jeśli dodajesz nową funkcję do systemu, mile widziana była by aktualizacja dokumentacji (folder "docs").
 
 ### Plik informacyjny
 
+Wszystkie informacje powinny zostać zawarte w tym pliku.
 Nazwa: "info".
 
 Co powinien zawierać ten plik?
 - informacje o twórcy, nick lub imię i nazwisko,
+- nagłówek praw autorskich,
 - opis, co dodaje Twój PR,
+
+### Kontrybucja do dokumentacji
+
+Aby dodać tłumaczenie Strayex Docs, przygotuj folder o nazwie ze skrótem danego języka ("CS" - Czeski, "es" - Hiszpański).
+W tym folderze musi znajdować się następująca lista plików:
+
+- README.md - informacje jak czytać dokumentację,
+- CONTRIBUTING.md - jak zostać kontrybutorem projektu,
+- START.md - jak zacząć pracę z systemem,
+- BASIC.md - podstawowe informacje o systemie, opis funkcji,
+- ADVANCED.md - zaawansowane informacje o systemie (API, szczegółowa budowa systemu),
+
+Tłumacząc dokumentację bazuj na wersji Angielskiej, by uniknąć zatracania się treści w tłumaczeniach.
+Dołącz ten sam plik informacyjny, co przy zwykłym Pull Request (patrz powyżej).
 
 # Informacja prawna
 
-Nie biorę żadnej odpowiedzialności za plik dodane przez kontrybutorów.
+Nie biorę żadnej odpowiedzialności za pliki dodane przez kontrybutorów.
 Strayex jest na licencji X11, każdy kożysta z niego na własną odpowiedzialność.
