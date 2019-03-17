@@ -103,3 +103,18 @@ void kprintf(char *x)
 	int n = kstrlen((unsigned char *)x);
 	for(int i = 0; i < n; i++) kprintch(x[i]);
 }
+
+void enable_cursor(unsigned char cursor_start, unsigned char cursor_end)
+{
+	koutportb(0x3D4, 0x0A);
+	koutportb(0x3D5, (kinportb(0x3D5) & 0xC0) | cursor_start);
+ 
+	koutportb(0x3D4, 0x0B);
+	koutportb(0x3D5, (kinportb(0x3D5) & 0xE0) | cursor_end);
+}
+
+void disable_cursor()
+{
+	koutportb(0x3D4, 0x0A);
+	koutportb(0x3D5, 0x20);
+}
