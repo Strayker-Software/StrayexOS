@@ -227,19 +227,35 @@
        multiboot_uint8_t blue;
      };
      
+/*
      struct multiboot_mmap_entry
      {
        multiboot_uint32_t size;
-       multiboot_uint64_t addr;
-       multiboot_uint64_t len;
+       multiboot_uint32_t addr;
+       multiboot_uint32_t len;
+*/
      #define MULTIBOOT_MEMORY_AVAILABLE              1
      #define MULTIBOOT_MEMORY_RESERVED               2
      #define MULTIBOOT_MEMORY_ACPI_RECLAIMABLE       3
      #define MULTIBOOT_MEMORY_NVS                    4
      #define MULTIBOOT_MEMORY_BADRAM                 5
+/*
        multiboot_uint32_t type;
      } __attribute__((packed));
      typedef struct multiboot_mmap_entry multiboot_memory_map_t;
+*/
+
+	// This is rewritten version of Multiboot Memory Map structure, original one is packed wrongly by GCC because of "multiboot_uint64_t"
+	struct multiboot_mmap_entry
+	{
+		multiboot_uint32_t size;
+		multiboot_uint32_t addr_up;
+		multiboot_uint32_t addr_low;
+		multiboot_uint32_t len_up;
+		multiboot_uint32_t len_low;
+		multiboot_uint32_t type;
+	} __attribute__((packed));
+	typedef struct multiboot_mmap_entry multiboot_memory_map_t;
      
      struct multiboot_mod_list
      {

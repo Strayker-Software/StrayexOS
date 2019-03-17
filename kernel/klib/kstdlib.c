@@ -91,3 +91,17 @@ char *kitoa(int num, char* str, int base)
   
     return str; 
 }
+
+// Interrupt management:
+
+// Enable interrupts:
+void Int_on()
+{
+	asm("sti");
+}
+
+// Disable interrupts:
+void Int_off()
+{
+	asm("cli");
+}

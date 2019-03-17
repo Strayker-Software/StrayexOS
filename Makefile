@@ -65,7 +65,7 @@ iso-create:
 
 # make iso-run - start QEMU with Strayex ISO file:
 iso-run:
-	@qemu-system-x86_64 -cdrom docs/strayex-$(ARCH)-$(VER).iso
+	@qemu-system-x86_64 -m 64M -cdrom docs/strayex-$(ARCH)-$(VER).iso
 
 # make clear - clears object files from working directories:
 clear:

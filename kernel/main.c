@@ -64,26 +64,60 @@ void kinit()
 	kprintf("StrayexOS\n"); // My name :) for information, that Strayex is loading now,
 
 	// Multiboot informations:
-	char *bootloader = (char *)mbi->boot_loader_name;
-	char memlow[] = { };
-	char memup[] = { };
-	char *args = (char *)mbi->cmdline;
+	char *bootloader = (char *)mbi->boot_loader_name; // Bootloader name,
+	char *args = (char *)mbi->cmdline; // CMD arguments,
+
+	// RAM:
+	unsigned int ram_mb = mbi->mem_upper / 1024 + 2; // RAM amount in MB,
+	unsigned int ram_kb = ram_mb * 1024; // RAM amount in KB,
+	unsigned int frames = ram_kb / 4; // RAM frames amount,
+
+	// Memory map:
+	multiboot_memory_map_t *mem = (multiboot_memory_map_t *)mbi->mmap_addr; // Address to memory map,
 
 	// Checks, if kernel have to write initailisation info on screen:
 	if(if_info_on_screen)
-	{
+	{ // TODO: Memory map loading is not working well!
 		// Writting the info:
 		kprintf("Bootloader: ");
 		kprintf(bootloader);
 		kprintch('\n');
-		kprintf("Lower memory: ");
-		kitoa(mbi->mem_lower, memlow, 10);
-		kprintf(memlow);
-		kprintf(" KB\n");
-		kprintf("Upper memory: ");
-		kitoa(mbi->mem_upper, memup, 10);
-		kprintf(memup);
-		kprintf(" KB\n");
+		char pom[] = { };
+		kprintf("RAM: ");
+		kitoa(ram_mb, pom, 10);
+		kstrcpyw(pom);
+		kprintf(pom);
+		kprintf(" MB\n");
+		kprintf("Memory map:\n");
+		kprintf("Map address: 0x");
+		kitoa(mbi->mmap_addr, pom, 16);
+		kprintf(pom);
+		kprintf(", map length: ");
+		kitoa(mbi->mmap_length, pom, 10);
+		kprintf(pom);
+		kprintf(" B\n");
+		for(int i = 1; (unsigned int)mem < mbi->mmap_addr + mbi->mmap_length; i++)
+		{
+			kitoa(i, pom, 10);
+			kprintf(pom);
+			kprintf(". Size: ");
+			kitoa(mem->size, pom, 10);
+			kstrcpyw(pom);
+			kprintf(pom);
+			kprintf(" B, address: 0x");
+			unsigned int pom1 = mem->addr_up + mem->addr_low;
+			kitoa(pom1, pom, 16);
+			kprintf(pom);
+			kprintf(", length: 0x");
+			pom1 = mem->len_up + mem->len_low;
+			kitoa(pom1, pom, 16);
+			kprintf(pom);
+			kprintf(", type: 0x");
+			kitoa(mem->type, pom, 16);
+			kprintf(pom);
+			kprintf("\n");
+			mem = (multiboot_memory_map_t *)((unsigned int)mem + mem->size + sizeof(unsigned int));
+		}
 		kprintf("Arguments for Strayex: ");
 		kprintf(args);
 		kprintch('\n');
@@ -92,10 +126,11 @@ void kinit()
 	gdt_init(); // Mapping General Descriptor Table,
 	idt_init(); // Mapping Interrupt Descriptor Table,
 	isrs_init(); // Mapping Interrupt Service Routains,
-	irq_init(); // Remapping IDT and ISR for working properly,
+	irq_init(); // Remapping IDT and ISRs for working properly with IRQs,
 	pit_init(); // Mapping IRQ0 for Programmable Interval Timer,
 	kb_init(); // Mapping PS/2 keyboard driver,
-	asm("sti");
+
+	Int_on(); // Enable interrupts,
 
 	/*
 	Special variable for checking, if descriptor tables are working, if you want to check that,
@@ -105,7 +140,7 @@ void kinit()
 	//int a = 10;
 	//int b = a / 0;
 
-	// After startup of the virtual machine, screen shoud contain "Division By Zero Exception. System Halted!"
+	// After startup of system with it, screen shoud contain "Division By Zero Exception. System Halted!"
 
 	// Initialisation complete! Start main kernel function:
 	kmain();

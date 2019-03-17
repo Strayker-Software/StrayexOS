@@ -4,23 +4,12 @@
  Kernel String file, access through "kstring.h"
  Copyright 2019 Daniel Strayker Nowak
  All rights reserved
+
+ https://overiq.com/c-programming-101/the-strcpy-function-in-c/
 */
 
 #include <stdbool.h>
 #include "kstring.h"
-
-// Checks, that given string is valid ASCII string type:
-bool StringChecker(char *ret, int length)
-{
-	for(int i = 0; i < length - 1; i++)
-	{
-		if(!(ret[i] >= ' ' && ret[i] <= '~')) return false;
-	}
-
-	if(ret[length] != '\0') return false;
-
-	return true;
-}
 
 // Counts letters in given string:
 int kstrlen(unsigned char *x)
@@ -28,6 +17,20 @@ int kstrlen(unsigned char *x)
 	int i = 0;
 	for(;x[i] != '\0';) i++;
 	return i;
+}
+
+// Checks, that given string is valid ASCII string type:
+bool StringChecker(char *ret)
+{
+	int n = kstrlen((unsigned char *)ret);
+	for(int i = 0; i < n; i++)
+	{
+		if(!(ret[i] >= ' ' && ret[i] <= '~')) return false;
+	}
+
+	if(ret[n + 1] != '\0') return false;
+
+	return true;
 }
 
 // Copies count bytes from src to dest, returning dest address:
@@ -53,4 +56,29 @@ unsigned short *memsetw(unsigned short *dest, unsigned short val, int count)
 	unsigned short *temp = (unsigned short *)dest;
 	for( ; count != 0; count--) *temp++ = val;
 	return dest;
+}
+
+// Cuts last char from char array:
+char *kstrcpyw(char *src)
+{
+	int n = kstrlen((unsigned char *)src);
+	src[n - 1] = '\0';
+	memcpy((unsigned char *)src, (const unsigned char *)src, 4);
+	return src;
+}
+
+// Copies source string to destination:
+char *kstrcpy(char *src, char *dest)
+{
+    char *start = dest;
+ 
+    while(*src != '\0')
+    {
+        *dest = *src;
+        dest++;
+        src++;
+    }
+ 
+    *dest = '\0';
+    return start;
 }
