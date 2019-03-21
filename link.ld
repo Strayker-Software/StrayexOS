@@ -1,24 +1,44 @@
-OUTPUT_FORMAT("binary")
+/*
+	Strayex Linkscript
+	Copyright (a) 2019 Daniel Strayker Nowak
+	All rights reserved
+	
+	This file specifies, how should look like end product - binary file.
+	This script is for i386-elf-ld and objects files.
+/*
+
+/* Specify binary format: */
+OUTPUT_FORMAT("elf32-i386")
+/* Point execution to label in "enter.asm" */
 ENTRY(_start)
-phys = 0x00100000;
+/* Specifies file's structure: */
 SECTIONS
 {
-  .text phys : AT(phys) {
-    code = .;
-    *(.text)
-    . = ALIGN(4096);
-  }
-  .data : AT(phys + (data - code))
-  {
-    data = .;
-    *(.data)
-    . = ALIGN(4096);
-  }
-  .bss : AT(phys + (bss - code))
-  {
-    bss = .;
-    *(.bss)
-    . = ALIGN(4096);
-  }
-  end = .;
+	/* Map kernel in start of 1 MB, */
+	. = 1M;
+	
+	/* Block for Multiboot header: */
+	.mb BLOCK(8K) : ALIGN(8K)
+	{
+		*(.multiboot)
+	}
+	
+	/* Block for code: */
+	.text BLOCK(4K) : ALIGN(4K)
+	{
+		*(.text)
+	}
+
+	/* Block for initialised data: */
+	.data BLOCK(4K) : ALIGN(4K)
+	{
+		*(.data)
+	}
+
+	/* Block for stack and other data: */
+	.bss BLOCK(4K) : ALIGN(4K)
+	{
+		*(COMMON)
+		*(.bss)
+	}
 }
