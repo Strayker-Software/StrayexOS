@@ -6,17 +6,27 @@
 # WARNING! To use this Makefile you have to install GNU make, i386-elf GCC Cross-Compiler, NASM and GNU GRUB!
 
 # Let's start!
+# This Makefile give you opportunity of various operations with Strayex source files.
+# Each make sub-command make for you part of the job, you can specify, which sub-command you want to perform by typing "make [sub-command]".
+# Here is the list:
+# - make - full build with starting QEMU debbuging,
+# - make info - show Makefile's settings and list of source files,
+# - make kernel - only kernel compilation and linking,
+# - make iso-create - push binary file of kernel to GRUB bootable ISO,
+# - make iso_run - boot QEMU x86_64 form GRUB bootable ISO,
+# Futuremore, over each sub-command is it's description for your convenience.
 
-# Variables:
+# Variables
+# If you want to make tests, or personalise build process, change this values.
 
 # System version:
 VER:=1.0.0.0
 
-# Kernel files' directory:
+# Kernel files' directory (where are files to compile):
 KERNEL_DIR:=kernel
-# grub-mkrescue build directory:
-GRUB_ISO_DIR:=~/iso/boot
-# Build architecture (only for information):
+# grub-mkrescue build directory (where to push binary kernel):
+GRUB_ISO_DIR:=~/iso
+# Build architecture (for naming system):
 ARCH:=i386-x86
 
 # Files' lists:
@@ -56,12 +66,13 @@ info:
 	@echo Version of Strayex: $(VER)
 	@echo Build architecture: $(ARCH)
 	@echo Kernel files directory: $(KERNEL_DIR)
+	@echo GRUB build directory: $(GRUB_ISO_DIR)
 	@echo
 
 # make iso-create - copies kernel's binary file to grub-mkrescue's directoryand creates GRUB ISO with it:
 iso-create:
-	@cp $(KERNEL_DIR)/skern-$(VER).bin ~/iso/boot/skern-$(VER).bin
-	@grub-mkrescue -o docs/strayex-$(ARCH)-$(VER).iso ~/iso
+	@cp $(KERNEL_DIR)/skern-$(VER).bin $(GRUB_ISO_DIR)/boot/skern-$(VER).bin
+	@grub-mkrescue -o docs/strayex-$(ARCH)-$(VER).iso $(GRUB_ISO_DIR)
 
 # make iso-run - start QEMU with Strayex ISO file:
 iso-run:
