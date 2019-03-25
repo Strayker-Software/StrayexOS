@@ -63,7 +63,7 @@ char *kstrcpyw(char *src)
 {
 	int n = kstrlen((unsigned char *)src);
 	src[n - 1] = '\0';
-	memcpy((unsigned char *)src, (const unsigned char *)src, 4);
+	memcpy((unsigned char *)src, (const unsigned char *)src, n - 1);
 	return src;
 }
 

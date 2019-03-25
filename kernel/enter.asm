@@ -1,5 +1,5 @@
 ; Strayex Kernel
-; v1.0
+; v1.0.0.0
 ; Kernel's entery point in NASM Assembly
 ; Copyright 2019 Daniel Strayker Nowak
 ; All rights reserved
@@ -10,62 +10,77 @@ GLOBAL _start			; Here will jump boot loader after loading,
 	jmp short _start	; so we jump to code, kernel don't have to execute Multiboot header,
 
 ; This is Multiboot header, this part must be 4 byte length (for Multiboot 1 specs) or 8 byte length (for Multiboot 2 specs),
-ALIGN 4
-Multiboot:
+;ALIGN 4
+;Multiboot:
 
 	; Multiboot 1:
 
-	MULTIBOOT_MAGIC equ 0x1BADB002
-	MULTIBOOT_PAGE equ 1 << 0
-	MULTIBOOT_MEMORY equ 1 << 0
-	MULTIBOOT_AOUT equ 1 << 16
-	MULTIBOOT_FLAGS equ MULTIBOOT_PAGE | MULTIBOOT_MEMORY | MULTIBOOT_AOUT
-	MULTIBOOT_CHECKSUM equ -(MULTIBOOT_MAGIC + MULTIBOOT_FLAGS)
-	EXTERN code, bss, end
-
-	dd MULTIBOOT_MAGIC
-	dd MULTIBOOT_FLAGS
-	dd MULTIBOOT_CHECKSUM
-
-	; Multiboot 2, not working, do not use!
-
-;ALIGN 8
-;Multiboot:
-	;MULTIBOOT_MAGIC equ 0xE85250D6
-	;MULTIBOOT_ARCH equ 0x0
-	;MULTIBOOT_HEADER_LENGTH equ _start - Multiboot
-	;MULTIBOOT_CHECKSUM equ -(MULTIBOOT_MAGIC + MULTIBOOT_ARCH + MULTIBOOT_HEADER_LENGTH)
-	;MULTIBOOT_MODULE equ 3
-	;MULTIBOOT_BASIC_MEMINFO equ 4
-	;MULTIBOOT_BOOT_LOADER_NAME equ 2
-	;MULTIBOOT_MMAP equ 6
+	;MULTIBOOT_MAGIC equ 0x1BADB002
+	;MULTIBOOT_PAGE equ 1 << 0
+	;MULTIBOOT_MEMORY equ 1 << 0
+	;MULTIBOOT_AOUT equ 1 << 16
+	;MULTIBOOT_FLAGS equ MULTIBOOT_PAGE | MULTIBOOT_MEMORY | MULTIBOOT_AOUT
+	;MULTIBOOT_CHECKSUM equ -(MULTIBOOT_MAGIC + MULTIBOOT_FLAGS)
 	;EXTERN code, bss, end
 
 	;dd MULTIBOOT_MAGIC
-	;dd MULTIBOOT_ARCH
-	;dd MULTIBOOT_HEADER_LENGTH
+	;dd MULTIBOOT_FLAGS
 	;dd MULTIBOOT_CHECKSUM
-	;dd MULTIBOOT_MODULE
-	;dd MULTIBOOT_BASIC_MEMINFO
-	;dd MULTIBOOT_BOOT_LOADER_NAME
-	;dd MULTIBOOT_MMAP
 
-; End of Multiboot header,
-; here is memory defining for linker,
+	; Multiboot 2:
+	
+	; Defining values:
+	MAGIC equ 0xE85250D6
+	ARCH equ 0x0
+	LENGHT equ header_end - header_start
+	CHECKSUM equ 0x100000000 - (MAGIC + ARCH + LENGHT)
 
-	dd Multiboot
-	dd code
-	dd bss
-	dd end
-	dd _start
+; Defining header structure:
+SECTION .multiboot
+header_start:
+	dd MAGIC
+	dd ARCH
+	dd LENGHT
+	dd CHECKSUM
 
+	; Tags for Multiboot bootloader:
+	
+	; Information request:
+	ALIGN 8
+request_tag_start:
+	dw 1
+	dw 0
+	dd request_tag_end - request_tag_start
+	dd 1 ; CMD line,
+	dd 2 ; bootloader name,
+	dd 4 ; basic memory amount,
+	dd 6 ; memory map,
+request_tag_end:
+
+	ALIGN 8
+	; End of tags, "NULL tag":
+null_start:
+	dw 0 ; Type
+	dw 0 ; Flags
+	dd 8 ; Size
+null_end:
+	
+header_end: ; End of Multiboot header!
+
+SECTION .text
 _start:
 	mov esp, stack		; Sets stack space in register,
+	
+	push $0				; Reset EFLAGS,
+	popf
 
 	EXTERN kinit		; kinit function: kernel initialisation process, in main.c,
-	call kinit		; jump to the kinit and call kmain there,
+	call kinit			; jump to the kinit and call kmain there,
 
+_loop:					; if C functions will unexpectly return, loop for ever, 
+	jmp _loop
+	
 SECTION .bss
-resb 8192			; Stack space, 8KiB,
+resb 8192			; Stack space, 8KB,
 stack:
 

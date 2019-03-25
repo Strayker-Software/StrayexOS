@@ -34,7 +34,7 @@ void kinit()
 	If it's true, we can use Multiboot Information Structure, which is loaded to the memory,
 	pointed by physical address in EBX register.
 	We can check Multiboot booting up by reading value from EAX register,
-	which have to be 0x2BADB002.
+	which have to be 0x36D76289.
 	*/
 
 	// Loading value from EAX register to magic:
@@ -42,11 +42,12 @@ void kinit()
 	asm("movl %%EAX, %0;" : "=r" (magic));
 
 	// For Multiboot Informations Structure address:
-	multiboot_info_t *mbi = 0;
+	struct multiboot_tag *mbi = 0;
+	unsigned wiel;
 	
 	// Perform check operation:
-	if(magic == MULTIBOOT_BOOTLOADER_MAGIC)
-	{ // MULTIBOOT_BOOTLOADER_MAGIC is defined in multiboot.h in klib
+	if(magic == MULTIBOOT2_BOOTLOADER_MAGIC)
+	{ // MULTIBOOT2_BOOTLOADER_MAGIC is defined in multiboot.h in klib
 
 		// Yes, Strayex Kernel booted by Multiboot boot loader!
 
@@ -62,64 +63,116 @@ void kinit()
 	}
 
 	kprintf("StrayexOS\n"); // My name :) for information, that Strayex is loading now,
-
+	
 	// Multiboot informations:
-	char *bootloader = (char *)mbi->boot_loader_name; // Bootloader name,
-	char *args = (char *)mbi->cmdline; // CMD arguments,
-
+	wiel = *(unsigned *)mbi; // Information structure size,
+	unsigned char bootloader[100]; // Bootloader name,
+	unsigned char args[100]; // CMD arguments,
+	
 	// RAM:
-	unsigned int ram_mb = mbi->mem_upper / 1024 + 2; // RAM amount in MB,
-	unsigned int ram_kb = ram_mb * 1024; // RAM amount in KB,
-	unsigned int frames = ram_kb / 4; // RAM frames amount,
+	unsigned int ram_mb =  0; // RAM amount in MB,
+	unsigned int ram_kb = 0; // RAM amount in KB,
+	unsigned int frames = 0; // RAM frames amount,
 
 	// Memory map:
-	multiboot_memory_map_t *mem = (multiboot_memory_map_t *)mbi->mmap_addr; // Address to memory map,
+	multiboot_memory_map_t *mem; // Address to memory map,
+
+	for (mbi = (struct multiboot_tag *) (mbi + 8); mbi->type != MULTIBOOT_TAG_TYPE_END; mbi = (struct multiboot_tag *) ((multiboot_uint8_t *) mbi + ((mbi->size + 7) & ~7)))
+	{
+		switch(mbi->type)
+		{
+			case MULTIBOOT_TAG_TYPE_BOOT_LOADER_NAME: ;
+				//struct multiboot_tag_string *x;
+				//x = (struct multiboot_tag_string *)mbi;
+				//help = x->string;
+				//memcpy((unsigned char *)bootloader, (const unsigned char *)help, kstrlen((unsigned char *)help) + 1);
+				kprintf("BOOTLOADER: OK\n");
+				//multiboot_string_t *x = (multiboot_string_t *)mbi;
+				//memcpy(bootloader, (const unsigned char *)x->string, kstrlen((unsigned char *)x->string));
+			break;
+			
+			case MULTIBOOT_TAG_TYPE_BASIC_MEMINFO: ;
+				//struct multiboot_tag_basic_meminfo *y;
+				//y = (struct multiboot_tag_basic_meminfo *)mbi;
+				//unsigned int p = ((struct multiboot_tag_basic_meminfo *) mbi)->mem_lower;
+				//unsigned int o = ((struct multiboot_tag_basic_meminfo *) mbi)->mem_upper;
+				kprintf("MEMINFO: OK\n");
+				//char poml[] = { };
+				//kitoa(p, poml, 10);
+				//kprintf(poml);
+				//ram_kb = p + o;
+				//ram_mb = ram_kb / 1024 + 2;
+				//frames = ram_kb / 4;
+			break;
+			
+			case MULTIBOOT_TAG_TYPE_CMDLINE: ;
+				kprintf("CMDLINE: OK\n");
+				//struct multiboot_tag_string *z;
+				//z = (struct multiboot_tag_string *)mbi;
+				//help = z->string;
+				//memcpy(args, (const unsigned char *)help, kstrlen((unsigned char *)help) + 1);
+			break;
+		}
+	}
 
 	// Checks, if kernel have to write initailisation info on screen:
 	if(if_info_on_screen)
-	{ // TODO: Memory map loading is not working well!
+	{
 		// Writting the info:
-		kprintf("Bootloader: ");
-		kprintf(bootloader);
+		char pom[1000];
+		kitoa((int)mbi, pom, 16);
+		kprintf("MBI address: 0x");
+		kprintf(pom);
+		memset((unsigned char *)pom, ' ', 1000);
 		kprintch('\n');
-		char pom[] = { };
-		kprintf("RAM: ");
-		kitoa(ram_mb, pom, 10);
-		kstrcpyw(pom);
+		kprintf("MBI size: ");
+		kitoa(wiel, pom, 10);
 		kprintf(pom);
-		kprintf(" MB\n");
-		kprintf("Memory map:\n");
-		kprintf("Map address: 0x");
-		kitoa(mbi->mmap_addr, pom, 16);
-		kprintf(pom);
-		kprintf(", map length: ");
-		kitoa(mbi->mmap_length, pom, 10);
-		kprintf(pom);
+		memset((unsigned char *)pom, ' ', 1000);
 		kprintf(" B\n");
-		for(int i = 1; (unsigned int)mem < mbi->mmap_addr + mbi->mmap_length; i++)
+		kprintf("Bootloader: ");
+		kprintf((char *)bootloader);
+		kprintch('\n');
+		kprintf("RAM: ");
+		kitoa(ram_kb, pom, 10);
+		kprintf(pom);
+		memset((unsigned char *)pom, ' ', 1000);
+		kprintf(" KB, ");
+		kitoa(ram_mb, pom, 10);
+		kprintf(pom);
+		memset((unsigned char *)pom, ' ', 1000);
+		kprintf(" MB, ");
+		kitoa(frames, pom, 10);
+		kprintf(pom);
+		memset((unsigned char *)pom, ' ', 1000);
+		kprintf(" frames\n");
+		kprintf("Memory map:\n");
+		for(mem = ((struct multiboot_tag_mmap *) mbi)->entries; (multiboot_uint8_t *) mem < (multiboot_uint8_t *) mbi + mbi->size; mem = (multiboot_memory_map_t *) ((unsigned long) mem + ((struct multiboot_tag_mmap *) mbi)->entry_size))
 		{
+			int i = 1;
 			kitoa(i, pom, 10);
 			kprintf(pom);
-			kprintf(". Size: ");
-			kitoa(mem->size, pom, 10);
-			kstrcpyw(pom);
-			kprintf(pom);
-			kprintf(" B, address: 0x");
-			unsigned int pom1 = mem->addr_up + mem->addr_low;
+			memset((unsigned char *)pom, ' ', 1000);
+			kprintf(". ");
+			kprintf(" Address: 0x");
+			multiboot_uint32_t pom1 = (mem->addr >> 32) + (mem->addr & 0xFFFFFFFF);
 			kitoa(pom1, pom, 16);
 			kprintf(pom);
+			memset((unsigned char *)pom, ' ', 1000);
 			kprintf(", length: 0x");
-			pom1 = mem->len_up + mem->len_low;
+			pom1 = (mem->len >> 32) + (mem->len & 0xFFFFFFFF);
 			kitoa(pom1, pom, 16);
 			kprintf(pom);
+			memset((unsigned char *)pom, ' ', 1000);
 			kprintf(", type: 0x");
-			kitoa(mem->type, pom, 16);
+			kitoa(mem->type, pom, 10);
 			kprintf(pom);
+			memset((unsigned char *)pom, ' ', 1000);
 			kprintf("\n");
-			mem = (multiboot_memory_map_t *)((unsigned int)mem + mem->size + sizeof(unsigned int));
+			i++;
 		}
 		kprintf("Arguments for Strayex: ");
-		kprintf(args);
+		kprintf((char *)args);
 		kprintch('\n');
 	}
 
