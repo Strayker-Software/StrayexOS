@@ -54,6 +54,7 @@ request_tag_start:
 	dd 1 ; CMD line,
 	dd 2 ; bootloader name,
 	dd 4 ; basic memory amount,
+	dd 5 ; boot partition's informations,
 	dd 6 ; memory map,
 request_tag_end:
 
@@ -73,6 +74,9 @@ _start:
 	
 	push $0				; Reset EFLAGS,
 	popf
+	
+	push ebx
+	push eax
 
 	EXTERN kinit		; kinit function: kernel initialisation process, in main.c,
 	call kinit			; jump to the kinit and call kmain there,
