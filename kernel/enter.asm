@@ -75,8 +75,8 @@ _start:
 	push $0				; Reset EFLAGS,
 	popf
 	
-	push ebx
-	push eax
+	push ebx			; Push on stack address to MBI
+	push eax			; and MB magic number,
 
 	EXTERN kinit		; kinit function: kernel initialisation process, in main.c,
 	call kinit			; jump to the kinit and call kmain there,
