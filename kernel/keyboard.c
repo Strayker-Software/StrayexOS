@@ -6,10 +6,18 @@
  All rights reserved
 */
 
+// Header files:
 #include "klib/kdt.h"
 #include "klib/kio.h"
 #include "klib/kstdlib.h"
 
+// Variables:
+bool if_enabled = true; // Used to turn off and on keyboard input,
+bool if_buffer_enabled = true; // Used to determine, if handler have to push char to buffer,
+int buf_lvl = 0; // Keeps track on buffer length, don't reset to zero in code, use kbflush() function,
+char kb_buffer[100000]; // Kernel's keyboard buffer,
+
+// US QWERTY keyboard layout:
 unsigned char kbdus[128] =
 {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 9 */
@@ -50,38 +58,61 @@ unsigned char kbdus[128] =
     0,	/* All other keys are undefined */
 };
 
-void keyboard_handler()
+// Clears keyboard buffer:
+void kbflush()
 {
-    unsigned char scancode;
-
-    /* Read from the keyboard's data buffer */
-    scancode = kinportb(0x60);
-
-    /* If the top bit of the byte we read from the keyboard is
-    *  set, that means that a key has just been released */
-    if (scancode & 0x80)
-    {
-        /* You can use this one to see if the user released the
-        *  shift, alt, or control keys... */
-    }
-    else
-    {
-        /* Here, a key was just pressed. Please note that if you
-        *  hold a key down, you will get repeated key press
-        *  interrupts. */
-
-        /* Just to show you how this works, we simply translate
-        *  the keyboard scancode into an ASCII value, and then
-        *  display it to the screen. You can get creative and
-        *  use some flags to see if a shift is pressed and use a
-        *  different layout, or you can add another 128 entries
-        *  to the above layout to correspond to 'shift' being
-        *  held. If shift is held using the larger lookup table,
-        *  you would add 128 to the scancode when you look for it */
-        kprintch(kbdus[scancode]);
-    }
+	for(int i = 0; i < buf_lvl; i++) kb_buffer[i] = '\0';
+	buf_lvl = 0;
 }
 
+// Gets address to keyboard's buffer:
+char *get_kb_buf() { return kb_buffer; }
+
+// Returns status of keyboard driver:
+bool kb_status() { return if_buffer_enabled; }
+
+// Sets keyboard driver on or off:
+void set_kb_status(bool x) { if_enabled = x; }
+
+// Return status of keyboard buffer:
+bool kb_buf_status() { return if_buffer_enabled; }
+
+// Sets status of keyboard buffer:
+void set_kb_buf_status(bool x) { if_buffer_enabled = x; }
+
+// Default keyboard handler, printing chars on screen:
+void keyboard_handler()
+{
+    if(if_enabled)
+	{
+		unsigned char scancode;
+
+		/* Read from the keyboard's data buffer */
+		scancode = kinportb(0x60);
+
+		/* If the top bit of the byte we read from the keyboard is
+		*  set, that means that a key has just been released */
+		if (scancode & 0x80)
+		{
+			/* You can use this one to see if the user released the
+			*  shift, alt, or control keys... */
+		}
+		else
+		{
+			unsigned char ch = kbdus[scancode]; // Make ASCII character from scancode,
+
+			// Checks, if function have to push char to buffer:
+			if(if_buffer_enabled)
+			{
+				kb_buffer[buf_lvl] = ch;
+				buf_lvl++;
+			}
+			kprintch(ch); // Print ch on screen,
+		}
+	}
+}
+
+// On kernel start up, sets default KB handler:
 void kb_init()
 {
 	irq_install_handler(1, keyboard_handler);
