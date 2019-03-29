@@ -14,8 +14,8 @@
 #include "klib/kstdlib.h"
 #include "klib/kdt.h"
 
-// Holds information, if kernel have to show loading info on screen, default is true,
-bool if_info_on_screen = true;
+// Holds information, if kernel is in Debug Mode, default is true,
+bool if_debug = true;
 
 // Main kernel's function, loading and running Strayex Shell (not yet):
 void kmain()
@@ -47,13 +47,12 @@ void kinit(unsigned long magic, unsigned long mbi)
 	}
 	else
 	{
-		// No, Strayex Kernel booted with no-Multiboot!
-		kprintf("Fatal Error - Strayex booted by no-Multiboot bootloader!\n");
+		// No, Strayex Kernel booted with no-Multiboot! Show error message and request restart:
+		ksetattrib((char)15, (char)4); // Set text to white on red background,
+		kprintf("\nFatal Error - Strayex booted by no-Multiboot bootloader!\n");
 		kprintf("Restart mashine!");
-		return;
+		for(;;);
 	}
-
-	kprintf("StrayexOS\n"); // My name :) for information, that Strayex is loading now,
 	
 	// Multiboot informations:
 	
@@ -119,9 +118,10 @@ void kinit(unsigned long magic, unsigned long mbi)
 	}
 
 	// Checks, if kernel have to write initailisation info on screen:
-	if(if_info_on_screen)
+	if(if_debug)
 	{
 		// Writting the info:
+		kprintf("StrayexOS\n"); // My name :) for information, that Strayex Kernel is in Debug Mode,
 		//char pom[1000];
 		//kitoa((int)mbi, pom, 16);
 		kprintf("MBI address: 0x%x\n", mbi);
@@ -215,7 +215,7 @@ void kinit(unsigned long magic, unsigned long mbi)
 	Int_on(); // Enable interrupts,
 
 	/*
-	Special variable for checking, if descriptor tables are working, if you want to check that,
+	Special variable for checking, if descriptor tables and interrupts are working, if you want to check that,
 	uncomment next two lines. This checking controls GDT, IDT, ISRs and IRQs.
 	*/
 
@@ -224,6 +224,6 @@ void kinit(unsigned long magic, unsigned long mbi)
 
 	// After startup of system with it, screen shoud contain "Division By Zero Exception. System Halted!"
 
-	// Initialisation complete! Start main kernel function:
+	// Initialisation complete! Let's load the shell!
 	kmain();
 }

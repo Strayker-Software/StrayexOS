@@ -10,6 +10,7 @@
 #include "klib/kdt.h"
 #include "klib/kio.h"
 #include "klib/kstdlib.h"
+#include <stdbool.h>
 
 // Variables:
 bool if_enabled = true; // Used to turn off and on keyboard input,

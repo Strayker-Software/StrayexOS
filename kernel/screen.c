@@ -42,7 +42,7 @@ void kprintch(char x)
 	// Backspace
 	if(x == 0x08)
 	{
-		if(px >= 0)
+		if(px > 0)
 		{
 			px--;
 			unsigned att = attrib << 8;
@@ -51,7 +51,10 @@ void kprintch(char x)
 		}
 		else if(px < 0)
 		{
-			px = 0;
+			py--;
+		}
+		else if(px == 0)
+		{
 			py--;
 		}
 	}
