@@ -1,5 +1,5 @@
 # Strayex Makefile
-# for version v1.0
+# for version v1.0.0
 # Copyright 2019 Daniel Strayker Nowak
 # All rights reserved
 
@@ -20,7 +20,7 @@
 # If you want to make tests, or personalise build process, change this values.
 
 # System version:
-VER:=1.0.0.0
+VER:=1.0.0
 
 # Kernel files' directory (where are files to compile):
 KERNEL_DIR:=kernel
@@ -69,7 +69,7 @@ info:
 	@echo GRUB build directory: $(GRUB_ISO_DIR)
 	@echo
 
-# make iso-create - copies kernel's binary file to grub-mkrescue's directoryand creates GRUB ISO with it:
+# make iso-create - copies kernel's binary file to grub-mkrescue's directory and creates GRUB ISO with it:
 iso-create:
 	@cp $(KERNEL_DIR)/skern-$(VER).bin $(GRUB_ISO_DIR)/boot/skern-$(VER).bin
 	@grub-mkrescue -o docs/strayex-$(ARCH)-$(VER).iso $(GRUB_ISO_DIR)
