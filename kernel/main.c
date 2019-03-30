@@ -20,8 +20,6 @@ bool if_debug = true;
 // Main kernel's function, loading and running Strayex Shell (not yet):
 void kmain()
 {
-	// Here before for loop you can add your own code to make Strayex Kernel do something extra for you!
-
 	for(;;);
 }
 
@@ -130,7 +128,7 @@ void kinit(unsigned long magic, unsigned long mbi)
 	if(if_debug)
 	{
 		// Writting the info:
-		kprintf("Strayex Kernel v1.0.0 Alpha\nDebug Mode on\n"); // My name :) for information, that Strayex Kernel is in Debug Mode,
+		kprintf("Strayex Kernel v1.0.0 Alpha\nDebug Mode\n"); // My name :) for information, that Strayex Kernel is in Debug Mode,
 		kprintf("MBI address: 0x%x\n", mbi);
 		kprintf("MBI size: %i B\n", wiel);
 		kprintf("Bootloader: %c\n", (char *)bootloader);
@@ -155,6 +153,7 @@ void kinit(unsigned long magic, unsigned long mbi)
 		kprintf("Arguments for Strayex: %c\n", args);
 		if(kb_status() == true) kprintf("Keyboard on\n");
 		else kprintf("Keyboard off\n");
+		//kprintf("Get back to normal mode by restarting mashine!\n");
 	}
 
 	/*

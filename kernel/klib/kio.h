@@ -29,5 +29,7 @@ extern bool kb_buf_status();
 extern void set_kb_buf_status(bool x);
 extern int get_cursor_x();
 extern int get_cursor_y();
+extern unsigned char *get_layout();
+extern char get_last_char();
 
 #endif

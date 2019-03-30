@@ -17,6 +17,7 @@ bool if_enabled = true; // Used to turn off and on keyboard input,
 bool if_buffer_enabled = true; // Used to determine, if handler have to push char to buffer,
 int buf_lvl = 0; // Keeps track on buffer length, don't reset to zero in code, use kbflush() function,
 char kb_buffer[100000]; // Kernel's keyboard buffer,
+char last_key; // Last character from buffer,
 
 // US QWERTY keyboard layout:
 unsigned char kbdus[128] =
@@ -122,6 +123,13 @@ void set_kb_buf_status(bool x) { if_buffer_enabled = x; }
 
 // Gets address to default layout:
 unsigned char *get_layout() { return kbdus; }
+
+// Gets last character from keyboard buffer:
+char get_last_char()
+{
+	last_key = kb_buffer[buf_lvl];
+	return last_key;
+}
 
 // Default keyboard handler, printing chars on screen:
 void keyboard_handler_default()
