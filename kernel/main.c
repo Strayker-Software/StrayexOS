@@ -1,6 +1,6 @@
 /*
  Strayex Kernel
- v1.0
+ v1.0.0
  Kernel's main file, with kinit and kmain functions
  Copyright 2019 Daniel Strayker Nowak
  All rights reserved
@@ -117,94 +117,6 @@ void kinit(unsigned long magic, unsigned long mbi)
 		}
 	}
 
-	// Checks, if kernel have to write initailisation info on screen:
-	if(if_debug)
-	{
-		// Writting the info:
-		kprintf("StrayexOS\n"); // My name :) for information, that Strayex Kernel is in Debug Mode,
-		//char pom[1000];
-		//kitoa((int)mbi, pom, 16);
-		kprintf("MBI address: 0x%x\n", mbi);
-		//kprintf(pom);
-		//memset((unsigned char *)pom, ' ', 1000);
-		kprintf("MBI size: %i B\n", wiel);
-		//kitoa(wiel, pom, 10);
-		//kprintf(pom);
-		//memset((unsigned char *)pom, ' ', 1000);
-		kprintf("Bootloader: %c\n", (char *)bootloader);
-		//kprintf((char *)bootloader);
-		//kprintch('\n');
-		kprintf("RAM: %i KB, %i MB, %i frames\n", ram_kb, ram_mb, frames);
-		//kitoa(ram_kb, pom, 10);
-		//kprintf(pom);
-		//memset((unsigned char *)pom, ' ', 1000);
-		//kprintf(" KB, ");
-		//kitoa(ram_mb, pom, 10);
-		//kprintf(pom);
-		//memset((unsigned char *)pom, ' ', 1000);
-		//kprintf(" MB, ");
-		//kitoa(frames, pom, 10);
-		//kprintf(pom);
-		//memset((unsigned char *)pom, ' ', 1000);
-		//kprintf(" frames\n");
-		kprintf("Memory map:\n");
-		for(int i = 0; i < mem_map_length; i++)
-		{
-			*mem = mem_tab[i];
-			//kitoa(i + 1, pom, 10);
-			char addr[1000];
-			char len[1000];
-			unsigned pom1 = mem->addr >> 32;
-			unsigned pom2 = mem->addr & 0xFFFFFFFF;
-			unsigned pom3 = mem->len >> 32;
-			unsigned pom4 = mem->len & 0xFFFFFFFF;
-			//memset((unsigned char *)pom, ' ', 1000);
-			kitoa(pom1, addr, 16);
-			kitoa(pom2, addr, 16);
-			//memset((unsigned char *)pom, ' ', 1000);
-			kitoa(pom3, len, 16);
-			kitoa(pom4, len, 16);
-			kprintf("%i. Address: 0x%c, Length: 0x%c, Type: 0x%i\n", i + 1, addr, len, mem->type);
-			//memset((unsigned char *)pom, ' ', 1000);
-			//kprintf("");
-			//kitoa(pom1, pom, 16);
-			//kprintf(pom);
-			//memset((unsigned char *)pom, ' ', 1000);
-			//kitoa(pom2, pom, 16);
-			//kprintf(pom);
-			//memset((unsigned char *)pom, ' ', 1000);
-			//kprintf(", length: 0x");
-			//pom1 = (mem->len >> 32);
-			//pom2 = (mem->len & 0xFFFFFFFF);
-			//kitoa(pom1, pom, 16);
-			//kprintf(pom);
-			//memset((unsigned char *)pom, ' ', 1000);
-			//kitoa(pom2, pom, 16);
-			//kprintf(pom);
-			//memset((unsigned char *)pom, ' ', 1000);
-			//kprintf(", type: 0x");
-			//kitoa(mem->type, pom, 16);
-			//kprintf(pom);
-			//memset((unsigned char *)pom, ' ', 1000);
-			//kprintf("\n");
-		}
-		kprintf("Boot dir: driver number: 0x%x, top partition: 0x%x, sub-partition: 0x%x\n", driver, partition, subpart);
-		//kitoa(driver, pom, 16);
-		//kprintf(pom);
-		//memset((unsigned char *)pom, ' ', 1000);
-		//kprintf(" top partition: 0x");
-		//kitoa(partition, pom, 16);
-		//kprintf(pom);
-		//memset((unsigned char *)pom, ' ', 1000);
-		//kprintf(" sub-partition: 0x");
-		//kitoa(subpart, pom, 16);
-		//kprintf(pom);
-		//memset((unsigned char *)pom, ' ', 1000);
-		kprintf("Arguments for Strayex: %c\n", args);
-		//kprintf((char *)args);
-		//kprintch('\n');
-	}
-
 	gdt_init(); // Mapping General Descriptor Table,
 	idt_init(); // Mapping Interrupt Descriptor Table,
 	isrs_init(); // Mapping Interrupt Service Routains,
@@ -213,6 +125,37 @@ void kinit(unsigned long magic, unsigned long mbi)
 	kb_init(); // Mapping PS/2 keyboard driver,
 
 	Int_on(); // Enable interrupts,
+	
+	// Checks, if kernel have to write initailisation info on screen:
+	if(if_debug)
+	{
+		// Writting the info:
+		kprintf("Strayex Kernel v1.0.0 Alpha\nDebug Mode on\n"); // My name :) for information, that Strayex Kernel is in Debug Mode,
+		kprintf("MBI address: 0x%x\n", mbi);
+		kprintf("MBI size: %i B\n", wiel);
+		kprintf("Bootloader: %c\n", (char *)bootloader);
+		kprintf("RAM: %i KB, %i MB, %i frames\n", ram_kb, ram_mb, frames);
+		kprintf("Memory map:\n");
+		for(int i = 0; i < mem_map_length; i++)
+		{
+			*mem = mem_tab[i];
+			char addr[1000];
+			char len[1000];
+			unsigned pom1 = mem->addr >> 32;
+			unsigned pom2 = mem->addr & 0xFFFFFFFF;
+			unsigned pom3 = mem->len >> 32;
+			unsigned pom4 = mem->len & 0xFFFFFFFF;
+			kitoa(pom1, addr, 16);
+			kitoa(pom2, addr, 16);
+			kitoa(pom3, len, 16);
+			kitoa(pom4, len, 16);
+			kprintf("%i. Address: 0x%c, Length: 0x%c, Type: 0x%i\n", i + 1, addr, len, mem->type);
+		}
+		kprintf("Boot dir: driver number: 0x%x, top partition: 0x%x, sub-partition: 0x%x\n", driver, partition, subpart);
+		kprintf("Arguments for Strayex: %c\n", args);
+		if(kb_status() == true) kprintf("Keyboard on\n");
+		else kprintf("Keyboard off\n");
+	}
 
 	/*
 	Special variable for checking, if descriptor tables and interrupts are working, if you want to check that,

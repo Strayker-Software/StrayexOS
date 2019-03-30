@@ -1,3 +1,17 @@
+/*
+ bkerndev - Bran's Kernel Development Tutorial
+ By:   Brandon F. (friesenb@gmail.com)
+ Desc: Kernel entry point, stack, and Interrupt Service Routines.
+
+ Notes: No warranty expressed or implied. Use at own risk.
+
+ Strayex Kernel Interrupt Service Routains
+ THIS IS NOT MY CODE!
+ This file was a little rewritten only, by me,
+ this is why I included above copyright header.
+ I'm not a copyright holder.
+*/
+
 #include "klib/kdt.h"
 #include "klib/kio.h"
 

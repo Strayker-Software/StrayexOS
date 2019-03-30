@@ -1,6 +1,6 @@
 /*
  Strayex Kernel
- v1.0
+ v1.0.0
  Kernel's PS/2 keyboard driver
  Copyright 2019 Daniel Strayker Nowak
  All rights reserved
@@ -41,15 +41,15 @@ unsigned char kbdus[128] =
     0,	/* 69 - Num lock*/
     0,	/* Scroll Lock */
     0,	/* Home key */
-    0,	/* Up Arrow */
-    0,	/* Page Up */
-  '-',
-    0,	/* Left Arrow */
-    0,
-    0,	/* Right Arrow */
-  '+',
+    0,	/* 72 - Up Arrow */
+    0,	/* 73 - Page Up */
+  '-', // 74
+    0,	/* 75 - Left Arrow */
+    0, // 76
+    0,	/* 77 - Right Arrow */
+  '+', // 78
     0,	/* 79 - End key*/
-    0,	/* Down Arrow */
+    0,	/* 80 - Down Arrow */
     0,	/* Page Down */
     0,	/* Insert Key */
     0,	/* Delete Key */
@@ -57,6 +57,45 @@ unsigned char kbdus[128] =
     0,	/* F11 Key */
     0,	/* F12 Key */
     0,	/* All other keys are undefined */
+};
+
+unsigned char kbdusysh[128] =
+{
+0,  0, '!', '"', '£', '$', '%', '^', '&', '*',   /* 9 */
+  '(', ')', '_', '+', '\b', '\t',
+  'Q', 'W', 'E', 'R',
+  'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '\n',      /* Enter key */
+    0,         /* 29   - Control */
+  'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';',   /* 39 */
+'|', '¬',   42,      /* Left shift */
+'\\', 'Z', 'X', 'C', 'V', 'B', 'N',         /* 49 */
+  'M', '<', '>', '?',   0,               /* Right shift */
+  0,
+    0,   /* Alt */
+  ' ',   /* Space bar */
+    58,   /* Caps lock */
+    0,   /* 59 - F1 key ... > */
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   /* < ... F10 */
+    0,   /* 69 - Num lock*/
+    0,   /* Scroll Lock */
+    0,   /* Home key */
+    0,   /* Up Arrow */
+    0,   /* Page Up */
+  '-',
+    0,   /* Left Arrow */
+    0,
+    0,   /* Right Arrow */
+  '+',
+    0,   /* 79 - End key*/
+    0,   /* Down Arrow */
+    0,   /* Page Down */
+    0,   /* Insert Key */
+    0,   /* Delete Key */
+    0,   0,   0,
+    0,   /* F11 Key */
+    0,   /* F12 Key */
+    0,   /* All other keys are undefined */
 };
 
 // Clears keyboard buffer:
@@ -70,7 +109,7 @@ void kbflush()
 char *get_kb_buf() { return kb_buffer; }
 
 // Returns status of keyboard driver:
-bool kb_status() { return if_buffer_enabled; }
+bool kb_status() { return if_enabled; }
 
 // Sets keyboard driver on or off:
 void set_kb_status(bool x) { if_enabled = x; }
@@ -81,8 +120,11 @@ bool kb_buf_status() { return if_buffer_enabled; }
 // Sets status of keyboard buffer:
 void set_kb_buf_status(bool x) { if_buffer_enabled = x; }
 
+// Gets address to default layout:
+unsigned char *get_layout() { return kbdus; }
+
 // Default keyboard handler, printing chars on screen:
-void keyboard_handler()
+void keyboard_handler_default()
 {
     if(if_enabled)
 	{
@@ -95,13 +137,46 @@ void keyboard_handler()
 		*  set, that means that a key has just been released */
 		if (scancode & 0x80)
 		{
+			//if(scancode & 0x1C)
 			/* You can use this one to see if the user released the
 			*  shift, alt, or control keys... */
 		}
 		else
 		{
 			unsigned char ch = kbdus[scancode]; // Make ASCII character from scancode,
-
+			
+			int cx = get_cursor_x();
+			int cy = get_cursor_y();
+			
+			// Up arrow
+			if(scancode == 'H')
+			{
+				--cy;
+				kmove_cursor(cx, cy);
+				return;
+			}
+			// Left arrow
+			else if(scancode == 'K')
+			{
+				--cx;
+				kmove_cursor(cx, cy);
+				return;
+			}
+			// Right arrow
+			else if(scancode == 'M')
+			{
+				++cx,
+				kmove_cursor(cx, cy);
+				return;
+			}
+			// Down arrow
+			else if(scancode == 'P')
+			{
+				++cy;
+				kmove_cursor(cx, cy);
+				return;
+			}
+			
 			// Checks, if function have to push char to buffer:
 			if(if_buffer_enabled)
 			{
@@ -113,8 +188,35 @@ void keyboard_handler()
 	}
 }
 
+// Development keyboard handler, prints scancodes on screen:
+void keyboard_handler_scancode()
+{
+	if(if_enabled)
+	{
+		unsigned char scancode;
+
+		scancode = kinportb(0x60);
+
+		if (scancode & 0x80)
+		{
+			// TODO
+		}
+		else
+		{
+			kprintch(scancode);
+		}
+	}
+}
+
+// Installs requested handler:
+void kb_install(int x)
+{
+	if(x == 0) irq_install_handler(1, keyboard_handler_default);
+	else if(x == 1) irq_install_handler(1, keyboard_handler_scancode);
+}
+
 // On kernel start up, sets default KB handler:
 void kb_init()
 {
-	irq_install_handler(1, keyboard_handler);
+	irq_install_handler(1, keyboard_handler_default);
 }

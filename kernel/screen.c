@@ -1,6 +1,6 @@
 /*
  Strayex Kernel
- v1.0.0.0
+ v1.0.0
  Screen VGA driver and printing functions
  Copyright 2019 Daniel Strayker Nowak
  All rights reserved
@@ -22,6 +22,7 @@ void kmove_cursor(int x, int y)
 {
     unsigned temp;
     temp = y * 80 + x; // Calculate where move cursor to,
+	px = x; py = y; // Updates cursor's coordinates,
 
 	// Performing move by writting to I/O ports:
     koutportb(0x3D4, 14);
@@ -30,11 +31,14 @@ void kmove_cursor(int x, int y)
     koutportb(0x3D5, temp);
 }
 
+// Gets cursor X coordinate:
+int get_cursor_x() { return px; }
+
+// Gets cursor Y coordinate:
+int get_cursor_y() { return py; }
+
 // Sets active colors for printing characters:
-void ksetattrib(char font, char bg)
-{
-	attrib = (bg << 4) | (font & 0x0F);
-}
+void ksetattrib(char font, char bg) { attrib = (bg << 4) | (font & 0x0F); }
 
 // Identifies character and prints it on screen:
 void kprintch(char x)
@@ -89,8 +93,6 @@ void kprintch(char x)
 		px = 0;
 		py++;
 	}
-	if(px < 0) px = 0;
-	if(py < 0) py = 0;
 
 	kmove_cursor(px, py);
 }
