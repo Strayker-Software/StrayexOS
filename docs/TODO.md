@@ -13,15 +13,17 @@ Feel free to join me in! :D
 
 ### Strayex Kernel
 
-- [ ] Managing Multiboot information,
+- [x] Managing Multiboot information,
 - [x] Mapping General Descriptor Table,
 - [x] Mapping Interrput Descriptor Table, Interrupt Request and Interrupt Service Routain,
-- [ ] Strayex System Call interrupt in IDT,
-- [ ] VGA terminal driver,
-- [ ] US QWERTY PS/2 keyboard driver,
-- [ ] Memory manager,
+- [ ] Strayex System Call,
+- [x] VGA terminal driver,
+- [x] US QWERTY PS/2 keyboard driver,
+- [ ] Physical memory manager,
+- [ ] Virtual memory manager,
 - [ ] ATA/IDE driver,
 - [ ] Intel PRO/1000 network driver,
+- [ ] Porting Newlib,
 
 ### Strayex Shell
 
@@ -33,8 +35,11 @@ Feel free to join me in! :D
 
 - [ ] Strayex Notepad,
 - [ ] Strayex Calculator,
-- [ ] Strayex System Controller,
+- [ ] Strayex System Manager,
 - [ ] Strayex Update Centre,
+- [ ] Porting GCC,
+- [ ] Version Engine, my own version control system,
+- [ ] basic system's software,
 
 ### Strayex Docs
 
