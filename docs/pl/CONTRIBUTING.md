@@ -32,7 +32,7 @@ W tym folderze musi znajdować się następująca lista plików:
 - ADVANCED.md - zaawansowane informacje o systemie (API, szczegółowa budowa systemu, porady),
 
 Tłumacząc dokumentację bazuj na wersji Angielskiej, by uniknąć zatracania się treści w tłumaczeniach.
-Dołącz ten sam plik informacyjny, co przy zwykłym Pull Request (patrz powyżej).
+Zaktualizuj ten sam plik "CONTRIBUTORS.md", co przy zwykłym Pull Request (patrz powyżej).
 
 # Informacja prawna
 
