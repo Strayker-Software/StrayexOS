@@ -24,6 +24,7 @@ Znajduje się w folderze "kernel/klib". Zawiera funkcje potrzebne do działania 
 ### Sterowniki
 
 Strayex ma sterowniki do obsługi dwóch podstawowych peryferiów: monitora na VGA i klawiatury PS/2.
+Pliki sterowników nazywają się "screen.c" oraz "keyboard.c".
 
 ## Uruchamianie
 
