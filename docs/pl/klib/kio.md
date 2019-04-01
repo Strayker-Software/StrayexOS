@@ -37,4 +37,34 @@ Argumenty: pierwszy to liczba do wypisania, drugi to baza systemu liczbowego, w 
 
 Zwraca: zawsze 0,
 
-- 
+- void kmove_cursor(int x, int y)
+
+Funkcja przesuwa kursor na ekranie w podane koordynaty.
+
+Argumenty: pierwszy to współżędna X, drugra Y,
+
+Zwraca: brak,
+
+- void ksetattrib(char font, char bg)
+
+Funkcja ustawia atrybuty koloru czcionki i tła dla ekranu.
+
+Argumenty: pierwszy to kolor czcionki, drugi tła. Kody kolorów według standardu VGA.
+
+Zwraca: brak,
+
+- void kcls()
+
+Funkcja czyści cały ekran.
+
+Argumenty: brak,
+
+Zwraca: brak,
+
+- void kb_init()
+
+Funkcja instaluje domyślny sterownik klawiatury w IRQ1.
+
+Argumenty: brak,
+
+Zwraca: brak,
