@@ -5,13 +5,18 @@ Feel free to join me in! :D
 
 ### Project managment
 
+Things to do due to development process:
+
 - [x] GCC i386 Cross-Compiler, on my own computer,
 - [x] Makefile, to upgrade compilation,
 - [x] Bootable binary file with bootloader's name via Multiboot, to test the Multiboot work,
 - [x] GitHub repository, for mirror download,
 - [ ] Official webpage, for main project's information side,
+- [ ] Wikipedia article, I will be happy :)
 
 ### Strayex Kernel
+
+What kernel shoud be able to do:
 
 - [x] Managing Multiboot information,
 - [x] Mapping General Descriptor Table,
@@ -27,22 +32,28 @@ Feel free to join me in! :D
 
 ### Strayex Shell
 
-- [ ] Commands interpreter,
+CLI interface for Pretorian distribution, will be in [this](https://github.com/StraykerPL/strayex_shell) repo:
+
+- [ ] Command interpreter,
 - [ ] Build-in commands,
 - [ ] Package manager,
 
 ### System's software
 
+For system's functions in user space:
+
 - [ ] Strayex Notepad,
 - [ ] Strayex Calculator,
 - [ ] Strayex System Manager,
 - [ ] Strayex Update Centre,
-- [ ] Porting GCC,
+- [ ] Porting Strayex version of GCC,
 - [ ] Version Engine, my own version control system,
 - [ ] basic system's software,
 
 ### Strayex Docs
 
+Project's information files:
+
 - [x] Polish translation,
-- [ ] English translation,
+- [x] English translation,
 - [ ] German translation,
