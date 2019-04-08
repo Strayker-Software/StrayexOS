@@ -68,3 +68,105 @@ Funkcja instaluje domyślny sterownik klawiatury w IRQ1.
 Argumenty: brak,
 
 Zwraca: brak,
+
+- void kb_install(int x)
+
+Funkcja instaluje wybrany sterownik klawiatury (z dostępnych).
+
+Agrumenty: cyfra określająca, który sterownik zainstalować,
+
+Zwraca: brak,
+
+- void enable_cursor(unsigned char cursor_start, unsigned char cursor_end)
+
+Funkcja uruchamia kursor terminala ekranu w wyznaczonym miejscu.
+
+Argumenty: współżędne kursora,
+
+Zwraca: brak,
+
+- void disable_cursor()
+
+Funkcja wyłącza (ukrywa) kursor na ekranie.
+
+Argumenty: brak,
+
+Zwraca: brak,
+
+- void kbflush()
+
+Funkcja czyszcząca dane klawiatury, bufor i ostatni wciśnięty przycisk.
+
+Argumenty: brak,
+
+Zwraca: brak,
+
+- char *get_kb_buf()
+
+Funkcja zwraca adres do bufora klawiatury.
+
+Argumenty: brak,
+
+Zwraca: adres w pamięci (do zapisania w wskaźniku),
+
+- bool kb_status()
+
+Funkcja sprawdza, czy sterownik klawiatury jest włączony.
+
+Argumenty: brak,
+
+Zwraca: wartość logiczna, prawda lub fałsz,
+
+- void set_kb_status(bool x)
+
+Funkcja włącza lub wyłącza sterownik klawiatury,
+
+Argumenty: wartość logiczna, prawda lub fałsz,
+
+Zwraca: brak,
+
+- bool kb_buf_status()
+
+Funkcja sprawdza, czy sterownik klawiatury podczas pisania ma zapisywać litery do bufora w pamięci.
+
+Argumenty: brak,
+
+Zwraca: wartośc logiczna, prawda lub fałsz,
+
+- void set_kb_buf_status(bool x)
+
+Funkcja włącza lub wyłącza zapis do bufora pisanych liter.
+
+Argumenty: wartość logiczna, prawda lub fałsz,
+
+- int get_cursor_x()
+
+Funkcja zwracająca wartość współżędnej X kursora.
+
+Argumenty: brak,
+
+Zwraca: liczbę współżędnej typu "int",
+
+- int get_cursor_y()
+
+Funkcja zwracająca wartość współżędnej Y kursora.
+
+Argumenty: brak,
+
+Zwraca: liczbę współżędnej typu "int",
+
+- unsigned char *get_layout()
+
+Funkcja zwraca adres do tablicy znaków typu "unsigned char" ze sterownika klawiatury.
+
+Argumenty: brak,
+
+Zwraca: adres do tablicy znaków, do zmiennej typu "unsigned char *",
+
+- char get_last_char()
+
+Funkcja zwraca ostatnią literę z bufora klawiatury.
+
+Argumenty: brak,
+
+Zwraca: znak typu "char",
