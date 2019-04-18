@@ -50,7 +50,7 @@ Funkcja zamienia wartość liczbową całkowitą na ciąg znaków w danym system
 
 Przykład użycia:
 
-```int x = 10;
+```c
 char str[3];
 kitoa(10, str, 10);
 // Po tej funkcji, zawartość str będzie wyglądać tak: "1 0 \0"!
