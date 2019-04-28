@@ -13,6 +13,7 @@ Wystarczy uruchmoić maszynę z pliku ISO i gotowe!
 
 Warto pamiętać, że Strayex jest pełnoprawnym systemem operacyjnym i może zostać uruchomiony na prawdziwym sprzęcie, jednak odradzam tego.
 Dla skonfigurowania maszyny wirtualnej poniżej jest aktualna specyfikacja minimalna dla systemu:
+
 - procesor 32-bitowy, kompatybilny z i386,
 - min. 32 MB RAM,
 - monitor 80x25 na złączu VGA, zintegrowana karta graficzna,

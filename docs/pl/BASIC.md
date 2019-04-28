@@ -6,6 +6,7 @@ StrayexOS działa na jednozadaniowym mikro jądrze - Strayex Kernel. Napisane zo
 Pliki znajdują się w folderze "kernel" repozytorium.
 
 Składa się z trzech części:
+
 - w folderze "kernel/klib" jest niestandardowa biblioteka C jądra,
 - pliki .c jądra,
 - pliki .asm jądra,

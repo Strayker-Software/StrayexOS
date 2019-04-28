@@ -24,7 +24,9 @@ VER:=1.0.0
 
 # Kernel files' directory (where are files to compile):
 KERNEL_DIR:=kernel
-# grub-mkrescue build directory (where to push binary kernel):
+# grub-mkrescue build directory (where to push binary kernel).
+# You have to create this directory and add GRUB config file.
+# See Strayex Docs for more instructions.
 GRUB_ISO_DIR:=~/iso
 # Build architecture (for naming system):
 ARCH:=i386-x86
