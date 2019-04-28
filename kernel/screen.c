@@ -40,6 +40,20 @@ int get_cursor_y() { return py; }
 // Sets active colors for printing characters:
 void ksetattrib(char font, char bg) { attrib = (bg << 4) | (font & 0x0F); }
 
+// Scrolls screen down, like in TTY in Linux:
+void kscroll()
+{
+	// If there is end of screen:
+	if(py >= 25)
+	{
+		unsigned space = 0x20 | (attrib << 8), temp = py - 25 + 1;
+		memcpy((unsigned char *)videomem, (const unsigned char *)(videomem + temp * 80), (25 - temp) * 80 * 2); // Move all other lines,
+		// Set the last line into spaces:
+		memsetw(videomem + (25 - temp) * 80, space, 80);
+		py = 24;
+	}
+}
+
 // Identifies character and prints it on screen:
 void kprintch(char x)
 {
@@ -94,6 +108,7 @@ void kprintch(char x)
 		py++;
 	}
 
+	kscroll();
 	kmove_cursor(px, py);
 }
 

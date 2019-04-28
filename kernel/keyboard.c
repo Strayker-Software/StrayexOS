@@ -60,44 +60,46 @@ unsigned char kbdus[128] =
     0,	/* All other keys are undefined */
 };
 
-unsigned char kbdusysh[128] =
+/*
+int kbdusysh[128] =
 {
-0,  0, '!', '"', '£', '$', '%', '^', '&', '*',   /* 9 */
+0,  0, '!', '"', '£', '$', '%', '^', '&', '*',   // 9
   '(', ')', '_', '+', '\b', '\t',
   'Q', 'W', 'E', 'R',
-  'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '\n',      /* Enter key */
-    0,         /* 29   - Control */
-  'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';',   /* 39 */
-'|', '¬',   42,      /* Left shift */
-'\\', 'Z', 'X', 'C', 'V', 'B', 'N',         /* 49 */
-  'M', '<', '>', '?',   0,               /* Right shift */
+  'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '\n',      // Enter key
+    0,         //29   - Control
+  'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';',   // 39
+'|', '¬',   42,      // Left shift
+'\\', 'Z', 'X', 'C', 'V', 'B', 'N',         // 49
+  'M', '<', '>', '?',   0,               // Right shift
   0,
-    0,   /* Alt */
-  ' ',   /* Space bar */
-    58,   /* Caps lock */
-    0,   /* 59 - F1 key ... > */
+    0,   // Alt
+  ' ',   // Space bar
+    58,   // Caps lock
+    0,   // 59 - F1 key ... >
     0,   0,   0,   0,   0,   0,   0,   0,
-    0,   /* < ... F10 */
-    0,   /* 69 - Num lock*/
-    0,   /* Scroll Lock */
-    0,   /* Home key */
-    0,   /* Up Arrow */
-    0,   /* Page Up */
+    0,   // < ... F10
+    0,   // 69 - Num lock
+    0,   // Scroll Lock
+    0,   // Home key
+    0,   // Up Arrow
+    0,   // Page Up
   '-',
-    0,   /* Left Arrow */
+    0,   // Left Arrow
     0,
-    0,   /* Right Arrow */
+    0,   // Right Arrow
   '+',
-    0,   /* 79 - End key*/
-    0,   /* Down Arrow */
-    0,   /* Page Down */
-    0,   /* Insert Key */
-    0,   /* Delete Key */
+    0,   // 79 - End key
+    0,   // Down Arrow
+    0,   // Page Down
+    0,   // Insert Key
+    0,   // Delete Key
     0,   0,   0,
-    0,   /* F11 Key */
-    0,   /* F12 Key */
-    0,   /* All other keys are undefined */
+    0,   // F11 Key
+    0,   // F12 Key
+    0,   // All other keys are undefined
 };
+*/
 
 // Clears keyboard buffer:
 void kbflush()
@@ -131,7 +133,10 @@ char get_last_char()
 	return last_key;
 }
 
-// Default keyboard handler, printing chars on screen:
+/*
+ Default keyboard handler, printing chars on screen, moves cursor through all screen.
+ Useful in for example notepad application.
+*/
 void keyboard_handler_default()
 {
     if(if_enabled)
@@ -196,6 +201,67 @@ void keyboard_handler_default()
 	}
 }
 
+// CLI handler, moves cursor only in one line:
+void keyboard_handler_cli()
+{
+    if(if_enabled)
+	{
+		unsigned char scancode;
+
+		/* Read from the keyboard's data buffer */
+		scancode = kinportb(0x60);
+
+		/* If the top bit of the byte we read from the keyboard is
+		*  set, that means that a key has just been released */
+		if (scancode & 0x80)
+		{
+			//if(scancode & 0x1C)
+			/* You can use this one to see if the user released the
+			*  shift, alt, or control keys... */
+		}
+		else
+		{
+			unsigned char ch = kbdus[scancode]; // Make ASCII character from scancode,
+			
+			int cx = get_cursor_x();
+			int cy = get_cursor_y();
+			
+			// Up arrow
+			if(scancode == 'H')
+			{
+				return;
+			}
+			// Left arrow
+			else if(scancode == 'K')
+			{
+				--cx;
+				kmove_cursor(cx, cy);
+				return;
+			}
+			// Right arrow
+			else if(scancode == 'M')
+			{
+				++cx,
+				kmove_cursor(cx, cy);
+				return;
+			}
+			// Down arrow
+			else if(scancode == 'P')
+			{
+				return;
+			}
+			
+			// Checks, if function have to push char to buffer:
+			if(if_buffer_enabled)
+			{
+				kb_buffer[buf_lvl] = ch;
+				buf_lvl++;
+			}
+			kprintch(ch); // Print ch on screen,
+		}
+	}
+}
+
 // Development keyboard handler, prints scancodes on screen:
 void keyboard_handler_scancode()
 {
@@ -221,6 +287,7 @@ void kb_install(int x)
 {
 	if(x == 0) irq_install_handler(1, keyboard_handler_default);
 	else if(x == 1) irq_install_handler(1, keyboard_handler_scancode);
+	else if(x == 2)  irq_install_handler(1, keyboard_handler_cli);
 }
 
 // On kernel start up, sets default KB handler:
