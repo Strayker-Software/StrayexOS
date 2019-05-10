@@ -1,6 +1,6 @@
 /*
  Strayex Kernel
- v1.0.0
+ v1.0.1
  Kernel's main file, with kinit and kmain functions
  Copyright 2019 Daniel Strayker Nowak
  All rights reserved

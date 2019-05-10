@@ -1,6 +1,6 @@
 /*
  Strayex Kernel C Library "klib"
- v1.0
+ v1.0.1
  Kernel String file, access through "kstring.h"
  Copyright 2019 Daniel Strayker Nowak
  All rights reserved

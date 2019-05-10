@@ -24,6 +24,7 @@ What kernel shoud be able to do:
 - [ ] Strayex System Call,
 - [x] VGA terminal driver,
 - [x] US QWERTY PS/2 keyboard driver,
+- [x] Stack Smash Protector,
 - [ ] Physical memory manager,
 - [ ] Virtual memory manager,
 - [ ] ATA/IDE driver,

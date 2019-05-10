@@ -1,6 +1,6 @@
 /*
  Strayex Kernel C Library "klib"
- v1.0
+ v1.0.1
  Kernel Standard Library file, access through "kstdlib.h"
  Copyright 2019 Daniel Strayker Nowak
  All rights reserved

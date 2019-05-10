@@ -1,6 +1,6 @@
 /*
  Strayex Kernel
- v1.0.0
+ v1.0.1
  Kernel's PS/2 keyboard driver
  Copyright 2019 Daniel Strayker Nowak
  All rights reserved

@@ -1,5 +1,5 @@
 ; Strayex Kernel
-; v1.0.0
+; v1.0.1
 ; Kernel's entery point in NASM Assembly
 ; Copyright 2019 Daniel Strayker Nowak
 ; All rights reserved

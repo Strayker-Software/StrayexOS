@@ -1,6 +1,6 @@
 /*
  Strayex Kernel C Library "klib"
- v1.0.0
+ v1.0.1
  Kernel Descriptor Tables Header
  Copyright 2019 Daniel Strayker Nowak
  All rights reserved
