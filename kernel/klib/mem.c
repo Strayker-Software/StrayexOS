@@ -37,6 +37,12 @@ void *liballoc_alloc(int pages)
 
 // Releases given space:
 int liballoc_free(void* addr, int pages)
-{
-	return (int)free(addr);
+{ // Need to check this!
+	int x = pages * 4096;
+	while(x != 0)
+	{
+		free(addr);
+		x -= 4096;
+	}
+	return 0;
 }
