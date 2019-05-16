@@ -20,7 +20,7 @@
 # If you want to make tests, or personalise build process, change this values.
 
 # System version:
-VER:=1.0.0
+VER:=1.0.1
 
 # Kernel files' directory (where are files to compile):
 KERNEL_DIR:=kernel
