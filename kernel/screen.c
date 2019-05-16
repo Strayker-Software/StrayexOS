@@ -169,6 +169,12 @@ int vkprintf(const char *x, va_list args)
 					for(int k = 0; k < l; k++) kprintch(help4[k]);
 					i++;
 				break;
+				case 's': ;
+					char *help5 = va_arg(args, unsigned);
+					int y = kstrlen((unsigned char *)help5);
+					for(int k = 0; k < y; k++) kprintch(help5[k]);
+					i++;
+				break;
 				default: kprintch('?'); i++; break;
 			}
 		}
