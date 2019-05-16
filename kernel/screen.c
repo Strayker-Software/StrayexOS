@@ -133,7 +133,7 @@ int vkprintf(const char *x, va_list args)
 			switch(x[i + 1])
 			{
 				case '%': kprintch('%'); i++; break;
-				case 'i': ;
+				case 'i': ; // Integer decimal:
 					int help1 = va_arg(args, int);
 					if(help1)
 					{
@@ -148,7 +148,7 @@ int vkprintf(const char *x, va_list args)
 						i++;
 					}
 				break;
-				case 'x': ;
+				case 'x': ; // Integer hexadecimal:
 					int help2 = va_arg(args, int);
 					if(help2)
 					{
@@ -163,16 +163,10 @@ int vkprintf(const char *x, va_list args)
 						i++;
 					}
 				break;
-				case 'c': ;
+				case 'c': ; // Character:
 					char *help4 = va_arg(args, char *);
 					int l = kstrlen((unsigned char *)help4);
 					for(int k = 0; k < l; k++) kprintch(help4[k]);
-					i++;
-				break;
-				case 's': ;
-					char *help5 = va_arg(args, unsigned);
-					int y = kstrlen((unsigned char *)help5);
-					for(int k = 0; k < y; k++) kprintch(help5[k]);
 					i++;
 				break;
 				default: kprintch('?'); i++; break;
@@ -203,12 +197,12 @@ void kcls()
 {
 	for(int i = 0; i < 25; i++)
 	{
-		for(int j = 0; j < 80; i++) kprintch(' ');
+		for(int j = 0; j < 80; j++) kprintch(' ');
 	}
-
+	
 	px = 0;
 	py = 0;
-
+	
 	kmove_cursor(px, py);
 }
 

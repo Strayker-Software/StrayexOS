@@ -121,6 +121,7 @@ void kinit(unsigned long magic, unsigned long mbi)
 	irq_init(); // Remapping IDT and ISRs for working properly with IRQs,
 	pit_init(); // Mapping IRQ0 for Programmable Interval Timer,
 	kb_init(); // Mapping PS/2 keyboard driver,
+	kcls(); // Clean screen,
 
 	Int_on(); // Enable interrupts,
 	
@@ -147,7 +148,7 @@ void kinit(unsigned long magic, unsigned long mbi)
 			kitoa(pom2, addr, 16);
 			kitoa(pom3, len, 16);
 			kitoa(pom4, len, 16);
-			kprintf("%i. Address: 0x%s, Length: 0x%s, Type: 0x%i\n", i + 1, addr, len, mem->type);
+			kprintf("%i. Address: 0x%c, Length: 0x%c, Type: 0x%i\n", i + 1, addr, len, mem->type);
 		}
 		kprintf("Boot dir: driver number: 0x%x, top partition: 0x%x, sub-partition: 0x%x\n", driver, partition, subpart);
 		kprintf("Arguments for Strayex: %c\n", args);
