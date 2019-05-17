@@ -24,6 +24,9 @@ void kmain()
 	//unsigned long *shell = (unsigned long *)0x200000;
 	//asm("jmp %0;" : "=r"  (shell));
 	// TODO in near future!
+	
+	//kprintf("Int: %c", malloc(sizeof(int)));
+	
 	for(;;);
 }
 
