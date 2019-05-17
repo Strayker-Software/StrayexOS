@@ -17,6 +17,9 @@ SECTIONS
 	/* Map kernel in start of 1 MB, */
 	. = 1M;
 	
+	/* Start of Kernel tag: */
+	_sok = .;
+	
 	/* Block for Multiboot header: */
 	.mb BLOCK(8K) : ALIGN(8K)
 	{
@@ -41,4 +44,7 @@ SECTIONS
 		*(COMMON)
 		*(.bss)
 	}
+	
+	/* End of Kernel tag: */
+	_eok = .;
 }

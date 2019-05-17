@@ -20,6 +20,10 @@ bool if_debug = true;
 // Main kernel's function, loading and running Strayex Shell (not yet):
 void kmain()
 {
+	// Pointer ready for shell execution, pointing into 2MB mark in memory,
+	//unsigned long *shell = (unsigned long *)0x200000;
+	//asm("jmp %0;" : "=r"  (shell));
+	// TODO in near future!
 	for(;;);
 }
 
@@ -130,6 +134,7 @@ void kinit(unsigned long magic, unsigned long mbi)
 	{
 		// Writting the info:
 		kprintf("Strayex Kernel v1.0.1 Alpha\nDebug Mode\n"); // My name :) for information, that Strayex Kernel is in Debug Mode,
+		kprintf("Copyright 2019 Daniel Strayker Nowak and Contributors\nAll rights reserved\n");
 		kprintf("MBI address: 0x%x\n", mbi);
 		kprintf("MBI size: %i B\n", wiel);
 		kprintf("Bootloader: %c\n", (char *)bootloader);
