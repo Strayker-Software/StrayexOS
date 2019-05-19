@@ -19,6 +19,5 @@ extern char *kitoa(int value, char *str, int base);
 extern void pit_init(); // in "pit.c",
 extern void Int_on();
 extern void Int_off();
-extern void paging();
 
 #endif

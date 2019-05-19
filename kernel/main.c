@@ -13,6 +13,8 @@
 #include "klib/kstring.h"
 #include "klib/kstdlib.h"
 #include "klib/kdt.h"
+#include "klib/kmem.h"
+#include "klib/kstddef.h"
 
 // Holds information, if kernel is in Debug Mode, default is true,
 bool if_debug = true;
@@ -24,9 +26,7 @@ void kmain()
 	//unsigned long *shell = (unsigned long *)0x200000;
 	//asm("jmp %0;" : "=r"  (shell));
 	// TODO in near future!
-	
-	//kprintf("Int: %c", malloc(sizeof(int)));
-	
+
 	for(;;);
 }
 
@@ -174,6 +174,20 @@ void kinit(unsigned long magic, unsigned long mbi)
 	//int b = a / 0;
 
 	// After startup of system with it, screen shoud contain "Division By Zero Exception. System Halted!"
+	
+	/*
+	Here is block of code to check dynamic memory allocation,
+	Uncomment it, recompile system and look on the screen in debug mode
+	Kernel should reserve 4 bytes in memory on starting address and print reserved memory on screen with address of it.
+	*/
+	
+	//int *x = kmalloc(sizeof(int));
+	//char tmp[255];
+	//kprintf("Value: %i, address: %i in decimal\n", *x, x);
+	//kfree(x);
+	//kprintf("After freeing: ", *x);
+	
+	// Remember to comment back all test code before getting back to normal work mode of system! In Debug mode shell will not be loaded!
 
 	// Initialisation complete! Let's load the shell!
 	kmain();
