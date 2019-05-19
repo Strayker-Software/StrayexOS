@@ -7,6 +7,7 @@
 // Libraries
 #include <stdint.h>
 #include "kstdlib.h"
+#include "kio.h"
 
 // Checks if macro for stack guard in compilation process:
 #if UINT32_MAX == UINTPTR_MAX
@@ -25,7 +26,7 @@ void __attribute__((noreturn)) __stack_chk_fail(void)
 	#if __STDC_HOSTED__
 		abort();
 	#elif __is_myos_kernel
-		panic("Stack smashing detected!");
+		kprintf("Stack smashing detected!");
 	#endif
 
 	for(;;);
