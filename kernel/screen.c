@@ -134,8 +134,9 @@ int vkprintf(const char *x, va_list args)
 			{
 				case '%': kprintch('%'); i++; break;
 				case 'i': ; // Integer decimal:
-					int help1 = va_arg(args, int);
-					if(help1)
+					int help1 = -1;
+					help1 = va_arg(args, int);
+					if(help1 != -1)
 					{
 						kitoa(help1, help, 10);
 						int n = kstrlen((unsigned char *)help);
@@ -149,8 +150,9 @@ int vkprintf(const char *x, va_list args)
 					}
 				break;
 				case 'x': ; // Integer hexadecimal:
-					int help2 = va_arg(args, int);
-					if(help2)
+					int help2 = -1;
+					help2 = va_arg(args, int);
+					if(help2 != -1)
 					{
 						kitoa(help2, help, 16);
 						int n = kstrlen((unsigned char *)help);

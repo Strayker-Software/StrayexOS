@@ -15,6 +15,7 @@
 #include "klib/kdt.h"
 #include "klib/kmem.h"
 #include "klib/kstddef.h"
+#include "klib/ktime.h"
 
 // Holds information, if kernel is in Debug Mode, default is true,
 bool if_debug = true;
@@ -22,6 +23,14 @@ bool if_debug = true;
 // Main kernel's function, loading and running Strayex Shell (not yet):
 void kmain()
 {
+	// This loop writes system's time on last information's line. Useful to check, if time functions are working:
+	/*
+	while(true)
+	{
+		kprintf("System time: %i.%i.%i %i:%i:%i Time elapsed from startup: %i seconds\r", get_days(), get_months(), get_years(), get_hours(), get_minutes(), get_seconds(), get_start_time());
+	}
+	*/
+	
 	// Pointer ready for shell execution, pointing into 2MB mark in memory,
 	//unsigned long *shell = (unsigned long *)0x200000;
 	//asm("jmp %0;" : "=r"  (shell));

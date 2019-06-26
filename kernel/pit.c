@@ -13,7 +13,10 @@
 #include <stdbool.h>
 
 // Calculate intercalary year:
-bool If_intercalary(int year) {return ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0));}
+bool If_intercalary(int year)
+{
+	return (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0));
+}
 
 // Change timer work mode:
 void timer_phase(int hz)
@@ -36,29 +39,273 @@ int kticks = 0;
 
 // Functions for changing time values:
 
+// Get start time:
+int get_start_time() { return kernel_start; }
+
+// Get seconds:
+int get_seconds() { return kernel_seconds; }
+
+// Get minutes:
+int get_minutes() { return kernel_minutes; }
+
+// Get hours:
+int get_hours() { return kernel_hours; }
+
+// Get days:
+int get_days() { return kernel_days; }
+
+// Get months:
+int get_months() { return kernel_months; }
+
+// Get years:
+int get_years() { return kernel_years; }
+
+// Increment years:
+void year_up()
+{
+	kernel_years++;
+}
+
+// Increment months:
+void months_up()
+{
+	if(kernel_months == 12)
+	{
+		kernel_months = 1;
+		//year_up();
+	}
+	else kernel_months++;
+}
+
 // Increment days:
 void day_up()
 {
-	// Checks, if year is intercalary:
 	if(If_intercalary(kernel_years))
 	{
-		if(kernel_months == 2 && kernel_days == 29)
+		switch(kernel_months)
 		{
-			kernel_days = 0;
-			//month_up();
+			case 1:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 2:
+				if(kernel_days == 29)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 3:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 4:
+				if(kernel_days == 30)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 5:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 6:
+				if(kernel_days == 30)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 7:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 8:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 9:
+				if(kernel_days == 30)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 10:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 11:
+				if(kernel_days == 30)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 12:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
 		}
 	}
 	else
 	{
-		if(kernel_months == 2 && kernel_days == 28)
+		switch(kernel_months)
 		{
-			kernel_days = 0;
-			//month_up();
+			case 1:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 2:
+				if(kernel_days == 28)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 3:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 4:
+				if(kernel_days == 30)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 5:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 6:
+				if(kernel_days == 30)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 7:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 8:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 9:
+				if(kernel_days == 30)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 10:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 11:
+				if(kernel_days == 30)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
+			
+			case 12:
+				if(kernel_days == 31)
+				{
+					kernel_days = 1;
+					months_up();
+				}
+				else kernel_days++;
+			break;
 		}
 	}
-	
-	// TODO
-	//if(kernel_days == 30 && (kernel_months % 2 == 0 || kernel_months % 3 == 0))
 }
 
 // Increment hours:
@@ -112,11 +359,11 @@ void timer_handler()
 
 /* This will continuously loop until the given time has
 *  been reached */
-void kwait(int ticks)
+void kwait(int sec)
 {
     int eticks;
-    eticks = kernel_start + ticks;
-    while(kernel_start < eticks);
+    eticks = kticks + sec;
+    while(kticks < eticks);
 }
 
 /* Sets up the system clock by installing the timer handler
