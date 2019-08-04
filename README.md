@@ -38,7 +38,8 @@ This software is released under [MIT/X11 license](https://github.com/StraykerPL/
 Distribution list:
 
 - Strayex Legacy - based on [Bran's Kernel Development Tutorial](http://www.osdever.net/bkerndev/Docs/title.htm),
-- Pretorian Alpha 1.0.0 (actually in repository),
+- Pretorian Alpha 1.0.0,
+- Pretorian Alpha 1.0.1 (actually in repository),
 
 # TODO
 
