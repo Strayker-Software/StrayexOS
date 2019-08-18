@@ -27,7 +27,6 @@ What kernel shoud be able to do:
 - [x] Stack Smash Protector,
 - [x] Physical memory manager,
 - [ ] ATA/IDE driver,
-- [ ] Intel PRO/1000 network driver,
 - [ ] Porting Newlib,
 
 ### Strayex Shell
@@ -45,7 +44,6 @@ For system's functions in user space:
 - [ ] Strayex Notepad,
 - [ ] Strayex Calculator,
 - [ ] Strayex System Manager,
-- [ ] Strayex Update Centre,
 - [ ] Porting Strayex version of GCC,
 - [ ] Version Engine, my own version control system,
 - [ ] basic system's software,
