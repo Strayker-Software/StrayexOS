@@ -169,6 +169,7 @@ void kinit(unsigned long magic, unsigned long mbi)
 		}
 		kprintf("Boot dir: driver number: 0x%x, top partition: 0x%x, sub-partition: 0x%x\n", driver, partition, subpart);
 		kprintf("Arguments for Strayex: %c\n", args);
+		kprintf("Actual time: %i:%i:%i %i.%i.%i\n", get_hours(), get_minutes(), get_seconds(), get_days(), get_months(), get_years());
 		if(kb_status() == true) kprintf("Keyboard on\n");
 		else kprintf("Keyboard off\n");
 		//kprintf("Get back to normal mode by restarting mashine!\n");
