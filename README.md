@@ -48,3 +48,7 @@ Distribution list:
 # Contributions
 
 Feel free to contribute to project! Read CONTRIBUTING.md in "docs" folder to know how to do it!
+
+# Contact
+
+If you have any suggestions for Strayex or you want to ask me for something, send message on support@strayex.cba.pl!
