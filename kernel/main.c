@@ -16,6 +16,7 @@
 #include "klib/kmem.h"
 #include "klib/kstddef.h"
 #include "klib/ktime.h"
+#include "klib/kdebug.h"
 
 // Holds information, if kernel is in Debug Mode, default is true,
 bool if_debug = true;
@@ -73,9 +74,9 @@ void kinit(unsigned long magic, unsigned long mbi)
 	wiel = *(unsigned *)mbi; // Information structure size,
 	unsigned char bootloader[100]; // Bootloader name,
 	unsigned char args[100]; // CMD arguments,
-	unsigned int driver = 0; // boot driver number,
-	unsigned int partition = 0; // boot top-level partition number;
-	unsigned int subpart = 0; // boot sub-level partition number;
+	int driver = 0; // boot driver number,
+	int partition = 0; // boot top-level partition number;
+	int subpart = 0; // boot sub-level partition number;
 	// RAM:
 	unsigned int ram_mb =  0; // RAM amount in MB,
 	unsigned int ram_kb = 0; // RAM amount in KB,
@@ -146,7 +147,7 @@ void kinit(unsigned long magic, unsigned long mbi)
 	{
 		// Writting the info:
 		kprintf("Strayex Kernel v1.0.1 Alpha\nDebug Mode\n"); // My name :) for information, that Strayex Kernel is in Debug Mode,
-		kprintf("Copyright 2019 Daniel Strayker Nowak and Contributors\nAll rights reserved\n");
+		kprintf("Copyright (c) 2019 Daniel Strayker Nowak and Contributors\nAll rights reserved\n");
 		kprintf("MBI address: 0x%x\n", mbi);
 		kprintf("MBI size: %i B\n", wiel);
 		kprintf("Bootloader: %c\n", (char *)bootloader);
@@ -167,12 +168,24 @@ void kinit(unsigned long magic, unsigned long mbi)
 			kitoa(pom4, len, 16);
 			kprintf("%i. Address: 0x%c, Length: 0x%c, Type: 0x%i\n", i + 1, addr, len, mem->type);
 		}
-		kprintf("Boot dir: driver number: 0x%x, top partition: 0x%x, sub-partition: 0x%x\n", driver, partition, subpart);
+
+		if(driver <= 0 || partition <= 0 || subpart <= 0) kprintf("Boot directory load error!\n");
+		else kprintf("Boot dir: driver number: 0x%x, top partition: 0x%x, sub-partition: 0x%x\n", driver, partition, subpart);
+		
 		kprintf("Arguments for Strayex: %c\n", args);
 		kprintf("Actual time: %i:%i:%i %i.%i.%i\n", get_hours(), get_minutes(), get_seconds(), get_days(), get_months(), get_years());
 		if(kb_status() == true) kprintf("Keyboard on\n");
 		else kprintf("Keyboard off\n");
 		//kprintf("Get back to normal mode by restarting mashine!\n");
+		
+		// Debug info for "serial.log":
+		init_serial();
+		
+		// TODO: Upgrade DebugWrite function!
+		//char x[100];
+		//DebugWrite(kitoa(partition, x, 10));
+		//for(int p = 0; p < 100; p++) x[p] = '0';
+		//DebugWrite(kitoa(subpart, x, 10));
 	}
 
 	/*
