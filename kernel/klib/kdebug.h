@@ -9,9 +9,12 @@
 #ifndef _KDEBUG_
 #define _KDEBUG_
 
+#include <stdarg.h>
+
 extern void init_serial();
 extern int is_transmit_empty();
 extern void write_serial(char a);
-extern void DebugWrite(char *x);
+extern int vDebugWrite(const char *x, va_list args);
+extern void DebugWrite(const char *x, ...);
 
 #endif

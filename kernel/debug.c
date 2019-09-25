@@ -9,9 +9,11 @@
 #include "klib/kstdlib.h"
 #include "klib/kdebug.h"
 #include "klib/kstring.h"
+#include <stdarg.h>
 
-#define PORT 0x3F8   /* COM 1 */
+#define PORT 0x3F8  /* COM 1 */
  
+// Prepare the COM1 serial port for writting:
 void init_serial() {
    koutportb(PORT + 1, 0x00);    // Disable all interrupts
    koutportb(PORT + 3, 0x80);    // Enable DLAB (set baud rate divisor)
@@ -22,21 +24,56 @@ void init_serial() {
    koutportb(PORT + 4, 0x0B);    // IRQs enabled, RTS/DSR set
 }
 
+// Checks if serial port is ready for input:
 int is_transmit_empty() {
    return kinportb(PORT + 5) & 0x20;
 }
- 
+
+// Write single character to port:
 void write_serial(char a) {
    while (is_transmit_empty() == 0);
  
    koutportb(PORT, a);
 }
 
-void DebugWrite(char *x)
+// Help function for DebugWrite, givs int args in every %x position:
+int vDebugWrite(const char *x, va_list args)
 {
-	int n = kstrlen((unsigned char *)x);
-	for(int i = 0; i < n; i++)
+	for(int i = 0; x[i] != '\0'; i++)
 	{
-		write_serial(x[i]);
+		if(x[i] == '%')
+		{
+			if(x[i + 1] == 'x')
+			{
+				int temp = -1;
+				temp = va_arg(args, int);
+				
+				if(temp != -1)
+				{ // TODO: Something' wrong!
+					char Holder[] = {};
+					kitoa(temp, Holder, 10);
+					int HoldLen = kstrlen((unsigned char *)Holder);
+					
+					for(int a = 0; a < HoldLen; a++) write_serial(Holder[a]);
+					
+					i++;
+				}
+			}
+			else write_serial(x[i]);
+		}
+		else write_serial(x[i]);
 	}
+	
+	return 0;
+}
+
+// Write string to port:
+void DebugWrite(const char *x, ...)
+{
+	va_list args;
+	va_start(args, x);
+	
+	vDebugWrite(x, args);
+	
+	va_end(args);
 }

@@ -181,11 +181,12 @@ void kinit(unsigned long magic, unsigned long mbi)
 		// Debug info for "serial.log":
 		init_serial();
 		
-		// TODO: Upgrade DebugWrite function!
-		//char x[100];
-		//DebugWrite(kitoa(partition, x, 10));
-		//for(int p = 0; p < 100; p++) x[p] = '0';
-		//DebugWrite(kitoa(subpart, x, 10));
+		DebugWrite("Strayex Kernel Debug Mode\nUsing serial port COM1\n");
+		DebugWrite("Full kernel name: Strayex Kernel v1.0.1 Alpha\n");
+		//char cos[] = {};
+		//kitoa(10, cos, 10);
+		//for(int y = 0; y < kstrlen((unsigned char *)cos); y++) write_serial(cos[y]);
+		DebugWrite("%x", 50);
 	}
 
 	/*
