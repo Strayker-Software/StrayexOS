@@ -184,9 +184,11 @@ void kinit(unsigned long magic, unsigned long mbi)
 		DebugWrite("Strayex Kernel Debug Mode\nUsing serial port COM1\n");
 		DebugWrite("Full kernel name: Strayex Kernel v1.0.1 Alpha\n");
 		//char cos[] = {};
-		//kitoa(10, cos, 10);
+		int p = 10;
+		//kitoa(&p, cos, 16);
 		//for(int y = 0; y < kstrlen((unsigned char *)cos); y++) write_serial(cos[y]);
-		DebugWrite("%x", 50);
+		DebugWrite("Adress of p: 0x%x\n", &p);
+		kprintf("Adress of p: 0x%x\n", &p);
 	}
 
 	/*

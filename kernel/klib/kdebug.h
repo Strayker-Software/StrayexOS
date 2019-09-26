@@ -14,7 +14,7 @@
 extern void init_serial();
 extern int is_transmit_empty();
 extern void write_serial(char a);
-extern int vDebugWrite(const char *x, va_list args);
+extern void vDebugWrite(const char *x, va_list args);
 extern void DebugWrite(const char *x, ...);
 
 #endif
