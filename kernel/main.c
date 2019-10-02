@@ -75,8 +75,6 @@ void kinit(unsigned long magic, unsigned long mbi)
 	unsigned char bootloader[100]; // Bootloader name,
 	unsigned char args[100]; // CMD arguments,
 	int driver = 0; // boot driver number,
-	int partition = 0; // boot top-level partition number;
-	int subpart = 0; // boot sub-level partition number;
 	// RAM:
 	unsigned int ram_mb =  0; // RAM amount in MB,
 	unsigned int ram_kb = 0; // RAM amount in KB,
@@ -126,8 +124,6 @@ void kinit(unsigned long magic, unsigned long mbi)
 			
 			case MULTIBOOT_TAG_TYPE_BOOTDEV: ;
 				driver = ((struct multiboot_tag_bootdev *) tag)->biosdev;
-				partition = ((struct multiboot_tag_bootdev *) tag)->slice;
-				subpart = ((struct multiboot_tag_bootdev *) tag)->part;
 			break;
 		}
 	}
@@ -169,8 +165,7 @@ void kinit(unsigned long magic, unsigned long mbi)
 			kprintf("%i. Address: 0x%c, Length: 0x%c, Type: 0x%i\n", i + 1, addr, len, mem->type);
 		}
 
-		if(driver <= 0 || partition <= 0 || subpart <= 0) kprintf("Boot directory load error!\n");
-		else kprintf("Boot dir: driver number: 0x%x, top partition: 0x%x, sub-partition: 0x%x\n", driver, partition, subpart);
+		kprintf("Boot driver number: 0x%x\n", driver);
 		
 		kprintf("Arguments for Strayex: %c\n", args);
 		kprintf("Actual time: %i:%i:%i %i.%i.%i\n", get_hours(), get_minutes(), get_seconds(), get_days(), get_months(), get_years());
@@ -183,10 +178,6 @@ void kinit(unsigned long magic, unsigned long mbi)
 		
 		DebugWrite("Strayex Kernel Debug Mode\nUsing serial port COM1\n");
 		DebugWrite("Full kernel name: Strayex Kernel v1.0.1 Alpha\n");
-		DebugWrite("Value of sub partition: 0x%x\n", subpart);
-		DebugWrite("Value of top partition: 0x%x\n", partition);
-		DebugWrite("Value of sub partition (dec): %i\n", subpart);
-		DebugWrite("Value of top partition (dec): %i\n", partition);
 	}
 
 	/*
