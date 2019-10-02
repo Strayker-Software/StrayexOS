@@ -1,4 +1,7 @@
 Strayex Kernel Debug Mode
 Using serial port COM1
 Full kernel name: Strayex Kernel v1.0.1 Alpha
-Adress of p: 0x11f4
+Value of sub partition: 0x1
+Value of top partition: 0x1
+Value of sub partition (dec): -1
+Value of top partition (dec): -1

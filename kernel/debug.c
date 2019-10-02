@@ -43,11 +43,26 @@ void vDebugWrite(const char *x, va_list args)
 {
 	for(int i = 0; x[i] != '\0'; i++)
 	{
-		if((x[i] == '%') && (x[i + 1] == 'x'))
+		if((x[i] == '%') && (x[i + 1] == 'i'))
 		{
 			int Value = va_arg(args, int);
 
-			char Holder[] = {};
+			char Holder[20]; // Fits dec 32bit integer,
+			
+			kitoa(Value, Holder, 10);
+
+			for(int a = 0; Holder[a] != '\0'; a++)
+			{
+				write_serial(Holder[a]);
+			}
+			
+			i++;
+		}
+		else if((x[i] == '%') && (x[i + 1] == 'x'))
+		{
+			int Value = va_arg(args, int);
+
+			char Holder[9]; // Fits hex 32bit integer,
 			
 			kitoa(Value, Holder, 16);
 
@@ -56,10 +71,6 @@ void vDebugWrite(const char *x, va_list args)
 				write_serial(Holder[a]);
 			}
 			
-			// TODO: Something fancy is here, I don't know what to do with this!
-			
-			//int *pom = &Holder;
-			//kprintf("Holder address: 0x%x\n", pom);
 			i++;
 		}
 		else write_serial(x[i]);
