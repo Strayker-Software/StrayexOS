@@ -47,6 +47,7 @@ extern void isr28();
 extern void isr29();
 extern void isr30();
 extern void isr31();
+//extern void isr128();
 
 /*
 This is a very repetitive function... it's not hard, it's
@@ -96,6 +97,9 @@ void isrs_init()
     idt_set_gate(29, (unsigned)isr29, 0x08, 0x8E);
     idt_set_gate(30, (unsigned)isr30, 0x08, 0x8E);
     idt_set_gate(31, (unsigned)isr31, 0x08, 0x8E);
+	
+	// Sets gate for Strayex System Call, ring 0 now:
+	//idt_set_gate(128, (unsigned)isr128, 0x08, 0x8E);
 }
 
 /*
@@ -199,4 +203,8 @@ void fault_handler(struct regs *r)
         kprintf(" Exception. System Halted!\n");
         for (;;);
     }
+	else if(r->int_no == 128)
+	{ // This is Strayex System Call handler, now it's only for testing:
+		kprintf("Strayex Kernel v1.0.1 Alpha\n");
+	}
 }

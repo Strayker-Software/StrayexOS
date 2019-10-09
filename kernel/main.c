@@ -36,6 +36,9 @@ void kmain()
 	//unsigned long *shell = (unsigned long *)0x200000;
 	//asm("jmp %0;" : "=r"  (shell));
 	// TODO in near future!
+	
+	// Let's check Strayex System Call by printing name of kernel:
+	// TODO in near future!
 
 	for(;;);
 }
@@ -135,6 +138,8 @@ void kinit(unsigned long magic, unsigned long mbi)
 	pit_init(); // Mapping IRQ0 for Programmable Interval Timer,
 	kb_init(); // Mapping PS/2 keyboard driver,
 	kcls(); // Clean screen,
+	
+	//irq_install_handler(128, (void (*)(struct regs *))sys_call_handler);
 
 	Int_on(); // Enable interrupts,
 	

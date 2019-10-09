@@ -46,7 +46,7 @@ extern void idt_load();
 
 /*
 Use this function to set an entry in the IDT.
-Alot simpler than twiddling with the GDT ;)
+A lot simpler than twiddling with the GDT ;)
 */
 void idt_set_gate(unsigned char num, unsigned long base, unsigned short sel, unsigned char flags)
 {
