@@ -51,4 +51,4 @@ Feel free to contribute to project! Read CONTRIBUTING.md in "docs" folder to kno
 
 # Contact
 
-If you have any suggestions for Strayex or you want to ask me for something, send message on support@strayex.cba.pl!
+If you have any suggestions for Strayex or you want to ask me for something, join to [Strayex Discord Server!](https://discord.gg/ytdkCVD)
