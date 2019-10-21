@@ -11,6 +11,8 @@
 #include "klib/kstring.h"
 #include <stdarg.h>
 
+#include "klib/kio.h"
+
 #define PORT 0x3F8  /* COM 1 */
  
 // Prepare the COM1 serial port for writting:
@@ -37,34 +39,42 @@ void write_serial(char a) {
 }
 
 // Help function for DebugWrite, givs int args in every %x position:
-int vDebugWrite(const char *x, va_list args)
+void vDebugWrite(const char *x, va_list args)
 {
 	for(int i = 0; x[i] != '\0'; i++)
 	{
-		if(x[i] == '%')
+		if((x[i] == '%') && (x[i + 1] == 'i'))
 		{
-			if(x[i + 1] == 'x')
+			int Value = va_arg(args, int);
+
+			char Holder[20]; // Fits dec 32bit integer,
+			
+			kitoa(Value, Holder, 10);
+
+			for(int a = 0; Holder[a] != '\0'; a++)
 			{
-				int temp = -1;
-				temp = va_arg(args, int);
-				
-				if(temp != -1)
-				{ // TODO: Something' wrong!
-					char Holder[] = {};
-					kitoa(temp, Holder, 10);
-					int HoldLen = kstrlen((unsigned char *)Holder);
-					
-					for(int a = 0; a < HoldLen; a++) write_serial(Holder[a]);
-					
-					i++;
-				}
+				write_serial(Holder[a]);
 			}
-			else write_serial(x[i]);
+			
+			i++;
+		}
+		else if((x[i] == '%') && (x[i + 1] == 'x'))
+		{
+			int Value = va_arg(args, int);
+
+			char Holder[9]; // Fits hex 32bit integer,
+			
+			kitoa(Value, Holder, 16);
+
+			for(int a = 0; Holder[a] != '\0'; a++)
+			{
+				write_serial(Holder[a]);
+			}
+			
+			i++;
 		}
 		else write_serial(x[i]);
 	}
-	
-	return 0;
 }
 
 // Write string to port:

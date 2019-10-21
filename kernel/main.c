@@ -36,6 +36,9 @@ void kmain()
 	//unsigned long *shell = (unsigned long *)0x200000;
 	//asm("jmp %0;" : "=r"  (shell));
 	// TODO in near future!
+	
+	// Let's check Strayex System Call by printing name of kernel:
+	// TODO in near future!
 
 	for(;;);
 }
@@ -75,8 +78,6 @@ void kinit(unsigned long magic, unsigned long mbi)
 	unsigned char bootloader[100]; // Bootloader name,
 	unsigned char args[100]; // CMD arguments,
 	int driver = 0; // boot driver number,
-	int partition = 0; // boot top-level partition number;
-	int subpart = 0; // boot sub-level partition number;
 	// RAM:
 	unsigned int ram_mb =  0; // RAM amount in MB,
 	unsigned int ram_kb = 0; // RAM amount in KB,
@@ -126,8 +127,6 @@ void kinit(unsigned long magic, unsigned long mbi)
 			
 			case MULTIBOOT_TAG_TYPE_BOOTDEV: ;
 				driver = ((struct multiboot_tag_bootdev *) tag)->biosdev;
-				partition = ((struct multiboot_tag_bootdev *) tag)->slice;
-				subpart = ((struct multiboot_tag_bootdev *) tag)->part;
 			break;
 		}
 	}
@@ -139,6 +138,8 @@ void kinit(unsigned long magic, unsigned long mbi)
 	pit_init(); // Mapping IRQ0 for Programmable Interval Timer,
 	kb_init(); // Mapping PS/2 keyboard driver,
 	kcls(); // Clean screen,
+	
+	//irq_install_handler(128, (void (*)(struct regs *))sys_call_handler);
 
 	Int_on(); // Enable interrupts,
 	
@@ -169,8 +170,7 @@ void kinit(unsigned long magic, unsigned long mbi)
 			kprintf("%i. Address: 0x%c, Length: 0x%c, Type: 0x%i\n", i + 1, addr, len, mem->type);
 		}
 
-		if(driver <= 0 || partition <= 0 || subpart <= 0) kprintf("Boot directory load error!\n");
-		else kprintf("Boot dir: driver number: 0x%x, top partition: 0x%x, sub-partition: 0x%x\n", driver, partition, subpart);
+		kprintf("Boot driver number: 0x%x\n", driver);
 		
 		kprintf("Arguments for Strayex: %c\n", args);
 		kprintf("Actual time: %i:%i:%i %i.%i.%i\n", get_hours(), get_minutes(), get_seconds(), get_days(), get_months(), get_years());
@@ -183,10 +183,6 @@ void kinit(unsigned long magic, unsigned long mbi)
 		
 		DebugWrite("Strayex Kernel Debug Mode\nUsing serial port COM1\n");
 		DebugWrite("Full kernel name: Strayex Kernel v1.0.1 Alpha\n");
-		//char cos[] = {};
-		//kitoa(10, cos, 10);
-		//for(int y = 0; y < kstrlen((unsigned char *)cos); y++) write_serial(cos[y]);
-		DebugWrite("%x", 50);
 	}
 
 	/*

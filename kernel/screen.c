@@ -115,7 +115,7 @@ void kprintch(char x)
 // Prints integer on screen:
 int kprintint(int x, int base)
 {
-	char help[] = { };
+	char help[32];
 	kitoa(x, help, base);
 	int n = kstrlen((unsigned char *)help);
 	for(int i = 0; i < n; i++) kprintch(help[i]);
@@ -129,7 +129,7 @@ int vkprintf(const char *x, va_list args)
 	{
 		if(x[i] == '%')
 		{
-			char help[] = { };
+			char help[128];
 			switch(x[i + 1])
 			{
 				case '%': kprintch('%'); i++; break;

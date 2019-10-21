@@ -42,6 +42,7 @@ global isr28
 global isr29
 global isr30
 global isr31
+;global isr128
 
 ;  0: Divide By Zero Exception
 isr0:
@@ -260,6 +261,14 @@ isr31:
     push byte 0
     push byte 31
     jmp isr_common_stub
+
+; 128: Strayex System Call
+;isr128:
+;	cli
+;	push byte 0
+;	push byte 128
+;	jmp isr_common_stub
+
 ; We call a C function in here. We need to let the assembler know
 ; that 'fault_handler' exists in another file
 extern fault_handler
@@ -273,20 +282,20 @@ isr_common_stub:
     push es
     push fs
     push gs
-    mov ax, 0x10   ; Load the Kernel Data Segment descriptor!
+    mov ax, 0x10			; Load the Kernel Data Segment descriptor!
     mov ds, ax
     mov es, ax
     mov fs, ax
     mov gs, ax
-    mov eax, esp   ; Push us the stack
+    mov eax, esp			; Push us the stack
     push eax
     mov eax, fault_handler
-    call eax       ; A special call, preserves the 'eip' register
+    call eax					; A special call, preserves the 'eip' register
     pop eax
     pop gs
     pop fs
     pop es
     pop ds
     popa
-    add esp, 8     ; Cleans up the pushed error code and pushed ISR number
-    iret           ; pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP!
+    add esp, 8				; Cleans up the pushed error code and pushed ISR number
+    iret							; pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP!

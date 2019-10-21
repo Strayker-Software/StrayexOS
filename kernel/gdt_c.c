@@ -13,7 +13,7 @@
 
 #include "klib/kdt.h"
 
-// GDT entry:
+// GDT entry, one entry in GDT array:
 struct gdt_entry
 {
 	unsigned short limit_low;
@@ -24,7 +24,7 @@ struct gdt_entry
 	unsigned char base_high;
 } __attribute__((packed));
 
-// GDT special pointer:
+// GDT special pointer, for reference:
 struct gdt_ptr
 {
 	unsigned short limit;
@@ -35,10 +35,10 @@ struct gdt_ptr
 struct gdt_entry gdt[3];
 struct gdt_ptr gp;
 
-// Assembly shortcut for setting up GDT into memory and processor:
+// Assembly shortcut for setting up GDT into memory and processor, because it's simplier:
 extern void gdt_flush();
 
-// Sets entry in GDT:
+// Sets entry in GDT, by arrray index, base, limit, access and granularity values:
 void gdt_set_gate(int num, unsigned long base, unsigned long limit, unsigned char access, unsigned char gran)
 {
 	// Entry base address:
@@ -58,26 +58,28 @@ void gdt_set_gate(int num, unsigned long base, unsigned long limit, unsigned cha
 // GDT initialisation:
 int gdt_init()
 {
-	/* Setup the GDT pointer and limit */
+	// Setup the GDT pointer and limit, 
 	gp.limit = (sizeof(struct gdt_entry) * 3) - 1;
 	gp.base = (unsigned int)&gdt;
 
-	/* Our NULL descriptor */
+	// Our NULL descriptor for GDT, always on first index of array:
 	gdt_set_gate(0, 0, 0, 0, 0);
 
-	/* The second entry is our Code Segment. The base address
-	*  is 0, the limit is 4GBytes, it uses 4KByte granularity,
-	*  uses 32-bit opcodes, and is a Code Segment descriptor.
-	*  Please check the table above in the tutorial in order
-	*  to see exactly what each value means */
+	/*
+	The second entry is our Code Segment. The base address
+	is 0, the limit is 4GBytes, it uses 4KByte granularity,
+	uses 32-bit opcodes, and is a Code Segment descriptor.
+	*/
 	gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF);
 
-	/* The third entry is our Data Segment. It's EXACTLY the
-	*  same as our code segment, but the descriptor type in
-	*  this entry's access byte says it's a Data Segment */
+	/*
+	The third entry is our Data Segment. It's EXACTLY the
+	same as our code segment, but the descriptor type in
+	this entry's access byte says it's a Data Segment
+	*/
 	gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
 
-	/* Flush out the old GDT and install the new changes! */
+	// Sets new GDT into memory:
 	gdt_flush();
 
 	return 0;
