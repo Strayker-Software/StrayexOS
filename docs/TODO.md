@@ -27,7 +27,7 @@ What kernel shoud be able to do:
 - [x] Stack Smash Protector,
 - [x] Physical memory manager,
 - [ ] ATA/IDE driver,
-- [ ] Porting Newlib,
+- [ ] Strayex API,,
 
 ### Strayex Shell
 
