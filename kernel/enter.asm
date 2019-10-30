@@ -85,6 +85,6 @@ _loop:					; if C functions will unexpectly return, loop for ever,
 	jmp _loop
 	
 SECTION .bss
-resb 8192			; Stack space, 8KB,
+resb 16384			; Stack space, 16KB,
 stack:
 
