@@ -39,7 +39,7 @@ void kmain()
 	
 	// Let's check Strayex System Call by printing name of kernel:
 	// TODO in near future!
-
+	
 	for(;;);
 }
 
@@ -168,6 +168,8 @@ void kinit(unsigned long magic, unsigned long mbi)
 			kitoa(pom3, len, 16);
 			kitoa(pom4, len, 16);
 			kprintf("%i. Address: 0x%c, Length: 0x%c, Type: 0x%i\n", i + 1, addr, len, mem->type);
+			
+			if(mem->type == 1) mem_init((unsigned int)len);
 		}
 
 		kprintf("Boot driver number: 0x%x\n", driver);
@@ -198,14 +200,60 @@ void kinit(unsigned long magic, unsigned long mbi)
 	/*
 	Here is block of code to check dynamic memory allocation,
 	Uncomment it, recompile system and look on the screen in debug mode
-	Kernel should reserve 4 bytes in memory on starting address and print reserved memory on screen with address of it.
 	*/
 	
-	//int *x = kmalloc(sizeof(int));
-	//char tmp[255];
-	//kprintf("Value: %i, address: %i in decimal\n", *x, x);
-	//kfree(x);
-	//kprintf("After freeing: ", *x);
+	/*
+	kprintf("Size of int: %i\n", sizeof(int)); // 4 bytes
+	kprintf("Size of char: %i\n", sizeof(char)); // 1 byte
+	kprintf("Size of float: %i\n", sizeof(float)); // 4 bytes
+	kprintf("Size of double: %i\n", sizeof(double)); // 8 bytes
+	kprintf("Size of bool: %i\n", sizeof(bool)); // 1 byte
+
+	// Allocate integer:
+	int *P = kmalloc(sizeof(int));
+	if(P != NULL)
+	{
+		*P = 5;
+		kprintf("\nAddress of P: 0x%x, value of P: %i", P, *P);
+	}
+	else kprintf("P allocation failed!\n");
+	
+	// Allocate char:
+	char *K = kmalloc(sizeof(int));
+	if(K != NULL)
+	{
+		*K = 'X';
+		kprintf("\nAddress of K: 0x%x, value of K: %c", K, *K);
+	}
+	else kprintf("K allocation failed!\n");
+	
+	// Allocate float:
+	float *M = kmalloc(sizeof(float));
+	if(M != NULL)
+	{
+		*M = 1.5;
+		kprintf("\nAddress of M: 0x%x, value of M: %i", M, *M);
+	}
+	else kprintf("M allocation failed!\n");
+	
+	// Allocate double:
+	double *N = kmalloc(sizeof(double));
+	if(N != NULL)
+	{
+		*N = 0.5628479;
+		kprintf("\nAddress of N: 0x%x, value of N: %i", N, *N);
+	}
+	else kprintf("N allocation failed!\n");
+	
+	// Allocate bool:
+	bool *O = kmalloc(sizeof(bool));
+	if(O != NULL)
+	{
+		*O = true;
+		kprintf("\nAddress of O: 0x%x, value of O: %i", O, *O);
+	}
+	else kprintf("O allocation failed!\n");
+	*/
 	
 	// Remember to comment back all test code before getting back to normal work mode of system! In Debug mode shell will not be loaded!
 
