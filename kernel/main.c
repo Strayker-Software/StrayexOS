@@ -253,6 +253,13 @@ void kinit(unsigned long magic, unsigned long mbi)
 		kprintf("\nAddress of O: 0x%x, value of O: %i", O, *O);
 	}
 	else kprintf("O allocation failed!\n");
+	
+	// Freeing memory of P var:
+	kfree(P);
+	// Chcecking memory after freeing:
+	kprintf("\nAddress of P: 0x%x, value of P: %i after freeing", P, *P);
+	kprintf("\nAddress of O: 0x%x, value of O: %i", O, *O);
+	kprintf("\nAddress of N: 0x%x, value of N: %i", N, *N);
 	*/
 	
 	// Remember to comment back all test code before getting back to normal work mode of system! In Debug mode shell will not be loaded!

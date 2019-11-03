@@ -22,7 +22,7 @@ bool mem_init(unsigned int mem_length)
 	return true;
 }
 
-// Allocates memory of given size:
+// Allocates memory of given size, if allocation is not possible, returns NULL:
 void *kmalloc(int size)
 {
 	// First, function have to check, if we've got free memory. If not, inform caller by returning NULL.
@@ -45,11 +45,11 @@ void *kmalloc(int size)
 void kfree(void *addr)
 {
 	// First, we have to check how many memory we have to free:
-	int size = (int)addr;
+	int size = sizeof(addr);
 	// If block is free already:
 	if(size <= 0) return;
 	// Else let's free this block of memory:
 	memset(addr, 0, size);
 	// Move back pointer of taken memory, to use this address again:
-	StartMem = (unsigned short *)(StartMem - 0x000001);
+	StartMem = (unsigned short *)(StartMem - size);
 }
