@@ -29,7 +29,7 @@ KERNEL_DIR:=kernel
 # See Strayex Docs for more instructions.
 GRUB_ISO_DIR:=~/iso
 # Build architecture (for naming system):
-ARCH:=i386-x86
+ARCH:=x86
 
 # Files' lists:
 KERNEL_FILES_C:=$(shell find $(KERNEL_DIR) -type f -name "*.c")
