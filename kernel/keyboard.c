@@ -134,10 +134,10 @@ char get_last_char()
 }
 
 /*
- Default keyboard handler, printing chars on screen, moves cursor through all screen.
+ Notepad keyboard handler, printing chars on screen, moves cursor through all screen.
  Useful in for example notepad application.
 */
-void keyboard_handler_default()
+void keyboard_handler_notepad()
 {
     if(if_enabled)
 	{
@@ -267,15 +267,11 @@ void keyboard_handler_scancode()
 {
 	if(if_enabled)
 	{
-		unsigned char scancode;
+		unsigned int scancode;
 
 		scancode = kinportb(0x60);
 
-		if (scancode & 0x80)
-		{
-			// TODO
-		}
-		else
+		if (!(scancode & 0x80))
 		{
 			kprintch(scancode);
 		}
@@ -285,13 +281,13 @@ void keyboard_handler_scancode()
 // Installs requested handler:
 void kb_install(int x)
 {
-	if(x == 0) irq_install_handler(1, keyboard_handler_default);
+	if(x == 0) irq_install_handler(1, keyboard_handler_cli);
 	else if(x == 1) irq_install_handler(1, keyboard_handler_scancode);
-	else if(x == 2)  irq_install_handler(1, keyboard_handler_cli);
+	else if(x == 2)  irq_install_handler(1, keyboard_handler_notepad);
 }
 
 // On kernel start up, sets default KB handler:
 void kb_init()
 {
-	irq_install_handler(1, keyboard_handler_default);
+	irq_install_handler(1, keyboard_handler_cli);
 }

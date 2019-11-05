@@ -92,6 +92,11 @@ void kprintch(char x)
 		px = 0;
 		py++;
 	}
+	// Escape button
+	else if(x == 0x1B)
+	{
+		kprintf("Escape pressed");
+	}
 	// Printable character
 	else if(x >= ' ')
 	{
@@ -110,16 +115,6 @@ void kprintch(char x)
 
 	kscroll();
 	kmove_cursor(px, py);
-}
-
-// Prints integer on screen:
-int kprintint(int x, int base)
-{
-	char help[32];
-	kitoa(x, help, base);
-	int n = kstrlen((unsigned char *)help);
-	for(int i = 0; i < n; i++) kprintch(help[i]);
-	return 0;
 }
 
 // Prints args into x and puts it all on screen:
