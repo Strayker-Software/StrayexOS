@@ -18,6 +18,7 @@ bool if_buffer_enabled = true; // Used to determine, if handler have to push cha
 int buf_lvl = 0; // Keeps track on buffer length, don't reset to zero in code, use kbflush() function,
 char kb_buffer[100000]; // Kernel's keyboard buffer,
 char last_key; // Last character from buffer,
+bool Caps = false; // Keeps track on caps lock button,
 
 // US QWERTY keyboard layout:
 unsigned char kbdus[128] =
@@ -133,6 +134,12 @@ char get_last_char()
 	return last_key;
 }
 
+// Set caps lock on or of:
+void setCaps(bool x) { Caps = x; }
+
+// Return status of caps lock:
+bool getCapsStatus() { return Caps; }
+
 /*
  Notepad keyboard handler, printing chars on screen, moves cursor through all screen.
  Useful in for example notepad application.
@@ -187,6 +194,16 @@ void keyboard_handler_notepad()
 			{
 				++cy;
 				kmove_cursor(cx, cy);
+				return;
+			}
+			// Caps look pressed
+			else if(scancode == ':')
+			{
+				bool x = getCapsStatus();
+				
+				if(x) setCaps(false);
+				else setCaps(true);
+				
 				return;
 			}
 			
@@ -248,6 +265,16 @@ void keyboard_handler_cli()
 			// Down arrow
 			else if(scancode == 'P')
 			{
+				return;
+			}
+			// Caps look pressed
+			else if(scancode == ':')
+			{
+				bool x = getCapsStatus();
+				
+				if(x) setCaps(false);
+				else setCaps(true);
+				
 				return;
 			}
 			

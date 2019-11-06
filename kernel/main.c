@@ -40,6 +40,8 @@ void kmain()
 	// Let's check Strayex System Call by printing name of kernel:
 	// TODO in near future!
 	
+	//kb_install(1);
+	
 	for(;;);
 }
 

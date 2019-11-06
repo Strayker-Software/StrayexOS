@@ -31,5 +31,7 @@ extern int get_cursor_x(); // in screen.c
 extern int get_cursor_y(); // in screen.c
 extern unsigned char *get_layout(); // in keyboard.c
 extern char get_last_char(); // in keyboard.c
+extern void setCaps(bool x); // in keyboard.c
+extern bool getCapsStatus(); // in keyboard.c
 
 #endif

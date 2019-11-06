@@ -11,6 +11,7 @@
 #include "klib/kstring.h"
 #include "klib/kstdlib.h"
 #include <stdarg.h>
+#include <stdbool.h>
 
 // Variables for basic screen's operations:
 unsigned short *videomem = (unsigned short *)0xB8000; // Memory address,
@@ -100,6 +101,11 @@ void kprintch(char x)
 	// Printable character
 	else if(x >= ' ')
 	{
+		bool Caps = getCapsStatus();
+		
+		// If caps lock is on and user typed letters:
+		if((x >= 'a' && x <= 'z') && (Caps == true)) x -= 32;
+		
 		unsigned att = attrib << 8;
 		unsigned short *where = videomem + (py * 80 + px);
 		*where = x | att;
