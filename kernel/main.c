@@ -2,7 +2,7 @@
  Strayex Kernel
  v1.0.1
  Kernel's main file, with kinit and kmain functions
- Copyright 2019 Daniel Strayker Nowak
+ Copyright © 2019 Daniel Strayker Nowak
  All rights reserved
 */
 
@@ -24,23 +24,10 @@ bool if_debug = true;
 // Main kernel's function, loading and running Strayex Shell (not yet):
 void kmain()
 {
-	// This loop writes system's time on last information's line. Useful to check, if time functions are working:
-	/*
-	while(true)
-	{
-		kprintf("System time: %i.%i.%i %i:%i:%i Time elapsed from startup: %i seconds\r", get_days(), get_months(), get_years(), get_hours(), get_minutes(), get_seconds(), get_start_time());
-	}
-	*/
-	
 	// Pointer ready for shell execution, pointing into 2MB mark in memory,
-	//unsigned long *shell = (unsigned long *)0x200000;
+	//unsigned long *shell = (unsigned long *)0x00200000;
 	//asm("jmp %0;" : "=r"  (shell));
 	// TODO in near future!
-	
-	// Let's check Strayex System Call by printing name of kernel:
-	// TODO in near future!
-	
-	//kb_install(1);
 	
 	for(;;);
 }
@@ -263,6 +250,21 @@ void kinit(unsigned long magic, unsigned long mbi)
 	kprintf("\nAddress of O: 0x%x, value of O: %i", O, *O);
 	kprintf("\nAddress of N: 0x%x, value of N: %i", N, *N);
 	*/
+	
+	// Let's check Strayex System Call by printing name of kernel:
+	// TODO in near future!
+	
+	// This loop writes system's time on last information's line. Useful to check, if time functions are working:
+	/*
+	while(true)
+	{
+		kprintf("System time: %i.%i.%i %i:%i:%i Time elapsed from startup: %i seconds\r", get_days(), get_months(), get_years(), get_hours(), get_minutes(), get_seconds(), get_start_time());
+		disable_cursor();
+		set_kb_status(false);
+	}
+	*/
+	
+	//kb_install(1);
 	
 	// Remember to comment back all test code before getting back to normal work mode of system! In Debug mode shell will not be loaded!
 
