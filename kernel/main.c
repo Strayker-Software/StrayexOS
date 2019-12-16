@@ -21,6 +21,10 @@
 // Holds information, if kernel is in Debug Mode, default is true,
 bool if_debug = true;
 
+	// For module load:
+	unsigned int module_start = 0;
+	unsigned int module_end = 0;
+
 // Main kernel's function, loading and running Strayex Shell (not yet):
 void kmain()
 {
@@ -29,6 +33,13 @@ void kmain()
 	//asm("jmp %0;" : "=r"  (shell));
 	// TODO in near future!
 	
+	// Execute the module:
+	//asm("jmp %0;" : "=r" (module_start));
+
+    typedef void (*call_module_t)(void);
+    call_module_t start_program = (call_module_t) module_start;
+    start_program();
+
 	for(;;);
 }
 
@@ -117,6 +128,11 @@ void kinit(unsigned long magic, unsigned long mbi)
 			case MULTIBOOT_TAG_TYPE_BOOTDEV: ;
 				driver = ((struct multiboot_tag_bootdev *) tag)->biosdev;
 			break;
+			
+			case MULTIBOOT_TAG_TYPE_MODULE: ;
+				module_start = ((struct multiboot_tag_module *) tag)->mod_start;
+                module_end = ((struct multiboot_tag_module *) tag)->mod_end;
+			break;
 		}
 	}
 
@@ -174,6 +190,8 @@ void kinit(unsigned long magic, unsigned long mbi)
 		
 		DebugWrite("Strayex Kernel Debug Mode\nUsing serial port COM1\n");
 		DebugWrite("Full kernel name: Strayex Kernel v1.0.1 Alpha\n");
+		DebugWrite("Value in Module Start var: 0x%x\n", module_start);
+		DebugWrite("Value in Module End var: 0x%x", module_end);
 	}
 
 	/*

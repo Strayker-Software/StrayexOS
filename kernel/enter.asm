@@ -53,10 +53,19 @@ request_tag_start:
 	dd request_tag_end - request_tag_start
 	dd 1 ; CMD line,
 	dd 2 ; bootloader name,
+	dd 3 ; module,
 	dd 4 ; basic memory amount,
 	dd 5 ; boot partition's informations,
 	dd 6 ; memory map,
 request_tag_end:
+
+	; Module align to page size requset:
+	ALIGN 8
+module_align_start:
+	dw 6
+	dw 0
+	dd module_align_end - module_align_start
+module_align_end:
 
 	ALIGN 8
 	; End of tags, "NULL tag":

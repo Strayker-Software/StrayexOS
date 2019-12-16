@@ -11,7 +11,7 @@ floppy_bootsig_check: disabled=0
 # no floppyb
 ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14
 ata0-master: type=disk, path="docs/c.img", mode=flat, cylinders=0, heads=16, spt=63, model="Generic 1234", biosdetect=auto, translation=auto
-ata0-slave: type=cdrom, path="docs/strayex-i386-x86-1.0.1.iso", status=inserted, model="Generic 1234", biosdetect=auto
+ata0-slave: type=cdrom, path="docs/strayex-x86-1.0.1.iso", status=inserted, model="Generic 1234", biosdetect=auto
 ata1: enabled=1, ioaddr1=0x170, ioaddr2=0x370, irq=15
 ata1-master: type=none
 ata1-slave: type=none
