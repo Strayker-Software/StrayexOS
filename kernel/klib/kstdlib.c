@@ -89,6 +89,12 @@ char *kitoa(int value, char *str, int base)
     return rc;
 }
 
+// Converting char table to integer:
+int katoi(const char *s)
+{ // TODO: implementation!
+	
+}
+
 // Interrupt management:
 
 // Enable interrupts:

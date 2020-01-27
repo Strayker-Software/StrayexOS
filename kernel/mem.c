@@ -10,6 +10,7 @@
 #include "klib/kmem.h"
 #include "klib/kstddef.h"
 #include <stdbool.h>
+#include <stddef.h>
 
 unsigned short *StartMem = (unsigned short *)0x00200000; // Start position of manager,
 unsigned short RamLength = 0x0; // How much RAM does kernel have?
@@ -39,6 +40,12 @@ void *kmalloc(int size)
 		// No free memory! Inform caller!
 		return NULL;
 	}
+}
+
+// Allocates memory for given elements and given size, if allocation is not possible, returns NULL:
+void *kcalloc(size_t nobj, size_t size)
+{ // TODO: implementation!
+	
 }
 
 // Frees block of memory in given address:

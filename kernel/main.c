@@ -17,6 +17,7 @@
 #include "klib/kstddef.h"
 #include "klib/ktime.h"
 #include "klib/kdebug.h"
+#include "klib/verlib.h"
 
 // Holds information, if kernel is in Debug Mode, default is true,
 bool if_debug = true;
@@ -34,10 +35,10 @@ void kmain()
 	// TODO in near future!
 
 	// Execute the module:
-	module_start++;
-    typedef void (*call_module_t)(void);
-    call_module_t start_program = (call_module_t) module_start;
-    start_program();
+	//module_start++;
+    //typedef void (*call_module_t)(void);
+    //call_module_t start_program = (call_module_t) module_start;
+    //start_program();
 
 	for(;;);
 }
@@ -144,6 +145,13 @@ void kinit(unsigned long magic, unsigned long mbi)
 	kcls(); // Clean screen,
 	
 	//irq_install_handler(128, (void (*)(struct regs *))sys_call_handler);
+	
+	// Set kernel's version value:
+	//SetVersionString("1.1.0.0\0");
+	SetVersionMajor(1);
+	SetVersionMinor(1);
+	SetVersionRelease(0);
+	SetVersionBuild(0);
 
 	Int_on(); // Enable interrupts,
 	
@@ -151,7 +159,7 @@ void kinit(unsigned long magic, unsigned long mbi)
 	if(if_debug)
 	{
 		// Writting the info:
-		kprintf("Strayex Kernel v1.1.0 Alpha\nDebug Mode\n"); // My name :) for information, that Strayex Kernel is in Debug Mode,
+		kprintf("Strayex Kernel v%i.%i.%i Alpha\nDebug Mode\n", GetVersionMajor(), GetVersionMinor(), GetVersionRelease()); // My name :) for information, that Strayex Kernel is in Debug Mode,
 		kprintf("Copyright (c) 2019-2020 Daniel Strayker Nowak and Contributors\nAll rights reserved\n");
 		kprintf("MBI address: 0x%x\n", mbi);
 		kprintf("MBI size: %i B\n", wiel);

@@ -82,3 +82,21 @@ char *kstrcpy(char *src, char *dest)
     *dest = '\0';
     return start;
 }
+
+// Connects second string on the end of first, ANSI C standard:
+char *kstrcat(char *s, const char *ct)
+{ // TODO: test it!
+	int s_length = kstrlen((unsigned char *)s);
+	int ct_length = kstrlen((unsigned char *)ct);
+	
+	int i = s_length;
+	int j = 0;
+	for(; i <= ct_length; i++)
+	{
+		s[i] = ct[j];
+		j++;
+	}
+	s[i + 1] = '\0';
+	
+	return s;
+}
