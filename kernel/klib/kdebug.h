@@ -1,8 +1,8 @@
 /*
  Strayex Kernel C Library "klib"
- v1.0.1
+ v1.1.0
  Kernel Debug Functions, functions in file "debug.c"
- Copyright 2019 Daniel Strayker Nowak
+ Copyright 2019-2020 Daniel Strayker Nowak
  All rights reserved
 */
 

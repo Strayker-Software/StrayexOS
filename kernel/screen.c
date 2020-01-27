@@ -1,8 +1,8 @@
 /*
  Strayex Kernel
- v1.0.1
+ v1.1.0
  Screen VGA driver and printing functions
- Copyright 2019 Daniel Strayker Nowak
+ Copyright 2019-2020 Daniel Strayker Nowak
  All rights reserved
 */
 

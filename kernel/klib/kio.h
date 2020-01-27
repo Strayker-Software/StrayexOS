@@ -1,8 +1,8 @@
 /*
  Strayex Kernel C Library "klib"
- v1.0.1
+ v1.1.0
  Kernel Input / Output file, functions in kernel's drivers
- Copyright 2019 Daniel Strayker Nowak
+ Copyright 2019-2020 Daniel Strayker Nowak
  All rights reserved
 */
 

@@ -1,8 +1,8 @@
 /*
  Strayex Kernel
- v1.0.1
+ v1.1.0
  Kernel's main file, with kinit and kmain functions
- Copyright © 2019 Daniel Strayker Nowak
+ Copyright © 2019-2020 Daniel Strayker Nowak
  All rights reserved
 */
 
@@ -22,20 +22,19 @@
 bool if_debug = true;
 
 	// For module load:
-	unsigned int module_start = 0;
-	unsigned int module_end = 0;
+	unsigned int module_start = 0x0;
+	unsigned int module_end = 0x0;
 
 // Main kernel's function, loading and running Strayex Shell (not yet):
 void kmain()
 {
 	// Pointer ready for shell execution, pointing into 2MB mark in memory,
-	//unsigned long *shell = (unsigned long *)0x00200000;
+	//unsigned long *shell = (unsigned long *)0x200001;
 	//asm("jmp %0;" : "=r"  (shell));
 	// TODO in near future!
-	
-	// Execute the module:
-	//asm("jmp %0;" : "=r" (module_start));
 
+	// Execute the module:
+	module_start++;
     typedef void (*call_module_t)(void);
     call_module_t start_program = (call_module_t) module_start;
     start_program();
@@ -152,8 +151,8 @@ void kinit(unsigned long magic, unsigned long mbi)
 	if(if_debug)
 	{
 		// Writting the info:
-		kprintf("Strayex Kernel v1.0.1 Alpha\nDebug Mode\n"); // My name :) for information, that Strayex Kernel is in Debug Mode,
-		kprintf("Copyright (c) 2019 Daniel Strayker Nowak and Contributors\nAll rights reserved\n");
+		kprintf("Strayex Kernel v1.1.0 Alpha\nDebug Mode\n"); // My name :) for information, that Strayex Kernel is in Debug Mode,
+		kprintf("Copyright (c) 2019-2020 Daniel Strayker Nowak and Contributors\nAll rights reserved\n");
 		kprintf("MBI address: 0x%x\n", mbi);
 		kprintf("MBI size: %i B\n", wiel);
 		kprintf("Bootloader: %c\n", (char *)bootloader);
