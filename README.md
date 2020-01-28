@@ -12,6 +12,7 @@
 Strayex is 32-bit monotasking operating system with microkernel. Written as hobby OS for mine learning and entertainment reason and for teaching of OS/Dev
 
 ![strayex](https://github.com/StraykerPL/StrayexOS/blob/master/strayex-debug.png)
+
 This project is the best mile stone in learning operating systems development, between [MikeOS](http://mikeos.sourceforge.net/) and [Linux](https://github.com/torvalds/linux)!
 As MikeOS explains, how Assembly OSes works, Strayex shows work of similar software but with C language base of kernel. This similarity gives you opportunity to start with MikeOS, go to Strayex and finally study Linux.
 Passing that all three projects and learn at least basics will give you opportunity to create your own low-level software. It doesn't have to be howl OS, It can be boot loader, file system, kernel, whatever.
