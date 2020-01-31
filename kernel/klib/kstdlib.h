@@ -16,6 +16,7 @@ extern void koutportb (unsigned short _port, unsigned char _data);
 extern void kswap(int* a, int* b);
 extern void kreverse(char str[]);
 extern char *kitoa(int value, char *str, int base);
+extern int katoi(const char *s);
 extern void pit_init(); // in "pit.c",
 extern void Int_on();
 extern void Int_off();

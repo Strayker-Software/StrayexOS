@@ -89,10 +89,19 @@ char *kitoa(int value, char *str, int base)
     return rc;
 }
 
-// Converting char table to integer:
+// Converting string to integer:
 int katoi(const char *s)
-{ // TODO: implementation!
+{
+	int result = 0;
+	int s_len = kstrlen((unsigned char *)s);
 	
+	for(int i = 0; i < s_len; i++)
+	{
+		result += s[i] - '0';
+		if(i + 1 != s_len) result *= 10;
+	}
+	
+	return result;
 }
 
 // Interrupt management:
