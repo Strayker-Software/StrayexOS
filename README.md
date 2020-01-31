@@ -11,7 +11,8 @@
 
 Strayex is 32-bit monotasking operating system with microkernel. Written as hobby OS for mine learning and entertainment reason and for teaching of OS/Dev
 
-![strayex](https://i.pinimg.com/originals/52/ca/5d/52ca5d858273f97588427edbcbd5cf21.jpg)
+![strayex](https://github.com/StraykerPL/StrayexOS/blob/master/strayex-debug.png)
+
 This project is the best mile stone in learning operating systems development, between [MikeOS](http://mikeos.sourceforge.net/) and [Linux](https://github.com/torvalds/linux)!
 As MikeOS explains, how Assembly OSes works, Strayex shows work of similar software but with C language base of kernel. This similarity gives you opportunity to start with MikeOS, go to Strayex and finally study Linux.
 Passing that all three projects and learn at least basics will give you opportunity to create your own low-level software. It doesn't have to be howl OS, It can be boot loader, file system, kernel, whatever.
@@ -45,6 +46,7 @@ I make releases every major changes, small changes are minor. The biggest change
 
 There are two lines of Strayex family of operating systems: Strayex Kernel-based, named StrayexOS and Linux-based, named Strayex Linux. In this repo are saved Strayex Kernel-based systems. For Strayex Linux, there will be another way for contribution.
 On [official Strayex side](https://straykerpl.github.io/#Strayex) I will upload all source files of distributions listed below, for mirror.
+
 For quicker work with Strayex, there are other projects for you:
 
 - [Strayex Shell](https://github.com/StraykerPL/StrayexShell) - cross-platform CLI for hobby OSs,
