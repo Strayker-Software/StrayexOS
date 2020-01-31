@@ -7,6 +7,7 @@
 #include "klib/kio.h"
 #include "klib/kstdlib.h"
 #include "klib/kstring.h"
+#include "klib/kmem.h"
 
 // Default version format in VerLib is: "Major.Minor.Release Build",
 

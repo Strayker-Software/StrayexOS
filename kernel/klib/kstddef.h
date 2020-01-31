@@ -9,6 +9,6 @@
 #ifndef _KSTDDEF_
 #define _KSTDDEF_
 
-#define NULL 0
+#define KERNEL_NAME "Strayex Kernel"
 
 #endif

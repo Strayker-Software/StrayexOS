@@ -8,7 +8,6 @@
 
 #include "klib/kstring.h"
 #include "klib/kmem.h"
-#include "klib/kstddef.h"
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -44,8 +43,13 @@ void *kmalloc(int size)
 
 // Allocates memory for given elements and given size, if allocation is not possible, returns NULL:
 void *kcalloc(size_t nobj, size_t size)
-{ // TODO: implementation!
+{
+	size_t how_much_to_alloc = size * nobj;
+	int *addr = kmalloc(how_much_to_alloc);
 	
+	for(int i = *addr + 1; (size_t)addr != (size_t)StartMem - 0x1; i++) addr[i] = 0;
+	
+	return addr;
 }
 
 // Frees block of memory in given address:

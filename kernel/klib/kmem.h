@@ -10,9 +10,11 @@
 #define _KMEM_
 
 #include <stdbool.h>
+#include <stddef.h>
 
 extern bool mem_init(unsigned int mem_length);
 extern void *kmalloc(int size);
+extern void *kcalloc(size_t nobj, size_t size);
 extern void kfree(void *addr);
 
 #endif
