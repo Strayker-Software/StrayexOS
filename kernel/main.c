@@ -35,6 +35,15 @@ void kmain()
     //call_shell_t start_shell = (call_shell_t)shell_start;
     //start_shell();
 	// TODO in near future!
+	
+	char str1[] = { 'H', 'e', 'l', 'l', 'o', '\0' };
+	char str2[] = { 'W', 'o', 'r', 'l', 'd', '\0' };
+	kprintf("String 1: ");
+	kprintf(str1);
+	kprintf("\nString 2: ");
+	kprintf(str2);
+	kprintf("\nConnected strings: ");
+	kprintf(kstrcat(str1, str2));
 
 	for(;;);
 }
