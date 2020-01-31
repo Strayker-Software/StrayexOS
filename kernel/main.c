@@ -20,25 +20,21 @@
 #include "klib/verlib.h"
 
 // Holds information, if kernel is in Debug Mode, default is true,
-bool if_debug = true;
+bool Debug = true;
 
-	// For module load:
-	unsigned int module_start = 0x0;
-	unsigned int module_end = 0x0;
+	// For shell load:
+	unsigned int shell_start = 0x0;
+	unsigned int shell_end = 0x0;
 
 // Main kernel's function, loading and running Strayex Shell (not yet):
 void kmain()
 {
-	// Pointer ready for shell execution, pointing into 2MB mark in memory,
-	//unsigned long *shell = (unsigned long *)0x200001;
-	//asm("jmp %0;" : "=r"  (shell));
-	// TODO in near future!
-
-	// Execute the module:
+	// Execute the simple flat binary with shell:
 	//module_start++;
-    //typedef void (*call_module_t)(void);
-    //call_module_t start_program = (call_module_t) module_start;
-    //start_program();
+    //typedef void (*call_shell_t)(void);
+    //call_shell_t start_shell = (call_shell_t)shell_start;
+    //start_shell();
+	// TODO in near future!
 
 	for(;;);
 }
@@ -130,8 +126,8 @@ void kinit(unsigned long magic, unsigned long mbi)
 			break;
 			
 			case MULTIBOOT_TAG_TYPE_MODULE: ;
-				module_start = ((struct multiboot_tag_module *) tag)->mod_start;
-                module_end = ((struct multiboot_tag_module *) tag)->mod_end;
+				shell_start = ((struct multiboot_tag_module *) tag)->mod_start;
+                shell_end = ((struct multiboot_tag_module *) tag)->mod_end;
 			break;
 		}
 	}
@@ -156,7 +152,7 @@ void kinit(unsigned long magic, unsigned long mbi)
 	Int_on(); // Enable interrupts,
 	
 	// Checks, if kernel have to write initailisation info on screen:
-	if(if_debug)
+	if(Debug)
 	{
 		// Writting the info:
 		kprintf("Strayex Kernel v%i.%i.%i Alpha\nDebug Mode\n", GetVersionMajor(), GetVersionMinor(), GetVersionRelease()); // My name :) for information, that Strayex Kernel is in Debug Mode,
@@ -190,15 +186,14 @@ void kinit(unsigned long magic, unsigned long mbi)
 		kprintf("Actual time: %i:%i:%i %i.%i.%i\n", get_hours(), get_minutes(), get_seconds(), get_days(), get_months(), get_years());
 		if(kb_status() == true) kprintf("Keyboard on\n");
 		else kprintf("Keyboard off\n");
-		//kprintf("Get back to normal mode by restarting mashine!\n");
 		
 		// Debug info for "serial.log":
 		init_serial();
 		
 		DebugWrite("Strayex Kernel Debug Mode\nUsing serial port COM1\n");
-		DebugWrite("Full kernel name: Strayex Kernel v1.0.1 Alpha\n");
-		DebugWrite("Value in Module Start var: 0x%x\n", module_start);
-		DebugWrite("Value in Module End var: 0x%x", module_end);
+		DebugWrite("Full kernel name: Strayex Kernel v%i.%i.%i Alpha\n", GetVersionMajor(), GetVersionMinor(), GetVersionRelease());
+		DebugWrite("Value in Shell Start var: 0x%x\n", shell_start);
+		DebugWrite("Value in Shell End var: 0x%x", shell_end);
 	}
 
 	/*
