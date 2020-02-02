@@ -81,7 +81,7 @@ iso-create:
 iso-run-qemu:
 	@qemu-system-x86_64 -serial file:serial.log -no-reboot -no-shutdown -m 128M -cdrom docs/strayex-$(ARCH)-$(VER).iso
 
-is-run-qemu-nographic:
+iso-run-qemu-nographic:
 	@qemu-system-x86_64 -nographic -serial file:serial.log -no-reboot -no-shutdown -m 128M -cdrom docs/strayex-$(ARCH)-$(VER).iso
 	
 # make iso-run-bochs - start Bochs with Strayex ISO file, this command uses config file:
