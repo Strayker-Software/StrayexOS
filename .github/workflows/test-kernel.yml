@@ -17,5 +17,5 @@ jobs:
     - name: Run QEMU
       run: |
         make iso-run-qemu-nographic
-        kill qemu-system-x86_64
+        killall qemu-system-x86_64
       
