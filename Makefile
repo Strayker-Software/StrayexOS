@@ -28,7 +28,7 @@ KERNEL_DIR:=kernel
 # grub-mkrescue build directory (where to push binary kernel).
 # You have to create this directory and add GRUB config file.
 # See Strayex Docs for more instructions.
-GRUB_ISO_DIR:=~/iso
+GRUB_ISO_DIR:=iso
 # Build architecture (for naming system):
 ARCH:=x86
 
@@ -40,10 +40,10 @@ OBJ_FILES_C:=$(patsubst %.c, %.o, $(KERNEL_FILES_C))
 OBJ_FILES_ASM:=$(patsubst %.asm, %.o, $(KERNEL_FILES_ASM))
 
 # make all or make - full build function, with QEMU startup!
-all: info kernel-normal iso-create clear iso-run-qemu
+all: info kernel iso-create clear iso-run-qemu
 
 # make kernel - only Strayex Kernel compilation to ELF binary file:
-kernel-normal: $(KERNEL_FILES_ASM) $(KERNEL_FILES_C)
+kernel: $(KERNEL_FILES_ASM) $(KERNEL_FILES_C)
 	@echo Linking kernel...
 	@$$TARGET-gcc -T link.ld -o $(KERNEL_DIR)/skern-$(VER).bin -ffreestanding -fstack-protector-all -nostdlib $(OBJ_FILES_ASM) $(OBJ_FILES_C) -lgcc
 	@echo Done!
@@ -80,6 +80,9 @@ iso-create:
 # make iso-run - start QEMU with Strayex ISO file:
 iso-run-qemu:
 	@qemu-system-x86_64 -serial file:serial.log -no-reboot -no-shutdown -m 128M -cdrom docs/strayex-$(ARCH)-$(VER).iso
+
+is-run-qemu-nographic:
+	@qemu-system-x86_64 -nographic -serial file:serial.log -no-reboot -no-shutdown -m 128M -cdrom docs/strayex-$(ARCH)-$(VER).iso
 	
 # make iso-run-bochs - start Bochs with Strayex ISO file, this command uses config file:
 iso-run-bochs:
