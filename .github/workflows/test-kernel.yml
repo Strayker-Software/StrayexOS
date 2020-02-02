@@ -15,4 +15,7 @@ jobs:
         sudo apt-get install qemu-system-x86
             
     - name: Run QEMU
-      run: make iso-run-qemu-nographic
+      run: |
+        make iso-run-qemu-nographic
+        kill qemu-system-x86_64
+      
