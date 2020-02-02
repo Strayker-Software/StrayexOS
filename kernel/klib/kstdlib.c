@@ -15,7 +15,7 @@
 #include "kstring.h"
 
 // Reading from I/O ports:
-unsigned char kinportb (unsigned short _port)
+unsigned char kinportb(unsigned short _port)
 {
 	unsigned char rv;
 	__asm__ __volatile__ ("inb %1, %0" : "=a" (rv) : "dN" (_port));
@@ -23,7 +23,13 @@ unsigned char kinportb (unsigned short _port)
 }
 
 // Writting from I/O ports:
-void koutportb (unsigned short _port, unsigned char _data)
+void koutportb(unsigned short _port, unsigned char _data)
+{
+    __asm__ __volatile__ ("outb %1, %0" : : "dN" (_port), "a" (_data));
+}
+
+// Same as above, but for 16bit value:
+void koutportw(unsigned short _port, unsigned short_data)
 {
     __asm__ __volatile__ ("outb %1, %0" : : "dN" (_port), "a" (_data));
 }
