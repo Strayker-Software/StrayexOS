@@ -11,7 +11,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Install Dependencies
       run: |
-        sudo apt upgrade
         sudo apt install qemu-system-x86
             
     - name: Run QEMU
