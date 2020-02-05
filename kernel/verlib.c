@@ -171,19 +171,19 @@ int GetVersionFull()
 	
 	kitoa(ver.Major, buffer, 10);
 	kstrcat(versionPtr, buffer);
-	memset(buffer, '0', 100);
+	memset((unsigned char *)buffer, '0', 100);
 	
 	kitoa(ver.Minor, buffer, 10);
 	kstrcat(versionPtr, buffer);
-	memset(buffer, '0', 100);
+	memset((unsigned char *)buffer, '0', 100);
 	
 	kitoa(ver.Release, buffer, 10);
 	kstrcat(versionPtr, buffer);
-	memset(buffer, '0', 100);
+	memset((unsigned char *)buffer, '0', 100);
 	
 	kitoa(ver.Build, buffer, 10);
 	kstrcat(versionPtr, buffer);
-	memset(buffer, '0', 100);
+	memset((unsigned char *)buffer, '0', 100);
 	
 	int verint = katoi(versionPtr);
 	

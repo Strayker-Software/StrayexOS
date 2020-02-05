@@ -18,6 +18,7 @@
 #include "klib/ktime.h"
 #include "klib/kdebug.h"
 #include "klib/verlib.h"
+#include "klib/kpower.h"
 
 // Holds information, if kernel is in Debug Mode, default is true,
 bool Debug = true;
@@ -36,16 +37,17 @@ void kmain()
     //start_shell();
 	// TODO in near future!
 	
-	char str1[] = { 'H', 'e', 'l', 'l', 'o', '\0' };
-	char str2[] = { 'W', 'o', 'r', 'l', 'd', '\0' };
-	kprintf("String 1: ");
-	kprintf(str1);
-	kprintf("\nString 2: ");
-	kprintf(str2);
-	kprintf("\nConnected strings: ");
-	kprintf(kstrcat(str1, str2));
-
-	for(;;);
+	//char str1[] = { 'H', 'e', 'l', 'l', 'o', '\0' };
+	//char str2[] = { 'W', 'o', 'r', 'l', 'd', '\0' };
+	//kprintf("String 1: ");
+	//kprintf(str1);
+	//kprintf("\nString 2: ");
+	//kprintf(str2);
+	//kprintf("\nConnected strings: ");
+	//kprintf(kstrcat(str1, str2));
+	
+	if(Debug) kpoweroff();
+	else for(;;);
 }
 
 // This function manipulate Multiboot informations and initialise the kernel's modules:

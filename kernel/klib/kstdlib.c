@@ -29,9 +29,9 @@ void koutportb(unsigned short _port, unsigned char _data)
 }
 
 // Same as above, but for 16bit value:
-void koutportw(unsigned short _port, unsigned short_data)
+void koutportw(unsigned short _port, unsigned short _data)
 {
-    __asm__ __volatile__ ("outb %1, %0" : : "dN" (_port), "a" (_data));
+    __asm__ __volatile__ ("outw %1, %0" : : "dN" (_port), "a" (_data));
 }
 
 // Swapping integers in memory:
