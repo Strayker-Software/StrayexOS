@@ -3,7 +3,7 @@ name: Test Kernel
 on: [push]
 
 jobs:
-  Test QEMU:
+  Test-QEMU:
 
     runs-on: ubuntu-latest
         
