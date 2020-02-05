@@ -108,7 +108,7 @@ iso-run-qemu:
 	@qemu-system-x86_64 -serial file:serial.log -m 128M -cdrom docs/strayex-$(ARCH)-$(VER).iso
 
 # make iso-run-qemu - start QEMU with Strayex ISO file, but QEMU don't show up GUI, for GitHub CI:
-is-run-qemu-nographic:
+iso-run-qemu-nographic:
 	@qemu-system-x86_64 -nographic -serial file:serial.log -m 128M -cdrom docs/strayex-$(ARCH)-$(VER).iso
 	
 # make iso-run-bochs - start Bochs with Strayex ISO file, this command uses config file:
