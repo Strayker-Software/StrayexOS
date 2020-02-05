@@ -3,7 +3,7 @@ name: Test Kernel
 on: [push]
 
 jobs:
-  build:
+  Test QEMU:
 
     runs-on: ubuntu-latest
         
@@ -17,5 +17,4 @@ jobs:
     - name: Run QEMU
       run: |
         make iso-run-qemu-nographic
-        killall qemu-system-x86_64
       
