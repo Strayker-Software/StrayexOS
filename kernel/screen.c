@@ -130,18 +130,17 @@ int vkprintf(const char *x, va_list args)
 	{
 		if(x[i] == '%')
 		{
-			char help[128];
+			char string[128];
+			int value = -1;
 			switch(x[i + 1])
 			{
 				case '%': kprintch('%'); i++; break;
 				case 'i': ; // Integer decimal:
-					int help1 = -1;
-					help1 = va_arg(args, int);
-					if(help1 != -1)
+					value = va_arg(args, int);
+					if(value != -1)
 					{
-						kitoa(help1, help, 10);
-						int n = kstrlen((unsigned char *)help);
-						for(int j = 0; j < n; j++) kprintch(help[j]);
+						kitoa(value, string, 10);
+						for(int j = 0; string[j] != '\0'; j++) kprintch(string[j]);
 						i++;
 					}
 					else
@@ -151,13 +150,12 @@ int vkprintf(const char *x, va_list args)
 					}
 				break;
 				case 'x': ; // Integer hexadecimal:
-					int help2 = -1;
-					help2 = va_arg(args, int);
-					if(help2 != -1)
+					value = -1;
+					value = va_arg(args, int);
+					if(value != -1)
 					{
-						kitoa(help2, help, 16);
-						int n = kstrlen((unsigned char *)help);
-						for(int j = 0; j < n; j++) kprintch(help[j]);
+						kitoa(value, string, 16);
+						for(int j = 0; string[j] != '\0'; j++) kprintch(string[j]);
 						i++;
 					}
 					else
@@ -167,9 +165,8 @@ int vkprintf(const char *x, va_list args)
 					}
 				break;
 				case 'c': ; // Character:
-					char *help4 = va_arg(args, char *);
-					int l = kstrlen((unsigned char *)help4);
-					for(int k = 0; k < l; k++) kprintch(help4[k]);
+					char *value_char = va_arg(args, char *);
+					for(int k = 0; value_char[k] != '\0'; k++) kprintch(value_char[k]);
 					i++;
 				break;
 				default: kprintch('?'); i++; break;
