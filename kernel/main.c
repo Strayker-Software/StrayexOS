@@ -40,6 +40,10 @@ void kmain()
 	//if(Debug) kpoweroff();
 	//else for(;;);
 
+	int x = 0x80;
+	extern void Interrupt(arg);
+	Interrupt(x);
+
 	for(;;);
 }
 

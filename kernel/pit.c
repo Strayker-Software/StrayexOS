@@ -11,6 +11,7 @@
 #include "klib/kstdlib.h"
 #include "klib/ktime.h"
 #include <stdbool.h>
+#include "klib/mindrvr.h"
 
 // Calculate intercalary year:
 bool If_intercalary(int year)
@@ -372,4 +373,9 @@ void pit_init()
 {
     /* Installs 'timer_handler' to IRQ0 */
     irq_install_handler(0, timer_handler);
+}
+
+long SYSTEM_READ_TIMER(void)
+{
+	return kticks;
 }

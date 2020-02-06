@@ -32,13 +32,21 @@ extern void irq12();
 extern void irq13();
 extern void irq14();
 extern void irq15();
-//extern void irq128();
+extern void irq128();
 
 /* This array is actually an array of function pointers. We use
 *  this to handle custom IRQ handlers for a given IRQ */
-void *irq_routines[16] =
+void *irq_routines[256] =
 {
 	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0
 };
 
@@ -100,7 +108,7 @@ void irq_init()
 	idt_set_gate(46, (unsigned)irq14, 0x08, 0x8E);
 	idt_set_gate(47, (unsigned)irq15, 0x08, 0x8E);
 	
-	//idt_set_gate(128, (unsigned)irq128, 0x08, 0x8E);
+	idt_set_gate(128, (unsigned)irq128, 0x08, 0x8E);
 }
 
 /* Each of the IRQ ISRs point to this function, rather than

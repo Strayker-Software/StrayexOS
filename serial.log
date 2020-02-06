@@ -1,5 +1,5 @@
 Strayex Kernel Debug Mode
 Using serial port COM1
 Full kernel name: Strayex Kernel v1.1.0 Alpha
-Value in Shell Start var: 0x125000
-Value in Shell End var: 0x125008
+Value in Shell Start var: 0x128000
+Value in Shell End var: 0x128008

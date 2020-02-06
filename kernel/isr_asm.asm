@@ -42,7 +42,7 @@ global isr28
 global isr29
 global isr30
 global isr31
-;global isr128
+global isr128
 
 ;  0: Divide By Zero Exception
 isr0:
@@ -263,11 +263,11 @@ isr31:
     jmp isr_common_stub
 
 ; 128: Strayex System Call
-;isr128:
-;	cli
-;	push byte 0
-;	push byte 128
-;	jmp isr_common_stub
+isr128:
+	cli
+	push byte 0
+	push word 128
+	jmp isr_common_stub
 
 ; We call a C function in here. We need to let the assembler know
 ; that 'fault_handler' exists in another file

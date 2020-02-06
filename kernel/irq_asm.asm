@@ -26,7 +26,7 @@ global irq12
 global irq13
 global irq14
 global irq15
-;global irq128
+global irq128
 
 ; 32: IRQ0
 irq0:
@@ -141,11 +141,11 @@ irq15:
     jmp irq_common_stub
 	
 ; 128: IRQ128 Strayex System Call
-;irq128:
-;	cli
-;	push byte 0
-;	push byte 128
-;	jmp irq_handler
+irq128:
+	cli
+	push byte 0
+	push word 128
+	jmp irq_common_stub
 
 extern irq_handler
 
