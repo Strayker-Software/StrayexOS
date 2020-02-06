@@ -99,13 +99,8 @@ char *kitoa(int value, char *str, int base)
 int katoi(const char *s)
 {
 	int result = 0;
-	int s_len = kstrlen((unsigned char *)s);
 	
-	for(int i = 0; i < s_len; i++)
-	{
-		result += s[i] - '0';
-		if(i + 1 != s_len) result *= 10;
-	}
+	for(int i = 0; s[i] != '\0'; i++) result = result * 10 + s[i] - '0';
 	
 	return result;
 }

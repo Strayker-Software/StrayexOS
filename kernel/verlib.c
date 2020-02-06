@@ -1,6 +1,6 @@
 /*
   VerLib
-  Copyright © 2019 Daniel Strayker Nowak
+  Copyright ï¿½ 2019 Daniel Strayker Nowak
 */
 
 #include "klib/verlib.h"
@@ -220,6 +220,11 @@ void DecrementBuild() { ver.Build--; }
 void ConsoleLogVersion()
 {
 	kprintf("%i.%i.%i %i", ver.Major, ver.Minor, ver.Release, ver.Build);
+}
+
+void KernelLogVersion()
+{
+	kprintf("%i.%i.%i", ver.Major, ver.Minor, ver.Release);
 }
 
 // Return string same as console's:

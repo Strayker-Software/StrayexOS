@@ -23,9 +23,9 @@
 // Holds information, if kernel is in Debug Mode, default is true,
 bool Debug = true;
 
-	// For shell load:
-	unsigned int shell_start = 0x0;
-	unsigned int shell_end = 0x0;
+// For shell load:
+unsigned int shell_start = 0x0;
+unsigned int shell_end = 0x0;
 
 // Main kernel's function, loading and running Strayex Shell (not yet):
 void kmain()
@@ -46,8 +46,10 @@ void kmain()
 	//kprintf("\nConnected strings: ");
 	//kprintf(kstrcat(str1, str2));
 	
-	if(Debug) kpoweroff();
-	else for(;;);
+	//if(Debug) kpoweroff();
+	//else for(;;);
+
+	for(;;);
 }
 
 // This function manipulate Multiboot informations and initialise the kernel's modules:
@@ -154,11 +156,9 @@ void kinit(unsigned long magic, unsigned long mbi)
 	//irq_install_handler(128, (void (*)(struct regs *))sys_call_handler);
 	
 	// Set kernel's version value:
-	//SetVersionString("1.1.0.0\0");
+	char version[] = { '1', '.', '1', '.', '0', '.', '0', '\0' };
+	SetVersionString(version);
 	SetVersionMajor(1);
-	SetVersionMinor(1);
-	SetVersionRelease(0);
-	SetVersionBuild(0);
 
 	Int_on(); // Enable interrupts,
 	

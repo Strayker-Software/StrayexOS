@@ -48,6 +48,7 @@ extern void DecrementBuild();
 // Write version to console or return version's string representation:
 
 extern void ConsoleLogVersion();
+extern void KernelLogVersion();
 extern char *LogVersionString();
 
 // Additional functions:
