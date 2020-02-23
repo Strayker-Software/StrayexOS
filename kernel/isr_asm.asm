@@ -267,11 +267,13 @@ isr128:
 	cli
 	push byte 0
 	push word 128
-	jmp isr_common_stub
+	jmp isr_sys_call
 
 ; We call a C function in here. We need to let the assembler know
 ; that 'fault_handler' exists in another file
 extern fault_handler
+
+extern stack
 
 ; This is our common ISR stub. It saves the processor state, sets
 ; up for kernel mode segments, calls the C-level fault handler,
@@ -292,6 +294,36 @@ isr_common_stub:
     mov eax, fault_handler
     call eax					; A special call, preserves the 'eip' register
     pop eax
+    pop gs
+    pop fs
+    pop es
+    pop ds
+    popa
+    add esp, 8				; Cleans up the pushed error code and pushed ISR number
+    iret							; pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP!
+
+extern sys_call_handler
+
+isr_sys_call:
+    pusha
+    push ds
+    push es
+    push fs
+    push gs
+    push cs
+
+    mov ax, 0x10			; Load the Kernel Data Segment descriptor!
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+    mov eax, esp			; Push us the stack
+    
+    push eax
+    call sys_call_handler					; A special call, preserves the 'eip' register
+    pop eax
+
+    pop cs
     pop gs
     pop fs
     pop es

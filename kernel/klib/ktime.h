@@ -16,5 +16,6 @@ extern int get_hours();
 extern int get_minutes();
 extern int get_seconds();
 extern int get_start_time();
+extern void kwait(int sec);
 
 #endif

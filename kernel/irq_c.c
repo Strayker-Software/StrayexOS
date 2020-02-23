@@ -146,3 +146,16 @@ void irq_handler(struct regs *r)
     *  interrupt controller too */
     koutportb(0x20, 0x20);
 }
+
+extern void sys_call_handler(struct regs *r);
+
+void irq_handler_sys_call(struct regs *r)
+{
+    if(r->int_no == 128)
+    {
+        sys_call_handler(r);
+    }
+
+    koutportb(0xA0, 0x20);
+    koutportb(0x20, 0x20);
+}

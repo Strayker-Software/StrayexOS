@@ -11,7 +11,6 @@
 #include "klib/kstdlib.h"
 #include "klib/ktime.h"
 #include <stdbool.h>
-#include "klib/mindrvr.h"
 
 // Calculate intercalary year:
 bool If_intercalary(int year)
@@ -365,6 +364,15 @@ void kwait(int sec)
     int eticks;
     eticks = kticks + sec;
     while(kticks < eticks);
+}
+
+int wait_ticks = 0;
+
+// Upgraded version of kwait, don't blocks execution:
+int kwaitext(int sec)
+{
+	if(wait_ticks != sec) return 1;
+	else return 0;
 }
 
 /* Sets up the system clock by installing the timer handler

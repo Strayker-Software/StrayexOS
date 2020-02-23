@@ -14,7 +14,9 @@
 
 #include "klib/kdt.h"
 #include "klib/kio.h"
-#include "klib/mindrvr.h"
+#include "klib/kstdlib.h"
+#include "klib/ktime.h"
+#include <stdbool.h>
 
 extern void isr0();
 extern void isr1();
@@ -188,6 +190,8 @@ const char *exception_messages[] =
     "Reserved"
 */
 
+int ata_int_raised = 0;
+
 /*
 All of our Exception handling Interrupt Service Routines will
 point to this function. This will tell us what exception has
@@ -198,20 +202,54 @@ happening and messing up kernel data structures
 */
 void fault_handler(struct regs *r)
 {
-    if (r->int_no < 32)
+    if(r->int_no == 8 || r->eip == 18)
     {
         kprintf((char *)exception_messages[r->int_no]);
         kprintf(" Exception. System Halted!\n");
-        for (;;);
+        kprintf("Instruction caused exception: ");
+        char temp[100];
+        kitoa(r->eip, temp, 10);
+        kprintf(temp);
+        kprintf("\n");
     }
-	else if(r->int_no == 128)
-	{ // This is Strayex System Call handler, now it's only for testing:
-		kprintf("Strayex\n");
+    else if(r->int_no == 14 || r->int_no == 15)
+    { // ATA
+        ata_int_raised = 1;
+    }
+    else
+    {
+        kprintf((char *)exception_messages[r->int_no]);
+        kprintf(" Exception. Recovering...\n");
+        char temp[100];
+        kitoa(r->eip, temp, 10);
+        kprintf(temp);
+        for(;;);
+    }
+}
+
+void sys_call_handler(struct regs *r)
+{
+	if(r->int_no == 128)
+	{
+		kprintf("* Strayex System Call *\n");
+		kprintf("Interrupt number: %i\n", r->int_no);
 	}
 }
 
 // Special interrupt handler for MINDRVR, only for ATA interrupt:
 int SYSTEM_WAIT_INTR_OR_TIMEOUT(void)
-{ // TODO
+{
+    int x = 1000;
+
+    while(ata_int_raised == 0)
+    {
+        if(x != 5000)
+        {
+            kwait(x);
+            x += 1000;
+        }
+        else return 1;
+    }
+
     return 0;
 }

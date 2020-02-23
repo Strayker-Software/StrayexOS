@@ -40,9 +40,7 @@ void kmain()
 	//if(Debug) kpoweroff();
 	//else for(;;);
 
-	int x = 0x80;
-	extern void Interrupt(arg);
-	Interrupt(x);
+	//asm("int $0x80");
 
 	for(;;);
 }
@@ -147,7 +145,7 @@ void kinit(unsigned long magic, unsigned long mbi)
 	pit_init(); // Mapping IRQ0 for Programmable Interval Timer,
 	kb_init(); // Mapping PS/2 keyboard driver,
 	kcls(); // Clean screen,
-	
+
 	//irq_install_handler(128, (void (*)(struct regs *))sys_call_handler);
 	
 	// Set kernel's version value:
