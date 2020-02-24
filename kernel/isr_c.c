@@ -212,10 +212,6 @@ void fault_handler(struct regs *r)
         kprintf(temp);
         kprintf("\n");
     }
-    else if(r->int_no == 14 || r->int_no == 15)
-    { // ATA
-        ata_int_raised = 1;
-    }
     else
     {
         kprintf((char *)exception_messages[r->int_no]);
@@ -223,6 +219,7 @@ void fault_handler(struct regs *r)
         char temp[100];
         kitoa(r->eip, temp, 10);
         kprintf(temp);
+
         for(;;);
     }
 }
@@ -234,22 +231,4 @@ void sys_call_handler(struct regs *r)
 		kprintf("* Strayex System Call *\n");
 		kprintf("Interrupt number: %i\n", r->int_no);
 	}
-}
-
-// Special interrupt handler for MINDRVR, only for ATA interrupt:
-int SYSTEM_WAIT_INTR_OR_TIMEOUT(void)
-{
-    int x = 1000;
-
-    while(ata_int_raised == 0)
-    {
-        if(x != 5000)
-        {
-            kwait(x);
-            x += 1000;
-        }
-        else return 1;
-    }
-
-    return 0;
 }

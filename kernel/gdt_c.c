@@ -12,6 +12,8 @@
 */
 
 #include "klib/kdt.h"
+#include "klib/tss.h"
+#include "klib/kstring.h"
 
 // GDT entry, one entry in GDT array:
 struct gdt_entry
@@ -32,7 +34,7 @@ struct gdt_ptr
 } __attribute__((packed));
 
 // GDT and special pointer variables:
-struct gdt_entry gdt[3];
+struct gdt_entry gdt[4];
 struct gdt_ptr gp;
 
 // Assembly shortcut for setting up GDT into memory and processor, because it's simplier:
@@ -59,7 +61,7 @@ void gdt_set_gate(int num, unsigned long base, unsigned long limit, unsigned cha
 int gdt_init()
 {
 	// Setup the GDT pointer and limit, 
-	gp.limit = (sizeof(struct gdt_entry) * 3) - 1;
+	gp.limit = (sizeof(struct gdt_entry) * 4) - 1;
 	gp.base = (unsigned int)&gdt;
 
 	// Our NULL descriptor for GDT, always on first index of array:
@@ -78,6 +80,26 @@ int gdt_init()
 	this entry's access byte says it's a Data Segment
 	*/
 	gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
+
+	// The fourth entry - TSS:
+	tss_entry_t kernel_tss;
+	unsigned int base = (unsigned  int)&kernel_tss;
+
+	memset((unsigned char *)&kernel_tss, 0, sizeof(tss_entry_t));
+
+	unsigned int esp;
+	asm volatile("mov %%esp, %0" : "=r"(esp));
+	kernel_tss.esp0 = esp;
+
+    kernel_tss.ss0 = 0x10;
+    kernel_tss.cs = 0x0B;
+    kernel_tss.ds = 0x13;
+    kernel_tss.es = 0x13;
+    kernel_tss.fs = 0x13;
+    kernel_tss.gs = 0x13;
+    kernel_tss.ss = 0x13;
+
+	gdt_set_gate(3, base, base + sizeof(tss_entry_t), 0x18, 0);
 
 	// Sets new GDT into memory:
 	gdt_flush();

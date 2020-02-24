@@ -19,6 +19,7 @@
 #include "klib/kdebug.h"
 #include "klib/verlib.h"
 #include "klib/kpower.h"
+#include "klib/tss.h"
 
 // Holds information, if kernel is in Debug Mode, default is true,
 bool Debug = true;
@@ -40,7 +41,7 @@ void kmain()
 	//if(Debug) kpoweroff();
 	//else for(;;);
 
-	//asm("int $0x80");
+	asm("int $0x80");
 
 	for(;;);
 }
@@ -145,6 +146,11 @@ void kinit(unsigned long magic, unsigned long mbi)
 	pit_init(); // Mapping IRQ0 for Programmable Interval Timer,
 	kb_init(); // Mapping PS/2 keyboard driver,
 	kcls(); // Clean screen,
+	//tss_init(3, 0x10, 0); // Initialise Task State Segment,
+
+	//unsigned int esp;
+	//asm volatile("mov %%esp, %0" : "=r"(esp));
+	//tss_set_stack(0x10, esp);
 
 	//irq_install_handler(128, (void (*)(struct regs *))sys_call_handler);
 	

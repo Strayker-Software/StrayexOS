@@ -19,10 +19,12 @@ struct regs
 };
 
 extern int gdt_init(); // in gdt_c.c
+extern void gdt_set_gate(int num, unsigned long base, unsigned long limit, unsigned char access, unsigned char gran); // in gdt_c.c
 extern void idt_init(); // in idt_c.c
 extern void idt_set_gate(unsigned char num, unsigned long base, unsigned short sel, unsigned char flags); // in idt_c.c
 extern void isrs_init(); // in isr_c.c
 extern void irq_install_handler(int irq, void (*handler)(struct regs *r)); // in irq_c.c
 extern void irq_init(); // in irq_c.c
+extern void gdt_flush();
 
 #endif
