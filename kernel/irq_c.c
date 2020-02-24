@@ -107,8 +107,6 @@ void irq_init()
 	idt_set_gate(45, (unsigned)irq13, 0x08, 0x8E);
 	idt_set_gate(46, (unsigned)irq14, 0x08, 0x8E);
 	idt_set_gate(47, (unsigned)irq15, 0x08, 0x8E);
-	
-	idt_set_gate(128, (unsigned)irq128, 0x08, 0x8E);
 }
 
 /* Each of the IRQ ISRs point to this function, rather than
@@ -144,18 +142,5 @@ void irq_handler(struct regs *r)
 
     /* In either case, we need to send an EOI to the master
     *  interrupt controller too */
-    koutportb(0x20, 0x20);
-}
-
-extern void sys_call_handler(struct regs *r);
-
-void irq_handler_sys_call(struct regs *r)
-{
-    if(r->int_no == 128)
-    {
-        sys_call_handler(r);
-    }
-
-    koutportb(0xA0, 0x20);
     koutportb(0x20, 0x20);
 }

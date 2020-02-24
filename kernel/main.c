@@ -22,7 +22,7 @@
 #include "klib/tss.h"
 
 // Holds information, if kernel is in Debug Mode, default is true,
-bool Debug = true;
+bool Debug = false;
 
 // For shell load:
 unsigned int shell_start = 0x0;
@@ -31,18 +31,15 @@ unsigned int shell_end = 0x0;
 // Main kernel's function, loading and running Strayex Shell (not yet):
 void kmain()
 {
+	kprintf("\nWelcome to Strayex!\n\n");
 	// Execute the simple flat binary with shell:
-	//module_start++;
-    //typedef void (*call_shell_t)(void);
-    //call_shell_t start_shell = (call_shell_t)shell_start;
-    //start_shell();
-	// TODO in near future!
+	shell_start++;
+    typedef void (*call_shell_t)(void);
+    call_shell_t start_shell = (call_shell_t)shell_start;
+    start_shell();
 	
 	//if(Debug) kpoweroff();
 	//else for(;;);
-
-	asm("int $0x80");
-
 	for(;;);
 }
 
@@ -146,13 +143,6 @@ void kinit(unsigned long magic, unsigned long mbi)
 	pit_init(); // Mapping IRQ0 for Programmable Interval Timer,
 	kb_init(); // Mapping PS/2 keyboard driver,
 	kcls(); // Clean screen,
-	//tss_init(3, 0x10, 0); // Initialise Task State Segment,
-
-	//unsigned int esp;
-	//asm volatile("mov %%esp, %0" : "=r"(esp));
-	//tss_set_stack(0x10, esp);
-
-	//irq_install_handler(128, (void (*)(struct regs *))sys_call_handler);
 	
 	// Set kernel's version value:
 	char version[] = { '1', '.', '1', '.', '0', '.', '0', '\0' };
@@ -295,6 +285,9 @@ void kinit(unsigned long magic, unsigned long mbi)
 	*/
 	
 	//kb_install(1);
+
+	//extern void interruptTest();
+	//interruptTest();
 	
 	// Remember to comment back all test code before getting back to normal work mode of system! In Debug mode shell will not be loaded!
 

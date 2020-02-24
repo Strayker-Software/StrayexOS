@@ -17,6 +17,7 @@
 #include "klib/kstdlib.h"
 #include "klib/ktime.h"
 #include <stdbool.h>
+#include "klib/verlib.h"
 
 extern void isr0();
 extern void isr1();
@@ -224,11 +225,35 @@ void fault_handler(struct regs *r)
     }
 }
 
-void sys_call_handler(struct regs *r)
+void sys_call_handler(unsigned int eax, unsigned int edx)
 {
-	if(r->int_no == 128)
-	{
-		kprintf("* Strayex System Call *\n");
-		kprintf("Interrupt number: %i\n", r->int_no);
-	}
+    //Test Code:
+
+    //unsigned int eax;
+    //asm volatile("mov %0, %%eax" : "=r"(eax));
+    //kprintf("EAX bezposredni: 0x%x\n", eax);
+    //kprintf("EAX argument: 0x%x", eax_arg);
+    //kprintf("", r->);
+    //for(;;);
+
+    // System call services:
+    if(eax == 0)
+    { // Answer:
+        kprintf("* Strayex System Call *\n");
+        kprintf("It's me, kernel! ;D");
+        return;
+    }
+    else if(eax == 0x1)
+    { // Print out kernel' version data:
+        kprintf("Strayex Kernel v%i.%i.%i Alpha\n", GetVersionMajor(), GetVersionMinor(), GetVersionRelease());
+        return;
+    }
+    else if(eax == 0x2 && edx != 0)
+    { // Print input out, data in EDX
+        kprintf("%c\n", edx);
+        // TODO: Repair white chars printning!
+        return;
+    }
+
+    return;
 }

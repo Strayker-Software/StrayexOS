@@ -139,13 +139,6 @@ irq15:
     push byte 0
     push byte 47
     jmp irq_common_stub
-	
-; 128: IRQ128 Strayex System Call
-irq128:
-	cli
-    push byte 0
-    push word 128
-	jmp irq_sys_call
 
 extern irq_handler
 
@@ -174,33 +167,4 @@ irq_common_stub:
     pop ds
     popa
     add esp, 8
-    iret
-
-extern irq_handler_sys_call
-
-irq_sys_call:
-    pusha
-    push ds
-    push es
-    push fs
-    push gs
-
-    mov ax, 0x10
-    mov ds, ax
-    mov es, ax
-    mov fs, ax
-    mov gs, ax
-    mov eax, esp
-
-    push eax
-    call irq_handler_sys_call
-    add esp, 4
-    pop eax
-
-    pop gs
-    pop fs
-    pop es
-    pop ds
-    popa
-    add esp, 4
     iret

@@ -265,8 +265,6 @@ isr31:
 ; 128: Strayex System Call
 isr128:
 	cli
-	push byte 0
-	push word 128
 	jmp isr_sys_call
 
 ; We call a C function in here. We need to let the assembler know
@@ -305,29 +303,28 @@ isr_common_stub:
 extern sys_call_handler
 
 isr_sys_call:
-    pusha
-    push ds
-    push es
-    push fs
-    push gs
-    push cs
+    ;pusha
+    ;push ds
+    ;push es
+    ;push fs
+    ;push gs
+    ;push cs
 
-    mov ax, 0x10			; Load the Kernel Data Segment descriptor!
-    mov ds, ax
-    mov es, ax
-    mov fs, ax
-    mov gs, ax
-    mov eax, esp			; Push us the stack
+    ;mov ax, 0x10			; Load the Kernel Data Segment descriptor!
+    ;mov ds, ax
+    ;mov es, ax
+    ;mov fs, ax
+    ;mov gs, ax
+    ;mov eax, esp			; Push us the stack
     
     push eax
     call sys_call_handler					; A special call, preserves the 'eip' register
     pop eax
 
-    pop cs
-    pop gs
-    pop fs
-    pop es
-    pop ds
-    popa
-    add esp, 8				; Cleans up the pushed error code and pushed ISR number
+    ;pop cs
+    ;pop gs
+    ;pop fs
+    ;pop es
+    ;pop ds
+    ;popa
     iret							; pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP!
