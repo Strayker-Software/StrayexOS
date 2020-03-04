@@ -1,6 +1,6 @@
 # Strayex Docs
 
-Deutschsprachige Version
+Deutschsprachige Fassung
 
 # Wie liest man diese Dokumentation?
 
@@ -13,8 +13,8 @@ Diese Datei [CONTRIBUTING.md](https://github.com/StraykerPL/StrayexOS/blob/maste
 
 # Arbeitsplan
 
-In dieser Textdatei [TODO.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/TODO.md) sind Punkte welche ich gerne zu diesem Project hinzufügen würde.
+In dieser Textdatei [TODO.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/TODO.md) sind Punkte welche ich gerne zu diesem Projekt hinzufügen würde.
 
-# Documentation update
+# Dokumentaiton Updates
 
-Jede Veränderung am Betriebssystem wird in den Docs dokumentiert, allerdings nur in der Englischen und Polnischen Variante dieser Documentation. Alle anderen Dokumentation kommen von Freiwilligen und werden nicht von mir bearbeitet
+Jede Veränderung am Betriebssystem wird in den Docs dokumentiert, allerdings nur in der Englischen und Polnischen Variante dieser Dokumentation. Alle anderen Dokumentationen kommen von Freiwilligen und werden nicht von mir bearbeitet
