@@ -207,7 +207,7 @@ void fault_handler(struct regs *r)
     {
         kprintf((char *)exception_messages[r->int_no]);
         kprintf(" Exception. System Halted!\n");
-        kprintf("Instruction caused exception: ");
+        kprintf("Instruction caused exception: 0x");
         char temp[100];
         kitoa(r->eip, temp, 10);
         kprintf(temp);
@@ -225,33 +225,33 @@ void fault_handler(struct regs *r)
     }
 }
 
-void sys_call_handler(unsigned int eax, unsigned int edx)
+void sys_call_handler(unsigned int eax)
 {
-    //Test Code:
-
-    //unsigned int eax;
-    //asm volatile("mov %0, %%eax" : "=r"(eax));
-    //kprintf("EAX bezposredni: 0x%x\n", eax);
-    //kprintf("EAX argument: 0x%x", eax_arg);
-    //kprintf("", r->);
-    //for(;;);
-
     // System call services:
-    if(eax == 0)
-    { // Answer:
+    if(eax == 0x0)
+    { // Test syscall:
         kprintf("* Strayex System Call *\n");
-        kprintf("It's me, kernel! ;D");
+        kprintf("It's me, kernel! ;D\n");
+        kprintf("Call data: EAX = %i\n", eax);
+
         return;
     }
     else if(eax == 0x1)
-    { // Print out kernel' version data:
+    { // Print out kernel's version data:
         kprintf("Strayex Kernel v%i.%i.%i Alpha\n", GetVersionMajor(), GetVersionMinor(), GetVersionRelease());
+
         return;
     }
-    else if(eax == 0x2 && edx != 0)
-    { // Print input out, data in EDX
-        kprintf("%c\n", edx);
-        // TODO: Repair white chars printning!
+    else if(eax == 0x2)
+    { // Print HI! on screen!
+        kprintf("HI!");
+        
+        return;
+    }
+    else if(eax == 0x3)
+    { // New line
+        kprintf("\n");
+
         return;
     }
 

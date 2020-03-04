@@ -31,8 +31,8 @@ unsigned int shell_end = 0x0;
 // Main kernel's function, loading and running Strayex Shell (not yet):
 void kmain()
 {
-	kprintf("\nWelcome to Strayex!\n\n");
-	// Execute the simple flat binary with shell:
+	kprintf("\n * Welcome to Strayex! * \n\n");
+	// Execute the flat binary with shell:
 	shell_start++;
     typedef void (*call_shell_t)(void);
     call_shell_t start_shell = (call_shell_t)shell_start;
@@ -186,10 +186,10 @@ void kinit(unsigned long magic, unsigned long mbi)
 		kprintf("Actual time: %i:%i:%i %i.%i.%i\n", get_hours(), get_minutes(), get_seconds(), get_days(), get_months(), get_years());
 		if(kb_status() == true) kprintf("Keyboard on\n");
 		else kprintf("Keyboard off\n");
+		kb_install(2); // Installs "notepad" keyboard handler,
 		
 		// Debug info for "serial.log":
 		init_serial();
-		
 		DebugWrite("Strayex Kernel Debug Mode\nUsing serial port COM1\n");
 		DebugWrite("Full kernel name: Strayex Kernel v%i.%i.%i Alpha\n", GetVersionMajor(), GetVersionMinor(), GetVersionRelease());
 		DebugWrite("Value in Shell Start var: 0x%x\n", shell_start);
