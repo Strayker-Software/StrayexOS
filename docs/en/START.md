@@ -37,4 +37,4 @@ To perform some extra exercises, kernel's code have to be edited and compiled ag
 Strayex is in very early state of development, so it don't have functionality at all.
 To know what will be added to project, look at [TODO.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/TODO.md).
 
-Now you have basic informations about Strayex! Go to [BASIC.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/pl/BASIC.md) to continue.
+Now you have basic informations about Strayex! Go to [BASIC.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/en/BASIC.md) to continue.
