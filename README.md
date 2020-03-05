@@ -41,7 +41,7 @@ Now I'm able to understand Linux and learn it more easier.
    
    - for Virtual Box:
      
-     <img align="center" src="" alt="Can't load image!">
+     <img align="center" src="https://github.com/StraykerPL/StrayexOS/blob/master/vbox.png" alt="Can't load image!">
      
      For more info, go to `docs` folder!
    
