@@ -34,4 +34,4 @@ Um zusätzliche Aufgaben auszuführen, muss der Code des Kernels erst bearbeitet
 Wie bereits erwähnt, ist Strayex in einer sehr frühen Entwicklungsphase und hat noch keine richtigen Funktionen.
 Wenn du wissen möchtest welche Funktionen als nächstes zum Projekt hinzugefügt werden sollen kannst du dir das ansehen:  [TODO.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/TODO.md)
 
-Jetzt weißt du über die Grundlagen von Strayex bescheid! Gehe zu [BASIC.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/pl/BASIC.md) um fortzufahren.
+Jetzt weißt du über die Grundlagen von Strayex bescheid! Gehe zu [BASIC.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/en/BASIC.md) um fortzufahren.
