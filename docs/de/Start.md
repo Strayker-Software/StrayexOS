@@ -26,6 +26,7 @@ Wenn du nach dem Start des Systems eine Textzeile mit dem Inhalt "Strayex Kernel
 StrayexOS Pretorian, ist in einer sehr frühen Phase der Entwicklung und hat keine Shell
 Das hat einen simplen Grund - Der Strayex Kernel kann die Shell noch nicht ausführen 
 Grundlegende Dinge wie auf dem Bildschirm schreiben, können allerdings reibungslos ausgeführt werden (:
+
 Um zusätzliche Aufgaben auszuführen, muss der Code des Kernels erst bearbeitet und neu kompiliert werden.
 
 ## Was kommt als nächstes?
