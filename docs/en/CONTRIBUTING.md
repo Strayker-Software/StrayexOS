@@ -15,7 +15,7 @@ When I will reject PR I will always give reason for that.
 To accept PR by me, the following list have to be fulfilled:
 
 - code should be yours, if it's not, it have to be on open source license permited to republish, X11 the best,
-- if code is not yours, ad source link i and copyright header,
+- if code is not yours, add source link and copyright header,
 - code shoud be readable, formated (TABs, lines separators), comments really welcome,
 - if you add new function to system, it will be really nice to update the documentation about that ("docs" directory).
 - update "CONTRIBUTORS.md", adding informations about yourself to file based on template,
