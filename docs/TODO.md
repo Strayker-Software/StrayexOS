@@ -26,8 +26,7 @@ What kernel shoud be able to do:
 - [x] US QWERTY PS/2 keyboard driver,
 - [x] Stack Smash Protector,
 - [x] Physical memory manager,
-- [ ] ATA/IDE driver,
-- [ ] Strayex API,,
+- [ ] Strayex API,
 
 ### Strayex Shell
 
