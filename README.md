@@ -35,10 +35,23 @@ Now I'm able to understand Linux and learn it more easier.
 
 # Gettings Started
 
-Strayex is designed to run on virtual machines, QEMU, VirtualBox, VMware etc. It's hobby OS, so I designed it on popular VM apps.
-OS is not tested on real hardware, because of it's drivers set.
-To use Strayex on VM, just download .ISO file from "docs" folder and boot up machine from it, or build OS by yourself on Linux or Windows.
-Provided build script is on Linux and need some additional apps listed in Makefile to run.
+1. Get the newest Strayex ISO from [here](https://github.com/StraykerPL/StrayexOS/releases) ("Assets" list) and download it,
+
+2. Open virtual machine app and run VM with this ISO:
+   
+   - for Virtual Box:
+     
+     <img align="center" src="" alt="Can't load image!">
+     
+     For more info, go to `docs` folder!
+   
+   - for QEMU: `make iso-run-qemu` or just start `qemu-system-x86_64` on your machine,
+   
+   - for Bochs: `make iso-run-bochs` or just start `bochs`
+     
+     `Warning!` Bochs can ask for config script, get one from `docs/.bochsrc` in repo or generate one by yourself, also Bochs can ask for disk image to run on, download from `docs/c.img` in repo or ask Bochs to build one.
+
+3. Watch Strayex starts up!
 
 # Design and Distributions
 
