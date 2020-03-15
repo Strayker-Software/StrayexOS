@@ -4,12 +4,12 @@ Deutschsprachige Fassung
 
 # Wie liest man diese Dokumentation?
 
-Informationen wie du beginnen kannst mit Strayex zu arbeiten findest du in [Start.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/en/START.md),
-Grundlagen der Architektur und der Funktionsweise des Betriebssystems findest du in [BASIC.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/en/BASIC.md),
-Weiterführende Informationen und Informationen für Forgeschrittene findest du in [ADVANCED.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/en/ADVANCED.md).
+Informationen wie du beginnen kannst mit Strayex zu arbeiten findest du in [Start.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/de/Start.md),
+Grundlagen der Architektur und der Funktionsweise des Betriebssystems findest du in [BASIC.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/de/BASIC.md),
+Weiterführende Informationen findest du in [ADVANCED.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/de/ADVANCED.md).
 
 # Mitmachen
-Diese Datei [CONTRIBUTING.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/en/CONTRIBUTING.md) enthält Informationen wie du mit deinen Ideen zu Strayex beitragen kannst.
+Diese Datei [CONTRIBUTING.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/de/CONTRIBUTING.md) enthält Informationen wie du mit deinen Ideen zu Strayex beitragen kannst.
 
 # Arbeitsplan
 
