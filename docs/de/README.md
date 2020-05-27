@@ -10,7 +10,7 @@ Grundlagen über Architektur und der Funktionsweise des Betriebssystems findest 
 Weiterführende Informationen findest du in [ADVANCED.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/de/ADVANCED.md).
 
 # Mitmachen
-Diese Datei [CONTRIBUTING.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/de/CONTRIBUTING.md) enthält wichtge Informationen, wenn du vor hast deine Ideen zu Strayx beizutragen.
+Diese Datei [CONTRIBUTING.md](https://github.com/StraykerPL/StrayexOS/blob/master/docs/de/CONTRIBUTING.md) enthält wichtge Informationen, wenn du vor hast deine Ideen zu Strayex beizutragen.
 
 # Arbeitsplan
 
