@@ -84,7 +84,7 @@ Feel free to contribute to project! Read [CONTRIBUTING.md](https://github.com/St
 
 # Contact
 
-[My website is here!](https://straykerpl.github.io)
+[My website is here!](https://straykersoftware.pl)
 
 [Join me on Facebook!](https://www.fb.com/straykersoftware)
 
